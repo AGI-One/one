@@ -170,7 +170,7 @@ export class DataArgHandler {
 
     const overriddenPositionRecords =
       await this.recordPositionService.overridePositionOnRecords({
-        partialRecordInputs,
+        partialRecordInputs: coercedAndTransformedRecords,
         workspaceId: workspace.id,
         objectMetadata: {
           isCustom: objectMetadataItemWithFieldMaps.isCustom,
