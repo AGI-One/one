@@ -1,15 +1,20 @@
 import { currentWorkspaceMemberState } from '@/auth/states/currentWorkspaceMemberState';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { SettingsPath } from 'twenty-shared/types';
+import { getSettingsPath } from 'twenty-shared/utils';
 import { IconUser } from 'twenty-ui/display';
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(Link)`
   align-items: center;
   border-top: 1px solid ${({ theme }) => theme.border.color.medium};
   display: flex;
   gap: ${({ theme }) => theme.spacing(2)};
   padding: ${({ theme }) => theme.spacing(3)};
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   &:hover {
     background: ${({ theme }) => theme.background.transparent.lighter};
   }
@@ -61,7 +66,7 @@ export const CurrentWorkspaceMemberCard = () => {
   }`.trim();
 
   return (
-    <StyledContainer>
+    <StyledContainer to={getSettingsPath(SettingsPath.ProfilePage)}>
       <StyledIconContainer>
         <IconUser />
       </StyledIconContainer>
