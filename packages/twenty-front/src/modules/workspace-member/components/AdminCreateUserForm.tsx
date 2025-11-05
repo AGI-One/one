@@ -41,28 +41,34 @@ const StyledModalFooter = styled(Modal.Footer)`
     ${({ theme }) => theme.spacing(6)};
 `;
 
-const validationSchema = z
-  .object({
-    email: z.string().email({
-      message: 'Invalid email address',
-    }),
-    firstName: z.string().min(1, {
-      message: 'First name is required',
-    }),
-    lastName: z.string().min(1, {
-      message: 'Last name is required',
-    }),
-    password: z.string().min(8, {
-      message: 'Password must be at least 8 characters',
-    }),
-    locale: z.string().optional(),
-  })
-  .required();
-
-type FormData = z.infer<typeof validationSchema>;
+type FormData = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  locale?: string;
+};
 
 export const AdminCreateUserForm = () => {
   const { t } = useLingui();
+
+  const validationSchema = z
+    .object({
+      email: z.string().email({
+        message: t`Invalid email address`,
+      }),
+      firstName: z.string().min(1, {
+        message: t`First name is required`,
+      }),
+      lastName: z.string().min(1, {
+        message: t`Last name is required`,
+      }),
+      password: z.string().min(8, {
+        message: t`Password must be at least 8 characters`,
+      }),
+      locale: z.string().optional(),
+    })
+    .required();
   const { closeModal } = useModal();
   const { adminCreateUser, loading } = useAdminCreateUser();
 
@@ -103,7 +109,7 @@ export const AdminCreateUserForm = () => {
         // Parent component should refetch data on modal close
       } catch (error) {
         // Error handling is done in the hook
-        console.error('Failed to create user:', error);
+        console.error(t`Failed to create user:`, error);
       }
     },
     [adminCreateUser, handleClose],
@@ -118,7 +124,10 @@ export const AdminCreateUserForm = () => {
       padding="none"
     >
       <Modal.Header>
-        <H2Title title={t`Add New User`} />
+        <H2Title
+          title={t`Add New User`}
+          description={t`Create a new user account with email and password. The user will be able to log in immediately after creation.`}
+        />
       </Modal.Header>
       <StyledModalContent>
         <StyledFormContainer>
