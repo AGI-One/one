@@ -21,6 +21,12 @@ db-setup:
 	npx nx database:reset twenty-server
 	@echo "✅ Database setup completed."
 
+db-setup-production:
+	@echo "⚙️  Setting up databases..."
+	make dbup
+	npx nx database:reset twenty-server --configuration=no-seed
+	@echo "✅ Database setup completed."
+
 db-logs: ## Show logs for all database services
 	cd database && docker-compose logs -f
 

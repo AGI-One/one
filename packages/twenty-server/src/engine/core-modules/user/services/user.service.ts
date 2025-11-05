@@ -241,4 +241,8 @@ export class UserService extends TypeOrmQueryService<UserEntity> {
 
     return await this.userRepository.save(user);
   }
+
+  async getUserCount(): Promise<number> {
+    return await this.userRepository.count();
+  }
 }

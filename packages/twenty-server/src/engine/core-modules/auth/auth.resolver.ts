@@ -359,66 +359,69 @@ export class AuthResolver {
     return await this.authService.verify(email, workspace.id, authProvider);
   }
 
-  // @Mutation(() => AvailableWorkspacesAndAccessTokensOutput)
-  // @UseGuards(CaptchaGuard, PublicEndpointGuard)
+  @Mutation(() => AvailableWorkspacesAndAccessTokensOutput)
+  @UseGuards(CaptchaGuard, PublicEndpointGuard)
   async signUp(
     @Args() signUpInput: UserCredentialsInput,
   ): Promise<AvailableWorkspacesAndAccessTokensOutput> {
-    // Public sign up is disabled
-    const email = signUpInput.email;
+    // Check if any users exist in the system
+    const userCount = await this.userService.getUserCount();
 
-    throw new AuthException(
-      'Public sign up is disabled',
-      AuthExceptionCode.SIGNUP_DISABLED,
+    if (userCount > 0) {
+      throw new AuthException(
+        'Public sign up is disabled',
+        AuthExceptionCode.SIGNUP_DISABLED,
+        {
+          userFriendlyMessage: msg`Registration is closed. This instance is already configured for a customer.`,
+        },
+      );
+    }
+
+    const user = await this.signInUpService.signUpWithoutWorkspace(
       {
-        userFriendlyMessage: msg`Cannot sign up for email ${email}. Public sign up is disabled. Contact your administrator.`,
+        email: signUpInput.email,
+      },
+      {
+        provider: AuthProviderEnum.Password,
+        password: signUpInput.password,
       },
     );
-    // const user = await this.signInUpService.signUpWithoutWorkspace(
-    //   {
-    //     email: signUpInput.email,
-    //   },
-    //   {
-    //     provider: AuthProviderEnum.Password,
-    //     password: signUpInput.password,
-    //   },
-    // );
 
-    // const availableWorkspaces =
-    //   await this.userWorkspaceService.findAvailableWorkspacesByEmail(
-    //     user.email,
-    //   );
+    const availableWorkspaces =
+      await this.userWorkspaceService.findAvailableWorkspacesByEmail(
+        user.email,
+      );
 
-    // await this.emailVerificationService.sendVerificationEmail(
-    //   user.id,
-    //   user.email,
-    //   undefined,
-    //   signUpInput.locale ?? SOURCE_LOCALE,
-    //   signUpInput.verifyEmailRedirectPath,
-    // );
+    await this.emailVerificationService.sendVerificationEmail(
+      user.id,
+      user.email,
+      undefined,
+      signUpInput.locale ?? SOURCE_LOCALE,
+      signUpInput.verifyEmailRedirectPath,
+    );
 
-    // return {
-    //   availableWorkspaces:
-    //     await this.userWorkspaceService.setLoginTokenToAvailableWorkspacesWhenAuthProviderMatch(
-    //       availableWorkspaces,
-    //       user,
-    //       AuthProviderEnum.Password,
-    //     ),
-    //   tokens: {
-    //     accessOrWorkspaceAgnosticToken:
-    //       await this.workspaceAgnosticTokenService.generateWorkspaceAgnosticToken(
-    //         {
-    //           userId: user.id,
-    //           authProvider: AuthProviderEnum.Password,
-    //         },
-    //       ),
-    //     refreshToken: await this.refreshTokenService.generateRefreshToken({
-    //       userId: user.id,
-    //       authProvider: AuthProviderEnum.Password,
-    //       targetedTokenType: JwtTokenTypeEnum.WORKSPACE_AGNOSTIC,
-    //     }),
-    //   },
-    // };
+    return {
+      availableWorkspaces:
+        await this.userWorkspaceService.setLoginTokenToAvailableWorkspacesWhenAuthProviderMatch(
+          availableWorkspaces,
+          user,
+          AuthProviderEnum.Password,
+        ),
+      tokens: {
+        accessOrWorkspaceAgnosticToken:
+          await this.workspaceAgnosticTokenService.generateWorkspaceAgnosticToken(
+            {
+              userId: user.id,
+              authProvider: AuthProviderEnum.Password,
+            },
+          ),
+        refreshToken: await this.refreshTokenService.generateRefreshToken({
+          userId: user.id,
+          authProvider: AuthProviderEnum.Password,
+          targetedTokenType: JwtTokenTypeEnum.WORKSPACE_AGNOSTIC,
+        }),
+      },
+    };
   }
 
   @Mutation(() => SignUpOutput)
