@@ -1,0 +1,1443 @@
+# Module Quản Lý Công Việc và Hoạt Động (Tasks & Activities)
+
+## Module dùng để làm gì
+
+Module Quản Lý Công Việc giúp nhân viên tổ chức, theo dõi và hoàn thành các nhiệm vụ hàng ngày liên quan đến công việc bán hàng và chăm sóc khách hàng. Module này đảm bảo không có nhiệm vụ nào bị bỏ sót và giúp team làm việc hiệu quả hơn.
+
+Các chức năng chính bao gồm:
+- Tạo và quản lý danh sách công việc cá nhân và team
+- Gắn nhiệm vụ với khách hàng, cơ hội, công ty cụ thể
+- Đặt deadline và mức độ ưu tiên
+- Theo dõi tiến độ hoàn thành
+- Nhận thông báo và nhắc nhở
+- Lưu lịch sử hoạt động và ghi chú
+- Phân công công việc cho thành viên trong team
+
+## Dành cho ai
+
+**Đối tượng sử dụng chính:**
+- **Nhân viên bán hàng**: Quản lý các công việc tiếp cận khách hàng, follow-up, chuẩn bị báo giá, chốt hợp đồng
+- **Quản lý team**: Phân công công việc, theo dõi tiến độ của nhân viên, đảm bảo deadline được tuân thủ
+- **Nhân viên chăm sóc khách hàng**: Quản lý các yêu cầu hỗ trợ, ticket, cuộc gọi cần xử lý
+- **Nhân viên Marketing**: Theo dõi các task chiến dịch, tạo content, gửi email marketing
+- **Tất cả nhân viên**: Tổ chức công việc cá nhân, đảm bảo năng suất làm việc
+
+## Làm như nào (Các bước thao tác)
+
+### 1. Tạo nhiệm vụ mới
+
+**Bước 1:** Từ menu điều hướng, chọn "Tasks" (Công việc)
+
+**Bước 2:** Nhấn nút "+ New Task"
+
+**Bước 3:** Điền thông tin nhiệm vụ:
+- **Tiêu đề**: Đặt tên ngắn gọn, rõ ràng (VD: "Gọi điện cho khách hàng ABC")
+- **Mô tả**: Ghi chi tiết công việc cần làm
+- **Người thực hiện**: Gán cho bản thân hoặc đồng nghiệp
+- **Ngày hết hạn**: Chọn deadline
+- **Giờ hết hạn**: Đặt thời gian cụ thể nếu cần
+- **Mức độ ưu tiên**: Chọn Low/Medium/High/Urgent
+- **Trạng thái**: Todo/In Progress/Done
+
+**Bước 4:** Liên kết với đối tượng liên quan (tùy chọn):
+- Chọn khách hàng (Person)
+- Chọn công ty (Company)
+- Chọn cơ hội (Opportunity)
+- Liên kết với email, cuộc gọi
+
+**Bước 5:** Nhấn "Save" để lưu
+
+### 2. Tạo nhiệm vụ nhanh từ ngữ cảnh
+
+**Từ trang chi tiết khách hàng:**
+
+**Bước 1:** Mở trang khách hàng/công ty/cơ hội
+
+**Bước 2:** Cuộn xuống phần "Tasks" hoặc "Activities"
+
+**Bước 3:** Nhấn "+ Add Task"
+
+**Bước 4:** Nhiệm vụ tự động liên kết với đối tượng hiện tại
+
+**Bước 5:** Điền thông tin và lưu
+
+**Từ email hoặc cuộc gọi:**
+
+**Bước 1:** Trong lịch sử email/call
+
+**Bước 2:** Nhấn "Create task from this"
+
+**Bước 3:** Hệ thống tự động điền ngữ cảnh
+
+**Bước 4:** Bổ sung thông tin và lưu
+
+### 3. Xem và quản lý danh sách công việc
+
+**Xem công việc cá nhân:**
+
+**Bước 1:** Vào trang Tasks
+
+**Bước 2:** Hệ thống mặc định hiển thị "My Tasks" (Công việc của tôi)
+
+**Bước 3:** Chọn view hiển thị:
+- **Today**: Công việc hôm nay
+- **This Week**: Công việc tuần này
+- **Overdue**: Công việc quá hạn
+- **All**: Tất cả công việc
+
+**Xem công việc của team:**
+
+**Bước 1:** Chọn filter "Assigned to"
+
+**Bước 2:** Chọn "All team members"
+
+**Bước 3:** Xem tổng quan công việc của cả team
+
+**Sắp xếp danh sách:**
+
+- Theo deadline (gần nhất trước)
+- Theo mức độ ưu tiên (cao nhất trước)
+- Theo trạng thái
+- Theo người thực hiện
+
+### 4. Cập nhật và hoàn thành công việc
+
+**Đánh dấu đang làm:**
+
+**Bước 1:** Tìm nhiệm vụ trong danh sách
+
+**Bước 2:** Nhấn vào trạng thái hoặc checkbox
+
+**Bước 3:** Chọn "In Progress" (Đang làm)
+
+**Đánh dấu hoàn thành:**
+
+**Bước 1:** Khi hoàn thành công việc, tích vào checkbox
+
+**Bước 2:** Hoặc chuyển trạng thái sang "Done"
+
+**Bước 3:** Nhiệm vụ được đánh dấu hoàn thành và có thể ẩn khỏi danh sách chính
+
+**Thêm ghi chú kết quả:**
+
+**Bước 1:** Mở chi tiết nhiệm vụ
+
+**Bước 2:** Thêm ghi chú về kết quả thực hiện
+
+**Bước 3:** Đính kèm file nếu cần (VD: báo cáo, ảnh chụp)
+
+**Bước 4:** Lưu thông tin
+
+### 5. Phân công công việc cho đồng nghiệp
+
+**Bước 1:** Tạo nhiệm vụ mới hoặc mở nhiệm vụ hiện có
+
+**Bước 2:** Tại trường "Assigned to", chọn tên đồng nghiệp
+
+**Bước 3:** (Tùy chọn) Bật thông báo để người được gán nhận được email/notification
+
+**Bước 4:** Lưu nhiệm vụ
+
+**Bước 5:** Đồng nghiệp sẽ thấy nhiệm vụ trong danh sách "My Tasks" của họ
+
+**Theo dõi tiến độ:**
+
+**Bước 1:** Vào danh sách Tasks
+
+**Bước 2:** Filter theo "Assigned to" > chọn tên đồng nghiệp
+
+**Bước 3:** Xem trạng thái các công việc đã gán
+
+### 6. Đặt mức độ ưu tiên
+
+**Bước 1:** Mở nhiệm vụ cần đặt ưu tiên
+
+**Bước 2:** Tìm trường "Priority"
+
+**Bước 3:** Chọn mức độ:
+- **Low** (Thấp): Công việc không gấp, có thể làm khi rảnh
+- **Medium** (Trung bình): Công việc quan trọng nhưng không khẩn cấp
+- **High** (Cao): Công việc quan trọng và cần làm sớm
+- **Urgent** (Khẩn cấp): Cần xử lý ngay lập tức
+
+**Bước 4:** Lưu thay đổi
+
+**Bước 5:** Sắp xếp danh sách theo Priority để làm việc hiệu quả
+
+### 7. Sử dụng lọc và tìm kiếm
+
+**Tìm kiếm nhanh:**
+
+**Bước 1:** Gõ từ khóa vào ô tìm kiếm
+
+**Bước 2:** Hệ thống tìm trong tiêu đề và mô tả
+
+**Lọc theo tiêu chí:**
+
+**Bước 1:** Nhấn nút "Filter"
+
+**Bước 2:** Chọn điều kiện lọc:
+- **Status**: Todo/In Progress/Done
+- **Priority**: Low/Medium/High/Urgent
+- **Due Date**: Hôm nay/Tuần này/Tháng này/Quá hạn
+- **Assigned To**: Người thực hiện
+- **Related To**: Khách hàng, công ty, cơ hội liên quan
+- **Created By**: Người tạo task
+
+**Bước 3:** Áp dụng nhiều bộ lọc kết hợp
+
+**Bước 4:** Lưu bộ lọc thành View để dùng lại
+
+### 8. Nhận thông báo và nhắc nhở
+
+**Cấu hình thông báo:**
+
+**Bước 1:** Vào Settings > Notifications
+
+**Bước 2:** Bật thông báo cho Tasks:
+- Khi được gán công việc mới
+- Khi deadline gần đến (1 ngày, 1 giờ trước)
+- Khi công việc bị thay đổi
+- Khi có comment mới
+
+**Bước 3:** Chọn kênh nhận thông báo:
+- In-app notification (trong hệ thống)
+- Email
+- Browser notification (trình duyệt)
+
+**Đặt nhắc nhở:**
+
+**Bước 1:** Mở chi tiết nhiệm vụ
+
+**Bước 2:** Tìm mục "Reminder"
+
+**Bước 3:** Chọn thời điểm nhắc nhở:
+- 15 phút trước
+- 1 giờ trước
+- 1 ngày trước
+- Tùy chỉnh thời gian
+
+**Bước 4:** Lưu cài đặt
+
+### 9. Sử dụng View và Template
+
+**Tạo View cho các tình huống thường dùng:**
+
+**Bước 1:** Tại trang Tasks, nhấn "Views"
+
+**Bước 2:** Nhấn "Create new view"
+
+**Bước 3:** Đặt tên view (VD: "Công việc ưu tiên cao", "Follow-up khách hàng")
+
+**Bước 4:** Thiết lập bộ lọc cho view:
+- VD View "Công việc ưu tiên cao": Priority = High hoặc Urgent
+- VD View "Follow-up khách hàng": Title contains "gọi" hoặc "call" hoặc "follow"
+
+**Bước 5:** Chọn cách sắp xếp mặc định
+
+**Bước 6:** Lưu view
+
+**Sử dụng template cho task lặp lại:**
+
+**Bước 1:** Tạo một task mẫu với đầy đủ thông tin
+
+**Bước 2:** Nhấn "..." > "Save as template"
+
+**Bước 3:** Đặt tên template (VD: "Weekly report", "Customer check-in")
+
+**Bước 4:** Khi cần tạo task tương tự, chọn "Create from template"
+
+### 10. Quản lý task định kỳ
+
+**Tạo task lặp lại:**
+
+**Bước 1:** Tạo task mới
+
+**Bước 2:** Tìm tùy chọn "Recurring" hoặc "Repeat"
+
+**Bước 3:** Chọn tần suất lặp lại:
+- Daily (Hàng ngày)
+- Weekly (Hàng tuần) - chọn thứ mấy
+- Monthly (Hàng tháng) - chọn ngày trong tháng
+- Yearly (Hàng năm)
+- Custom (Tùy chỉnh)
+
+**Bước 4:** Đặt ngày kết thúc lặp lại (hoặc để vô thời hạn)
+
+**Bước 5:** Lưu task
+
+**Bước 6:** Hệ thống tự động tạo task mới theo lịch đã đặt
+
+### 11. Theo dõi thời gian làm việc
+
+**Bắt đầu đếm giờ:**
+
+**Bước 1:** Mở task đang làm
+
+**Bước 2:** Nhấn nút "Start timer" hoặc biểu tượng đồng hồ
+
+**Bước 3:** Hệ thống bắt đầu tính thời gian
+
+**Dừng và ghi nhận:**
+
+**Bước 1:** Khi hoàn thành, nhấn "Stop timer"
+
+**Bước 2:** Thời gian được tự động ghi vào task
+
+**Bước 3:** Xem tổng thời gian đã dành cho task
+
+**Xem báo cáo thời gian:**
+
+**Bước 1:** Vào Reports > Time Tracking
+
+**Bước 2:** Xem thời gian theo:
+- Từng task
+- Từng người
+- Từng khách hàng/cơ hội
+- Theo khoảng thời gian
+
+### 12. Làm việc với nhiều task cùng lúc
+
+**Chọn nhiều task:**
+
+**Bước 1:** Tại Table View, tích chọn nhiều task
+
+**Bước 2:** Nhấn "Bulk actions"
+
+**Thao tác hàng loạt:**
+
+- **Đánh dấu hoàn thành**: Chọn "Mark as done"
+- **Thay đổi người thực hiện**: Chọn "Change assignee"
+- **Thay đổi deadline**: Chọn "Update due date"
+- **Thay đổi ưu tiên**: Chọn "Change priority"
+- **Xóa**: Chọn "Delete"
+
+**Bước 3:** Xác nhận thay đổi
+
+### 13. Tích hợp với Calendar
+
+**Đồng bộ deadline lên calendar:**
+
+**Bước 1:** Vào Settings > Integrations
+
+**Bước 2:** Kết nối với Google Calendar hoặc Outlook Calendar
+
+**Bước 3:** Bật tùy chọn "Sync task due dates to calendar"
+
+**Bước 4:** Task có deadline sẽ hiển thị trên calendar
+
+**Xem task trong calendar view:**
+
+**Bước 1:** Chọn "Calendar view" tại trang Tasks
+
+**Bước 2:** Xem task được sắp xếp theo ngày trên lịch
+
+**Bước 3:** Kéo thả để thay đổi deadline
+
+### 14. Ghi lại hoạt động đã thực hiện
+
+**Log một cuộc gọi:**
+
+**Bước 1:** Vào Activities > Calls
+
+**Bước 2:** Nhấn "Log call"
+
+**Bước 3:** Điền thông tin:
+- Khách hàng đã gọi
+- Thời gian gọi
+- Thời lượng
+- Nội dung tóm tắt
+- Kết quả
+
+**Bước 4:** Liên kết với task hoặc opportunity nếu có
+
+**Bước 5:** Lưu
+
+**Log một cuộc họp:**
+
+**Bước 1:** Vào Activities > Meetings
+
+**Bước 2:** Nhấn "Log meeting"
+
+**Bước 3:** Điền:
+- Tiêu đề cuộc họp
+- Thời gian
+- Người tham gia
+- Địa điểm
+- Nội dung thảo luận
+- Kết quả và action items
+
+**Bước 4:** Lưu meeting notes
+
+**Log email đã gửi:**
+
+(Nếu chưa tích hợp email tự động)
+
+**Bước 1:** Vào Activities > Emails
+
+**Bước 2:** Nhấn "Log email"
+
+**Bước 3:** Sao chép nội dung email đã gửi
+
+**Bước 4:** Gắn với khách hàng/cơ hội
+
+**Bước 5:** Lưu
+
+### 15. Báo cáo và theo dõi năng suất
+
+**Xem thống kê cá nhân:**
+
+**Bước 1:** Vào My Profile > Activity Summary
+
+**Bước 2:** Xem số liệu:
+- Số task hoàn thành hôm nay/tuần này/tháng này
+- Tỷ lệ hoàn thành đúng hạn
+- Thời gian trung bình hoàn thành task
+- Số task đang làm
+
+**Xem báo cáo team:**
+
+**Bước 1:** Vào Reports > Task Analytics (Quản lý có quyền)
+
+**Bước 2:** Xem báo cáo:
+- So sánh năng suất giữa các thành viên
+- Tỷ lệ hoàn thành task
+- Task quá hạn
+- Workload distribution (phân bổ công việc)
+
+**Bước 3:** Điều chỉnh phân công công việc nếu cần
+
+**Xuất báo cáo:**
+
+**Bước 1:** Chọn báo cáo cần xuất
+
+**Bước 2:** Nhấn "Export"
+
+**Bước 3:** Chọn định dạng (PDF/Excel)
+
+**Bước 4:** Tải về
+
+### 16. Xóa và lưu trữ task
+
+**Xóa task:**
+
+**Bước 1:** Mở task cần xóa
+
+**Bước 2:** Nhấn "..." > "Delete"
+
+**Bước 3:** Xác nhận xóa
+
+**Lưu ý:** Task đã xóa vẫn có thể khôi phục từ Trash trong 30 ngày
+
+**Ẩn task đã hoàn thành:**
+
+**Bước 1:** Tại danh sách Tasks
+
+**Bước 2:** Bật filter "Hide completed tasks"
+
+**Bước 3:** Danh sách chỉ hiển thị task chưa hoàn thành
+
+**Xem lại task cũ:**
+
+**Bước 1:** Tắt filter "Hide completed"
+
+**Bước 2:** Filter theo "Completed" và khoảng thời gian
+
+**Bước 3:** Xem lịch sử công việc đã làm
+# Module Quản Lý Email và Tin Nhắn (Messaging)
+
+## Module dùng để làm gì
+
+Module Quản Lý Email và Tin Nhắn giúp tích hợp và quản lý toàn bộ email trao đổi với khách hàng ngay trong hệ thống CRM. Thay vì chuyển qua lại giữa email client và CRM, nhân viên có thể đọc, gửi email và tự động lưu lịch sử trao đổi với khách hàng ở một nơi duy nhất.
+
+Các chức năng chính bao gồm:
+- Tích hợp với Gmail, Outlook và các nhà cung cấp email khác
+- Đồng bộ hộp thư tự động vào CRM
+- Gửi và nhận email trực tiếp trong hệ thống
+- Tự động liên kết email với khách hàng, công ty, cơ hội
+- Quản lý thread email (chuỗi hội thoại)
+- Tìm kiếm và lọc email
+- Tạo template email để gửi nhanh
+- Theo dõi email đã gửi (đã đọc, đã trả lời)
+
+## Dành cho ai
+
+**Đối tượng sử dụng chính:**
+- **Nhân viên bán hàng**: Gửi email báo giá, theo dõi phản hồi khách hàng, tự động lưu lịch sử trao đổi
+- **Nhân viên chăm sóc khách hàng**: Xử lý email hỗ trợ, trả lời thắc mắc, theo dõi case
+- **Nhân viên Marketing**: Gửi email marketing, theo dõi tỷ lệ mở email, phân tích hiệu quả
+- **Quản lý**: Giám sát email trao đổi với khách hàng quan trọng, đảm bảo chất lượng phản hồi
+- **Tất cả nhân viên**: Quản lý email công việc tập trung, tránh bỏ sót
+
+## Làm như nào (Các bước thao tác)
+
+### 1. Kết nối tài khoản email
+
+**Kết nối Gmail:**
+
+**Bước 1:** Vào Settings > Integrations
+
+**Bước 2:** Tìm mục "Email" hoặc "Connected Accounts"
+
+**Bước 3:** Nhấn "Connect Gmail"
+
+**Bước 4:** Chọn tài khoản Google cần kết nối
+
+**Bước 5:** Cho phép Twenty truy cập email (Read, Send, Modify)
+
+**Bước 6:** Xác nhận kết nối thành công
+
+**Kết nối Outlook/Microsoft 365:**
+
+**Bước 1:** Vào Settings > Integrations
+
+**Bước 2:** Nhấn "Connect Microsoft Account"
+
+**Bước 3:** Đăng nhập Microsoft
+
+**Bước 4:** Cho phép quyền truy cập
+
+**Bước 5:** Xác nhận kết nối
+
+**Kết nối email tùy chỉnh (IMAP/SMTP):**
+
+**Bước 1:** Chọn "Connect custom email"
+
+**Bước 2:** Điền thông tin:
+- Email address
+- IMAP server và port
+- SMTP server và port
+- Username và Password
+- SSL/TLS settings
+
+**Bước 3:** Test connection
+
+**Bước 4:** Lưu cấu hình
+
+### 2. Đồng bộ email vào hệ thống
+
+**Đồng bộ tự động:**
+
+**Bước 1:** Sau khi kết nối email, hệ thống tự động bắt đầu đồng bộ
+
+**Bước 2:** Chờ quá trình đồng bộ lần đầu (có thể mất vài phút đến vài giờ tùy số lượng email)
+
+**Bước 3:** Email mới sẽ được đồng bộ realtime hoặc theo chu kỳ (5-15 phút)
+
+**Cấu hình đồng bộ:**
+
+**Bước 1:** Vào Settings > Email Sync
+
+**Bước 2:** Chọn các tùy chọn:
+- **Sync frequency**: Tần suất đồng bộ (Realtime/Every 5 mins/Every 15 mins)
+- **Sync from date**: Đồng bộ email từ ngày nào (7 ngày/30 ngày/All)
+- **Folders to sync**: Chọn thư mục cần đồng bộ (Inbox/Sent/All folders)
+- **Auto-match contacts**: Tự động gắn email với khách hàng trong CRM
+
+**Bước 3:** Lưu cài đặt
+
+### 3. Xem email trong hệ thống
+
+**Xem inbox:**
+
+**Bước 1:** Từ menu điều hướng, chọn "Inbox" hoặc "Messages"
+
+**Bước 2:** Xem danh sách email theo:
+- **All**: Tất cả email
+- **Inbox**: Email đến
+- **Sent**: Email đã gửi
+- **Unread**: Chưa đọc
+- **Starred**: Đã đánh dấu sao
+
+**Bước 3:** Nhấn vào email để đọc nội dung đầy đủ
+
+**Xem email theo khách hàng:**
+
+**Bước 1:** Mở trang chi tiết khách hàng/công ty/cơ hội
+
+**Bước 2:** Cuộn xuống phần "Emails" hoặc "Messages"
+
+**Bước 3:** Xem toàn bộ lịch sử email trao đổi với khách hàng đó
+
+**Bước 4:** Email được sắp xếp theo thời gian (mới nhất trước)
+
+### 4. Gửi email mới
+
+**Gửi email đơn giản:**
+
+**Bước 1:** Nhấn nút "Compose" hoặc "+ New Email"
+
+**Bước 2:** Điền thông tin:
+- **To**: Email người nhận (có thể chọn từ danh sách khách hàng)
+- **Cc**: Email nhận bản sao
+- **Bcc**: Email nhận bản sao ẩn
+- **Subject**: Tiêu đề email
+- **Body**: Nội dung email
+
+**Bước 3:** Định dạng nội dung:
+- In đậm, nghiêng, gạch chân
+- Danh sách bullet/number
+- Chèn link
+- Thay đổi font, màu chữ
+
+**Bước 4:** Đính kèm file nếu cần (nhấn biểu tượng clip)
+
+**Bước 5:** Nhấn "Send" để gửi
+
+**Gửi email từ ngữ cảnh khách hàng:**
+
+**Bước 1:** Mở trang chi tiết khách hàng
+
+**Bước 2:** Nhấn nút "Send Email" hoặc biểu tượng email
+
+**Bước 3:** Email tự động điền địa chỉ nhận và liên kết với khách hàng
+
+**Bước 4:** Soạn nội dung và gửi
+
+### 5. Trả lời và chuyển tiếp email
+
+**Trả lời email:**
+
+**Bước 1:** Mở email cần trả lời
+
+**Bước 2:** Nhấn "Reply" (Trả lời) hoặc "Reply All" (Trả lời tất cả)
+
+**Bước 3:** Soạn nội dung trả lời
+
+**Bước 4:** Nhấn "Send"
+
+**Chuyển tiếp email:**
+
+**Bước 1:** Mở email cần chuyển tiếp
+
+**Bước 2:** Nhấn "Forward"
+
+**Bước 3:** Nhập địa chỉ người nhận mới
+
+**Bước 4:** Thêm lời nhắn (nếu cần)
+
+**Bước 5:** Gửi
+
+### 6. Sử dụng template email
+
+**Tạo template mới:**
+
+**Bước 1:** Vào Settings > Email Templates
+
+**Bước 2:** Nhấn "+ New Template"
+
+**Bước 3:** Đặt tên template (VD: "Giới thiệu sản phẩm", "Cảm ơn sau họp")
+
+**Bước 4:** Soạn nội dung template:
+- Sử dụng biến động (placeholders): {{firstName}}, {{companyName}}, {{productName}}
+- Định dạng nội dung đẹp mắt
+- Thêm chữ ký
+
+**Bước 5:** Lưu template
+
+**Sử dụng template:**
+
+**Bước 1:** Khi soạn email mới, nhấn "Insert template"
+
+**Bước 2:** Chọn template từ danh sách
+
+**Bước 3:** Hệ thống tự động điền nội dung và thay thế biến động bằng thông tin thực
+
+**Bước 4:** Chỉnh sửa nếu cần
+
+**Bước 5:** Gửi email
+
+### 7. Tự động liên kết email với khách hàng
+
+**Tự động gắn email:**
+
+**Bước 1:** Bật tính năng "Auto-match" trong Settings > Email
+
+**Bước 2:** Hệ thống tự động:
+- So khớp địa chỉ email với khách hàng trong CRM
+- Gắn email vào profile khách hàng
+- Liên kết với cơ hội đang mở (nếu có)
+
+**Gắn thủ công:**
+
+**Bước 1:** Mở email cần gắn
+
+**Bước 2:** Nhấn "Link to" hoặc biểu tượng link
+
+**Bước 3:** Chọn loại:
+- Person (Khách hàng cá nhân)
+- Company (Công ty)
+- Opportunity (Cơ hội)
+- Task (Công việc)
+
+**Bước 4:** Tìm và chọn đối tượng cụ thể
+
+**Bước 5:** Xác nhận liên kết
+
+### 8. Tìm kiếm và lọc email
+
+**Tìm kiếm cơ bản:**
+
+**Bước 1:** Nhập từ khóa vào ô tìm kiếm
+
+**Bước 2:** Hệ thống tìm trong:
+- Tiêu đề email
+- Nội dung email
+- Tên người gửi/nhận
+
+**Bước 3:** Xem kết quả
+
+**Lọc nâng cao:**
+
+**Bước 1:** Nhấn nút "Filter"
+
+**Bước 2:** Chọn tiêu chí:
+- **From**: Từ người gửi cụ thể
+- **To**: Gửi đến người nhận cụ thể
+- **Date range**: Trong khoảng thời gian
+- **Has attachment**: Có file đính kèm
+- **Related to**: Liên kết với khách hàng/cơ hội cụ thể
+- **Folder**: Inbox/Sent/Drafts
+- **Status**: Read/Unread/Starred
+
+**Bước 3:** Áp dụng filter
+
+**Bước 4:** Lưu filter thường dùng
+
+### 9. Quản lý thread email
+
+**Xem thread (chuỗi hội thoại):**
+
+**Bước 1:** Nhấn vào một email trong chuỗi
+
+**Bước 2:** Hệ thống hiển thị toàn bộ thread theo thứ tự thời gian
+
+**Bước 3:** Mở rộng/thu gọn từng email trong thread
+
+**Trả lời trong thread:**
+
+**Bước 1:** Nhấn "Reply" tại email cuối cùng
+
+**Bước 2:** Soạn trả lời
+
+**Bước 3:** Email mới tự động gắn vào thread
+
+**Đánh dấu thread:**
+
+- Đánh sao quan trọng
+- Đánh dấu đã đọc/chưa đọc
+- Archive thread đã xử lý xong
+- Snooze thread để nhắc nhở sau
+
+### 10. Lên lịch gửi email
+
+**Bước 1:** Soạn email như bình thường
+
+**Bước 2:** Thay vì nhấn "Send", nhấn mũi tên bên cạnh và chọn "Schedule send"
+
+**Bước 3:** Chọn thời gian gửi:
+- Tomorrow morning (Sáng mai)
+- Tomorrow afternoon (Chiều mai)
+- Monday morning (Sáng thứ Hai)
+- Custom date and time (Tùy chỉnh)
+
+**Bước 4:** Xác nhận lên lịch
+
+**Bước 5:** Email sẽ tự động gửi vào thời điểm đã chọn
+
+**Quản lý email đã lên lịch:**
+
+**Bước 1:** Vào "Scheduled" hoặc "Drafts"
+
+**Bước 2:** Xem danh sách email chờ gửi
+
+**Bước 3:** Có thể:
+- Chỉnh sửa nội dung
+- Thay đổi thời gian gửi
+- Hủy lịch gửi
+
+### 11. Theo dõi email đã gửi
+
+**Bật tính năng tracking:**
+
+**Bước 1:** Vào Settings > Email Tracking
+
+**Bước 2:** Bật các tùy chọn:
+- Track email opens (Theo dõi lượt mở email)
+- Track link clicks (Theo dõi lượt click link)
+- Get notifications (Nhận thông báo khi có tương tác)
+
+**Xem trạng thái email:**
+
+**Bước 1:** Vào Sent folder
+
+**Bước 2:** Xem các biểu tượng bên cạnh email:
+- ✓✓ : Đã gửi thành công
+- 👁 : Đã được mở
+- 🔗 : Link đã được click
+- ↩ : Đã có phản hồi
+
+**Bước 3:** Nhấn vào email để xem chi tiết:
+- Số lần mở
+- Thời gian mở
+- Thiết bị mở (Desktop/Mobile)
+- Link nào đã được click
+
+**Nhận thông báo realtime:**
+
+- Khi khách hàng mở email, nhận notification ngay lập tức
+- Phù hợp để follow-up kịp thời
+
+### 12. Quản lý chữ ký email
+
+**Tạo chữ ký email:**
+
+**Bước 1:** Vào Settings > Email Signature
+
+**Bước 2:** Nhấn "Create signature"
+
+**Bước 3:** Soạn chữ ký:
+- Tên đầy đủ
+- Chức vụ
+- Tên công ty
+- Số điện thoại
+- Email
+- Website
+- Logo công ty (upload ảnh)
+- Link mạng xã hội
+
+**Bước 4:** Định dạng chữ ký đẹp
+
+**Bước 5:** Lưu chữ ký
+
+**Áp dụng chữ ký:**
+
+**Bước 1:** Chọn chữ ký mặc định cho:
+- Email mới (New emails)
+- Email trả lời (Replies)
+
+**Bước 2:** Chữ ký tự động chèn vào cuối email
+
+**Bước 3:** Có thể tạo nhiều chữ ký cho các tình huống khác nhau
+
+### 13. Đồng bộ calendar với email
+
+**Gửi lời mời họp qua email:**
+
+**Bước 1:** Soạn email mời họp
+
+**Bước 2:** Nhấn "Insert meeting invite"
+
+**Bước 3:** Điền thông tin:
+- Tiêu đề cuộc họp
+- Thời gian bắt đầu và kết thúc
+- Địa điểm hoặc link meeting online
+- Mô tả
+
+**Bước 4:** Gửi email với calendar invite
+
+**Bước 5:** Người nhận có thể Accept/Decline trực tiếp từ email
+
+**Xem calendar trong email:**
+
+**Bước 1:** Khi nhận email có calendar invite
+
+**Bước 2:** Xem thông tin cuộc họp
+
+**Bước 3:** Nhấn "Add to calendar"
+
+**Bước 4:** Cuộc họp tự động thêm vào calendar của bạn
+
+### 14. Tạo email sequence (chuỗi email tự động)
+
+**Tạo sequence:**
+
+**Bước 1:** Vào Settings > Email Sequences hoặc Workflows
+
+**Bước 2:** Nhấn "Create sequence"
+
+**Bước 3:** Đặt tên sequence (VD: "Follow-up sau demo")
+
+**Bước 4:** Thêm các email vào sequence:
+- Email 1: Gửi ngay sau demo
+- Email 2: Gửi sau 3 ngày nếu chưa phản hồi
+- Email 3: Gửi sau 7 ngày nếu vẫn chưa phản hồi
+
+**Bước 5:** Soạn nội dung cho từng email
+
+**Bước 6:** Đặt điều kiện thoát sequence:
+- Khách hàng phản hồi
+- Khách hàng đặt lịch họp
+- Khách hàng từ chối
+
+**Bước 7:** Kích hoạt sequence
+
+**Sử dụng sequence:**
+
+**Bước 1:** Thêm khách hàng vào sequence (thủ công hoặc tự động)
+
+**Bước 2:** Hệ thống tự động gửi email theo lịch
+
+**Bước 3:** Theo dõi kết quả sequence trong dashboard
+
+### 15. Quản lý email blocklist
+
+**Thêm email vào blocklist:**
+
+**Bước 1:** Mở email spam hoặc không mong muốn
+
+**Bước 2:** Nhấn "Block sender" hoặc "Mark as spam"
+
+**Bước 3:** Email từ người gửi này sẽ tự động vào spam hoặc không đồng bộ
+
+**Quản lý danh sách chặn:**
+
+**Bước 1:** Vào Settings > Email > Blocklist
+
+**Bước 2:** Xem danh sách email/domain đã chặn
+
+**Bước 3:** Có thể:
+- Thêm email/domain vào blocklist
+- Xóa khỏi blocklist (unblock)
+
+### 16. Xuất và sao lưu email
+
+**Xuất email:**
+
+**Bước 1:** Lọc email cần xuất
+
+**Bước 2:** Nhấn "Export"
+
+**Bước 3:** Chọn định dạng:
+- EML (có thể mở bằng email client)
+- PDF (để lưu trữ)
+- CSV (dữ liệu metadata)
+
+**Bước 4:** Tải về máy
+
+**Sao lưu tự động:**
+
+**Bước 1:** Vào Settings > Backup
+
+**Bước 2:** Bật "Auto backup emails"
+
+**Bước 3:** Chọn tần suất sao lưu (Weekly/Monthly)
+
+**Bước 4:** Chọn nơi lưu trữ (Cloud storage/Server)
+
+### 17. Xử lý email hàng loạt
+
+**Bước 1:** Tại inbox, tích chọn nhiều email
+
+**Bước 2:** Nhấn "Bulk actions"
+
+**Bước 3:** Chọn thao tác:
+- **Mark as read/unread**: Đánh dấu đã đọc/chưa đọc
+- **Archive**: Lưu trữ
+- **Delete**: Xóa
+- **Move to folder**: Di chuyển sang thư mục
+- **Add label/tag**: Gắn nhãn
+- **Link to**: Liên kết với khách hàng/cơ hội
+
+**Bước 4:** Xác nhận thực hiện
+
+**Lưu ý:**
+- Email đã kết nối sẽ tự động đồng bộ hai chiều với Gmail/Outlook
+- Thay đổi trong Twenty sẽ phản ánh trên email client và ngược lại
+- Email tracking chỉ hoạt động với email gửi từ Twenty, không áp dụng cho email gửi từ client khác
+# Module Quản Lý Lịch và Sự Kiện (Calendar)
+
+## Module dùng để làm gì
+
+Module Quản Lý Lịch giúp nhân viên tổ chức thời gian làm việc, lên lịch cuộc họp với khách hàng và đồng nghiệp, đồng bộ calendar từ nhiều nguồn. Module này đảm bảo mọi cuộc hẹn được theo dõi chặt chẽ và tự động liên kết với các đối tượng liên quan trong CRM.
+
+Các chức năng chính bao gồm:
+- Tích hợp với Google Calendar, Outlook Calendar
+- Xem lịch cá nhân và lịch team
+- Tạo và quản lý sự kiện, cuộc họp
+- Gửi lời mời họp cho khách hàng và đồng nghiệp
+- Tự động liên kết sự kiện với khách hàng, cơ hội
+- Nhận nhắc nhở trước sự kiện
+- Xem lịch theo ngày, tuần, tháng
+- Kiểm tra tình trạng bận/rảnh của đồng nghiệp
+
+## Dành cho ai
+
+**Đối tượng sử dụng chính:**
+- **Nhân viên bán hàng**: Lên lịch demo, họp với khách hàng, quản lý thời gian bán hàng
+- **Quản lý**: Lên lịch họp team, review performance, kiểm tra lịch của nhân viên
+- **Nhân viên chăm sóc khách hàng**: Đặt lịch tư vấn, hỗ trợ khách hàng
+- **Toàn bộ nhân viên**: Quản lý lịch làm việc cá nhân, tránh xung đột lịch
+
+## Làm như nào (Các bước thao tác)
+
+### 1. Kết nối calendar
+
+**Kết nối Google Calendar:**
+
+**Bước 1:** Vào Settings > Integrations
+
+**Bước 2:** Tìm mục "Calendar" hoặc "Google Calendar"
+
+**Bước 3:** Nhấn "Connect Google Calendar"
+
+**Bước 4:** Chọn tài khoản Google
+
+**Bước 5:** Cho phép Twenty truy cập calendar (Read, Create, Update events)
+
+**Bước 6:** Chọn các calendar cần đồng bộ (Primary, Work, Personal, v.v.)
+
+**Bước 7:** Xác nhận kết nối
+
+**Kết nối Outlook Calendar:**
+
+**Bước 1:** Vào Settings > Integrations
+
+**Bước 2:** Nhấn "Connect Microsoft Calendar"
+
+**Bước 3:** Đăng nhập Microsoft
+
+**Bước 4:** Cho phép quyền truy cập calendar
+
+**Bước 5:** Chọn calendar cần đồng bộ
+
+**Bước 6:** Xác nhận
+
+**Đồng bộ hai chiều:**
+- Sự kiện tạo trong Twenty tự động đồng bộ lên Google/Outlook Calendar
+- Sự kiện tạo trong Google/Outlook tự động hiển thị trong Twenty
+
+### 2. Xem calendar
+
+**Bước 1:** Từ menu điều hướng, chọn "Calendar"
+
+**Bước 2:** Chọn chế độ xem:
+- **Day view**: Xem lịch theo ngày
+- **Week view**: Xem lịch theo tuần
+- **Month view**: Xem lịch theo tháng
+- **Agenda view**: Xem danh sách sự kiện
+
+**Bước 3:** Di chuyển giữa các ngày/tuần/tháng bằng mũi tên hoặc chọn ngày cụ thể
+
+**Bước 4:** Nhấn "Today" để quay về hôm nay
+
+### 3. Tạo sự kiện mới
+
+**Tạo sự kiện đơn giản:**
+
+**Bước 1:** Nhấn nút "+ New Event" hoặc nhấp vào ô thời gian trên calendar
+
+**Bước 2:** Điền thông tin cơ bản:
+- **Tiêu đề**: Tên sự kiện (VD: "Demo sản phẩm cho khách hàng ABC")
+- **Thời gian bắt đầu**: Chọn ngày và giờ
+- **Thời gian kết thúc**: Chọn giờ kết thúc
+- **Múi giờ**: Chọn nếu cần (mặc định theo hệ thống)
+
+**Bước 3:** Nhấn "Save" để tạo sự kiện nhanh
+
+**Tạo sự kiện chi tiết:**
+
+**Bước 1:** Nhấn "+ New Event"
+
+**Bước 2:** Điền đầy đủ thông tin:
+- **Title**: Tiêu đề sự kiện
+- **Start time**: Thời gian bắt đầu
+- **End time**: Thời gian kết thúc
+- **All-day event**: Tích nếu sự kiện kéo dài cả ngày
+- **Location**: Địa điểm (văn phòng, địa chỉ, hoặc link meeting online)
+- **Description**: Mô tả chi tiết sự kiện
+- **Attendees**: Thêm người tham gia (đồng nghiệp, khách hàng)
+- **Calendar**: Chọn calendar để lưu (Work/Personal)
+- **Color**: Chọn màu phân loại sự kiện
+- **Reminder**: Đặt nhắc nhở (5 phút/15 phút/1 giờ/1 ngày trước)
+
+**Bước 3:** Liên kết với đối tượng CRM (tùy chọn):
+- Link to Person (Khách hàng)
+- Link to Company (Công ty)
+- Link to Opportunity (Cơ hội)
+- Link to Task (Công việc)
+
+**Bước 4:** Nhấn "Create event"
+
+### 4. Mời người tham gia họp
+
+**Bước 1:** Khi tạo hoặc chỉnh sửa sự kiện, tìm trường "Attendees" hoặc "Guests"
+
+**Bước 2:** Thêm người tham gia:
+- Gõ tên hoặc email
+- Chọn từ danh sách đồng nghiệp trong hệ thống
+- Chọn khách hàng từ CRM
+- Thêm email bên ngoài
+
+**Bước 3:** Đánh dấu người bắt buộc và người tùy chọn:
+- **Required**: Người cần thiết phải tham gia
+- **Optional**: Người có thể tham gia nếu rảnh
+
+**Bước 4:** Thêm thông điệp mời (tùy chọn)
+
+**Bước 5:** Lưu sự kiện - lời mời họp tự động gửi qua email
+
+**Bước 6:** Theo dõi phản hồi:
+- ✓ Accepted (Đã chấp nhận)
+- ? Maybe (Có thể tham gia)
+- ✗ Declined (Từ chối)
+- - No response (Chưa phản hồi)
+
+### 5. Tạo cuộc họp với link online
+
+**Tạo link Google Meet:**
+
+**Bước 1:** Khi tạo sự kiện, tích "Add Google Meet"
+
+**Bước 2:** Hệ thống tự động tạo link Google Meet
+
+**Bước 3:** Link được gửi trong email mời
+
+**Tạo link Zoom/Teams:**
+
+**Bước 1:** Tích hợp Zoom hoặc Microsoft Teams trước (trong Settings > Integrations)
+
+**Bước 2:** Khi tạo sự kiện, chọn "Add Zoom meeting" hoặc "Add Teams meeting"
+
+**Bước 3:** Link meeting tự động tạo và gửi cho người tham gia
+
+**Thêm link thủ công:**
+
+**Bước 1:** Tạo meeting link từ nền tảng bạn dùng (Zoom, Meet, Teams, v.v.)
+
+**Bước 2:** Sao chép link
+
+**Bước 3:** Dán vào trường "Location" hoặc "Description" của sự kiện
+
+### 6. Xem và chỉnh sửa sự kiện
+
+**Xem chi tiết sự kiện:**
+
+**Bước 1:** Nhấn vào sự kiện trên calendar
+
+**Bước 2:** Xem thông tin:
+- Tiêu đề, thời gian, địa điểm
+- Người tham gia
+- Mô tả
+- Đối tượng liên kết (khách hàng, cơ hội)
+- Ghi chú
+
+**Chỉnh sửa sự kiện:**
+
+**Bước 1:** Mở sự kiện
+
+**Bước 2:** Nhấn "Edit"
+
+**Bước 3:** Thay đổi thông tin cần thiết
+
+**Bước 4:** Nhấn "Save"
+
+**Bước 5:** Nếu có người tham gia, chọn:
+- **Send update**: Gửi thông báo cập nhật cho tất cả mọi người
+- **Don't send**: Không gửi thông báo
+
+**Di chuyển sự kiện:**
+
+**Bước 1:** Kéo thả sự kiện trên calendar sang ngày/giờ mới
+
+**Bước 2:** Xác nhận thay đổi
+
+**Bước 3:** Gửi cập nhật cho người tham gia
+
+### 7. Tạo sự kiện lặp lại
+
+**Bước 1:** Tạo sự kiện mới
+
+**Bước 2:** Tích "Repeat" hoặc "Recurring event"
+
+**Bước 3:** Chọn tần suất lặp lại:
+- **Daily**: Hàng ngày
+- **Weekly**: Hàng tuần (chọn thứ mấy)
+- **Monthly**: Hàng tháng (ngày cố định hoặc thứ mấy tuần thứ mấy)
+- **Yearly**: Hàng năm
+- **Custom**: Tùy chỉnh (VD: Mỗi 2 tuần một lần)
+
+**Bước 4:** Đặt điều kiện kết thúc:
+- **Never**: Lặp vô thời hạn
+- **On date**: Kết thúc vào ngày cụ thể
+- **After X occurrences**: Sau X lần
+
+**Bước 5:** Lưu sự kiện lặp lại
+
+**Chỉnh sửa sự kiện lặp lại:**
+
+Khi chỉnh sửa, chọn:
+- **This event**: Chỉ sửa sự kiện này
+- **This and following events**: Sửa sự kiện này và các sự kiện sau
+- **All events**: Sửa tất cả sự kiện trong series
+
+### 8. Kiểm tra lịch trống/bận
+
+**Xem lịch của bản thân:**
+
+**Bước 1:** Mở calendar view
+
+**Bước 2:** Các ô thời gian đã có sự kiện được tô màu (bận)
+
+**Bước 3:** Các ô trống là thời gian rảnh
+
+**Xem lịch đồng nghiệp:**
+
+**Bước 1:** Vào Calendar
+
+**Bước 2:** Nhấn "Show others' calendars" hoặc biểu tượng cộng
+
+**Bước 3:** Chọn đồng nghiệp muốn xem
+
+**Bước 4:** Lịch của họ hiển thị cùng lịch của bạn (có thể bật/tắt)
+
+**Bước 5:** Xem màu sắc để biết họ bận hay rảnh
+
+**Tìm thời gian phù hợp cho nhiều người:**
+
+**Bước 1:** Khi tạo sự kiện, thêm người tham gia
+
+**Bước 2:** Nhấn "Find a time" hoặc "Suggested times"
+
+**Bước 3:** Hệ thống hiển thị các khung giờ mà tất cả mọi người đều rảnh
+
+**Bước 4:** Chọn thời gian phù hợp
+
+**Bước 5:** Tạo sự kiện
+
+### 9. Đặt nhắc nhở
+
+**Nhắc nhở mặc định:**
+
+**Bước 1:** Vào Settings > Calendar Settings
+
+**Bước 2:** Đặt nhắc nhở mặc định cho tất cả sự kiện:
+- VD: 15 phút trước
+- Có thể đặt nhiều nhắc nhở (VD: 1 ngày và 15 phút trước)
+
+**Nhắc nhở cho sự kiện cụ thể:**
+
+**Bước 1:** Khi tạo hoặc sửa sự kiện
+
+**Bước 2:** Tìm mục "Reminders"
+
+**Bước 3:** Thêm nhắc nhở:
+- 5 phút trước
+- 15 phút trước
+- 30 phút trước
+- 1 giờ trước
+- 1 ngày trước
+- Tùy chỉnh (VD: 2 giờ trước)
+
+**Bước 4:** Chọn hình thức nhắc nhở:
+- Notification (Thông báo trong app)
+- Email (Gửi email nhắc nhở)
+- Popup (Hiện popup trên màn hình)
+
+**Bước 5:** Lưu
+
+### 10. Phân loại sự kiện bằng màu
+
+**Gán màu cho sự kiện:**
+
+**Bước 1:** Tạo hoặc chỉnh sửa sự kiện
+
+**Bước 2:** Chọn màu sắc từ bảng màu
+
+**Bước 3:** Sự kiện hiển thị với màu đã chọn trên calendar
+
+**Tạo quy tắc phân loại:**
+
+**Bước 1:** Vào Settings > Calendar > Color coding
+
+**Bước 2:** Tạo quy tắc tự động:
+- Sự kiện với khách hàng: Màu xanh dương
+- Họp nội bộ: Màu xanh lá
+- Demo sản phẩm: Màu cam
+- Sự kiện cá nhân: Màu tím
+
+**Bước 3:** Hệ thống tự động gán màu theo quy tắc
+
+### 11. Chia sẻ calendar
+
+**Chia sẻ lịch cá nhân:**
+
+**Bước 1:** Vào Calendar Settings
+
+**Bước 2:** Chọn "Share calendar"
+
+**Bước 3:** Nhập email người muốn chia sẻ (đồng nghiệp hoặc trợ lý)
+
+**Bước 4:** Chọn mức độ chia sẻ:
+- **See all event details**: Xem chi tiết tất cả sự kiện
+- **See only free/busy**: Chỉ xem bận/rảnh, không thấy chi tiết
+- **Make changes**: Có thể chỉnh sửa sự kiện
+
+**Bước 5:** Gửi lời mời chia sẻ
+
+**Tạo calendar công khai:**
+
+**Bước 1:** Tạo calendar mới (VD: "Team Sales Calendar")
+
+**Bước 2:** Chia sẻ với tất cả thành viên team
+
+**Bước 3:** Tất cả đều có thể xem và thêm sự kiện vào calendar chung
+
+### 12. Xử lý xung đột lịch
+
+**Phát hiện xung đột:**
+
+**Bước 1:** Khi tạo sự kiện trùng thời gian với sự kiện khác
+
+**Bước 2:** Hệ thống cảnh báo "Conflict" hoặc "Overlap"
+
+**Bước 3:** Hiển thị các sự kiện bị trùng
+
+**Giải quyết xung đột:**
+
+**Bước 1:** Xem lại tất cả sự kiện trùng lịch
+
+**Bước 2:** Chọn cách xử lý:
+- Đổi giờ sự kiện mới
+- Hủy sự kiện cũ
+- Từ chối lời mời họp
+- Delegate sự kiện cho người khác
+
+**Bước 3:** Cập nhật lịch
+
+**Bước 4:** Thông báo cho người liên quan
+
+### 13. Đồng bộ với task deadline
+
+**Tự động đồng bộ:**
+
+**Bước 1:** Vào Settings > Calendar Integration
+
+**Bước 2:** Bật "Show task deadlines on calendar"
+
+**Bước 3:** Task có deadline sẽ hiển thị trên calendar như sự kiện
+
+**Bước 4:** Có thể tắt/bật hiển thị task trên calendar
+
+**Tạo sự kiện từ task:**
+
+**Bước 1:** Mở task
+
+**Bước 2:** Nhấn "Add to calendar" hoặc "Schedule"
+
+**Bước 3:** Chọn thời gian cụ thể để làm task
+
+**Bước 4:** Sự kiện tạo và tự động liên kết với task
+
+### 14. Ghi chú sau sự kiện
+
+**Bước 1:** Sau khi sự kiện kết thúc, mở sự kiện
+
+**Bước 2:** Nhấn "Add notes" hoặc "Meeting notes"
+
+**Bước 3:** Ghi lại:
+- Người đã tham gia thực tế
+- Nội dung chính thảo luận
+- Quyết định đã đưa ra
+- Action items (việc cần làm tiếp theo)
+- Ngày họp tiếp theo (nếu có)
+
+**Bước 4:** Lưu ghi chú
+
+**Bước 5:** Ghi chú tự động liên kết với khách hàng/cơ hội đã gắn với sự kiện
+
+**Tạo task từ meeting notes:**
+
+**Bước 1:** Trong meeting notes, đánh dấu action items
+
+**Bước 2:** Nhấn "Create tasks from action items"
+
+**Bước 3:** Hệ thống tự động tạo task cho mỗi action item
+
+**Bước 4:** Gán người thực hiện và deadline
+
+### 15. Hủy và từ chối sự kiện
+
+**Hủy sự kiện do mình tạo:**
+
+**Bước 1:** Mở sự kiện
+
+**Bước 2:** Nhấn "Delete" hoặc "Cancel event"
+
+**Bước 3:** Chọn:
+- **Send cancellation**: Gửi email thông báo hủy cho tất cả người tham gia
+- **Don't send**: Xóa im lặng (không khuyến khích)
+
+**Bước 4:** Xác nhận hủy
+
+**Từ chối lời mời họp:**
+
+**Bước 1:** Mở sự kiện mình được mời
+
+**Bước 2:** Nhấn "Decline"
+
+**Bước 3:** (Tùy chọn) Thêm lý do từ chối
+
+**Bước 4:** Gửi phản hồi
+
+**Bước 5:** Sự kiện biến mất khỏi calendar của bạn
+
+**Đề xuất thời gian khác:**
+
+**Bước 1:** Khi nhận lời mời không phù hợp
+
+**Bước 2:** Nhấn "Propose new time"
+
+**Bước 3:** Chọn thời gian mới
+
+**Bước 4:** Gửi đề xuất cho người tổ chức
+
+### 16. Xuất calendar
+
+**Xuất sang file:**
+
+**Bước 1:** Vào Calendar Settings
+
+**Bước 2:** Nhấn "Export calendar"
+
+**Bước 3:** Chọn khoảng thời gian cần xuất
+
+**Bước 4:** Chọn định dạng:
+- **iCal (.ics)**: Import vào ứng dụng calendar khác
+- **PDF**: In hoặc lưu trữ
+- **CSV**: Xử lý dữ liệu
+
+**Bước 5:** Tải file về
+
+**Đăng ký calendar (subscribe):**
+
+**Bước 1:** Tạo calendar link công khai
+
+**Bước 2:** Sao chép URL
+
+**Bước 3:** Người khác có thể subscribe vào calendar này để xem realtime
+
+**Bước 4:** Mọi thay đổi tự động cập nhật cho người subscribe
+
+### 17. Xem lịch trên mobile
+
+**Đồng bộ với calendar mobile:**
+
+- Vì Twenty đã kết nối với Google/Outlook Calendar
+- Sự kiện tự động hiển thị trên app Google Calendar/Outlook trên điện thoại
+- Không cần cài thêm app riêng
+
+**Sử dụng Twenty mobile (nếu có app):**
+
+**Bước 1:** Cài đặt Twenty mobile app
+
+**Bước 2:** Đăng nhập tài khoản
+
+**Bước 3:** Xem và quản lý calendar trực tiếp trên điện thoại
+
+**Bước 4:** Nhận notification sự kiện
+
+**Lưu ý:**
+- Tất cả thay đổi trên mobile đồng bộ realtime với web và ngược lại
+- Có thể tạo, sửa, hủy sự kiện từ mobile
+- Nhận nhắc nhở ngay cả khi không mở app
