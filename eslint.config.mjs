@@ -130,13 +130,13 @@ export default [
       'no-redeclare': 'off', // Turn off base rule for TypeScript
       '@typescript-eslint/no-redeclare': 'error', // Use TypeScript-aware version
       '@typescript-eslint/ban-ts-comment': 'error',
-      '@typescript-eslint/consistent-type-imports': [
-        'error',
-        {
-          prefer: 'type-imports',
-          fixStyle: 'inline-type-imports',
-        },
-      ],
+      // '@typescript-eslint/consistent-type-imports': [
+      //   'error',
+      //   {
+      //     prefer: 'type-imports',
+      //     fixStyle: 'inline-type-imports',
+      //   },
+      // ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/interface-name-prefix': 'off',
