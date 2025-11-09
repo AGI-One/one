@@ -564,6 +564,98 @@ export const DASHBOARD_STANDARD_FIELD_IDS = {
   searchVector: '20202020-0bcc-47a4-8360-2e35a7133f7a',
 } as const;
 
+export const DEPARTMENT_STANDARD_FIELD_IDS = {
+  name: '4f96d230-a3f0-4d40-949b-44f082811ba1',
+  position: '1355827d-f446-4397-8775-a76ada067c8d',
+  createdBy: '7d03bfc8-bd7f-4b53-8216-ecf1a4311c5b',
+  employees: '4fea132a-1762-480f-88e5-30f0c8c3addf',
+  searchVector: '9861955e-2ae8-4e8b-9b17-02b146194b11',
+} as const;
+
+export const EMPLOYEE_STANDARD_FIELD_IDS = {
+  name: '01bb78ac-387b-42f3-b9a2-e54ef14363af',
+  emails: '73423c75-387d-4932-9579-023d4d45ae24',
+  phones: '336960e0-05a0-4aa0-9aee-8a3dedbb30ee',
+  jobTitle: 'dde2410e-0035-4f9b-91e7-712c8299edc9',
+  shortDescription: '957cefcd-c8c9-4b6e-908a-56665954664a',
+  description: '34e695d4-be1c-4e57-aaf7-4739af789ab2',
+  startedWorkOn: '2be61b48-538c-475f-9c0e-036e030134c4',
+  endWork: 'b256a270-7679-400f-a2fc-6c32559dd7fc',
+  billRateValue: '96284f0a-530d-46cf-b07b-8053399becbc',
+  billRateCurrency: '6b61213f-cbe7-469e-8548-a36cfc5962b2',
+  payPeriod: '469b7a83-d042-45d9-9742-fe3c13905be7',
+  totalWorkHours: 'ba3d4ea2-ab41-44da-9fd6-c8389740892d',
+  averageIncome: '78ebf4b0-2428-4d32-aafe-554e11efb31e',
+  averageBonus: '7c7cebed-9b42-4e42-afce-21cfdc92005a',
+  linkedinLink: 'c7ca1c29-757a-41ca-b189-b78eca02a160',
+  githubLink: '81dbad06-5b0d-4d44-aaa9-b38ed71f8dbc',
+  gitlabLink: '0944ce81-d65c-4441-b0fe-31ce113e73e3',
+  facebookLink: 'd236b4ff-ce78-4a08-bf63-11cb92e3eab8',
+  twitterLink: 'be8e85f0-805f-4917-ae77-2e4d3b547045',
+  isActive: 'df850f30-47b1-4175-abf6-d424045a752e',
+  isTrackingEnabled: '943aaf8e-437d-4ca4-8917-f85aee31181c',
+  avatarUrl: 'fe4722e4-1741-4c95-9e3b-c30f55313966',
+  position: '7e849780-d1d6-42fe-b71d-f5fb889e8195',
+  createdBy: '20202020-d001-4001-a001-000000000025',
+  department: '642e44d9-d29a-4a99-9493-69a002396b14',
+  organizationPosition: '367d3ac2-f76a-45b1-ba78-f8fce8890521',
+  employmentType: 'f5d532b0-afcd-4bcb-aecd-a111609a627b',
+  level: '2fd82431-770a-4039-b639-b8725ac7956d',
+  team: '2a765e1c-d0aa-4edd-875b-33a202d8a9f5',
+  awards: '1115b06c-a627-40d6-9012-b6a5b169522a',
+  searchVector: '79940b12-d808-49c0-a3ad-e2d364dbc78b',
+} as const;
+
+export const EMPLOYEE_AWARD_STANDARD_FIELD_IDS = {
+  name: '1ff4526f-163f-4cf7-ab1a-71f7eb1cd169',
+  year: 'fa279d82-8ccc-40ee-94a8-c14798494a48',
+  position: '063db34e-8cb2-458a-be6d-f0b9b1490adb',
+  createdBy: 'a6c26ec9-ff59-4386-8267-f7a89744e100',
+  employee: 'f35500c2-705a-4c64-9de6-16919ac9a2ba',
+  searchVector: 'e07b9483-feb9-4c87-8862-17324bf4464c',
+} as const;
+
+export const EMPLOYEE_LEVEL_STANDARD_FIELD_IDS = {
+  level: '3fbfe175-325c-43d5-9c5e-5a3eedbb3ff5',
+  position: '0f33eaf1-f785-413b-915d-34763d2dd483',
+  createdBy: '447edf35-ebd4-44ad-88e6-734f451cec92',
+  employees: 'dd5809bc-5635-4723-a16b-483898b9b986',
+  searchVector: 'a6f7c1c9-fc2e-4b93-ac8d-da652b75a3a3',
+} as const;
+
+export const EMPLOYMENT_TYPE_STANDARD_FIELD_IDS = {
+  name: '60f38a84-d8b3-4e84-b256-32a643acffed',
+  position: 'c4c515df-e83f-413f-b1fa-c3c892d4f05d',
+  createdBy: '8645b7bd-64c2-4f6a-8d2f-a314b83795bd',
+  employees: '25c86e5e-929a-49dc-99d0-05bbed697978',
+  searchVector: 'aeae1670-b7db-40a9-a62c-5839347ec156',
+} as const;
+
+export const ORGANIZATION_POSITION_STANDARD_FIELD_IDS = {
+  name: 'dcd033ec-8b95-4f12-a520-b5af1382a0df',
+  position: '1ba60754-71a9-4cf5-861e-e6885aa377ef',
+  createdBy: '61081bb2-191e-4221-a504-208ecb0ebdc6',
+  employees: '38b95cc0-ee07-4bfa-81e0-ebbe56d21891',
+  searchVector: 'e6f71ed2-42f9-4756-ae9b-f8655485c83d',
+} as const;
+
+export const TEAM_STANDARD_FIELD_IDS = {
+  name: '32c939bb-f238-4aae-adca-665599f1ad05',
+  color: '5dea6fa8-5de5-4b87-a487-eafa4a7f492e',
+  emoji: '0d78cdd5-9056-41fe-99e3-27e0f5fccc11',
+  teamSize: 'a8925405-ac20-49f8-b1ce-7ab95f9f79ad',
+  logo: '1001d5db-0fdd-46f5-9fd0-fdacf5220331',
+  prefix: '70ca6c41-a5f7-4fb9-bb21-b44fa70e44f3',
+  shareProfileView: 'bb0f2d99-e140-4831-9fd8-791825853d56',
+  requirePlanToTrack: '27a575a4-1b9f-449e-94e3-4e0a7f03c886',
+  public: '63be4164-afcb-48af-aee0-0d4b9fd9abe9',
+  profileLink: 'a16d54df-89ed-4f24-a5c2-328f7c4fc56c',
+  position: '67ee4fa0-52f6-44c1-89a1-09a2c41e9121',
+  createdBy: '721686f8-e3b0-49fb-85a3-70cdf5a57f31',
+  members: '6f06dbe8-4116-4afb-a5bf-ecfc02f02361',
+  searchVector: '50c3e537-d617-4e8d-9a13-eed2fd9d1890',
+} as const;
+
 export const STANDARD_OBJECT_FIELD_IDS = {
   activityTarget: ACTIVITY_TARGET_STANDARD_FIELD_IDS,
   activity: ACTIVITY_STANDARD_FIELD_IDS,

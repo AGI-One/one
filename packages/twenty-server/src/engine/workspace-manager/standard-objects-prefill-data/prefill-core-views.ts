@@ -17,13 +17,20 @@ import { prefillWorkspaceFavorites } from 'src/engine/workspace-manager/standard
 import { type ViewDefinition } from 'src/engine/workspace-manager/standard-objects-prefill-data/types/view-definition.interface';
 import { companiesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/companies-all.view';
 import { dashboardsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/dashboards-all.view';
+import { departmentsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/departments-all.view';
+import { employeeAwardsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/employee-awards-all.view';
+import { employeeLevelsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/employee-levels-all.view';
+import { employeesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/employees-all.view';
+import { employmentTypesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/employment-types-all.view';
 import { notesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/notes-all.view';
 import { opportunitiesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunities-all.view';
 import { opportunitiesByStageView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunity-by-stage.view';
+import { organizationPositionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/organization-positions-all.view';
 import { peopleAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/people-all.view';
 import { tasksAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-all.view';
 import { tasksAssignedToMeView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-assigned-to-me';
 import { tasksByStatusView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-by-status.view';
+import { teamsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/teams-all.view';
 import { workflowRunsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/workflow-runs-all.view';
 import { workflowVersionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/workflow-versions-all.view';
 import { workflowsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/workflows-all.view';
@@ -55,6 +62,13 @@ export const prefillCoreViews = async ({
     workflowVersionsAllView(objectMetadataItems, true),
     workflowRunsAllView(objectMetadataItems, true),
     dashboardsAllView(objectMetadataItems, true),
+    employeesAllView(objectMetadataItems, true),
+    departmentsAllView(objectMetadataItems, true),
+    teamsAllView(objectMetadataItems, true),
+    organizationPositionsAllView(objectMetadataItems, true),
+    employmentTypesAllView(objectMetadataItems, true),
+    employeeLevelsAllView(objectMetadataItems, true),
+    employeeAwardsAllView(objectMetadataItems, true),
   ];
 
   const queryRunner = coreDataSource.createQueryRunner();

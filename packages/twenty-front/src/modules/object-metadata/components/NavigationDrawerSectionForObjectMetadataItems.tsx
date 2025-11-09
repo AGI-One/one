@@ -15,6 +15,13 @@ const ORDERED_STANDARD_OBJECTS: string[] = [
   CoreObjectNameSingular.Opportunity,
   CoreObjectNameSingular.Task,
   CoreObjectNameSingular.Note,
+  CoreObjectNameSingular.Employee,
+  CoreObjectNameSingular.Department,
+  CoreObjectNameSingular.Team,
+  CoreObjectNameSingular.OrganizationPosition,
+  CoreObjectNameSingular.EmployeeLevel,
+  CoreObjectNameSingular.EmploymentType,
+  CoreObjectNameSingular.EmployeeAward,
 ];
 
 type NavigationDrawerSectionForObjectMetadataItemsProps = {

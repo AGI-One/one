@@ -7,6 +7,13 @@ import { CalendarEventWorkspaceEntity } from 'src/modules/calendar/common/standa
 import { CompanyWorkspaceEntity } from 'src/modules/company/standard-objects/company.workspace-entity';
 import { ConnectedAccountWorkspaceEntity } from 'src/modules/connected-account/standard-objects/connected-account.workspace-entity';
 import { DashboardWorkspaceEntity } from 'src/modules/dashboard/standard-objects/dashboard.workspace-entity';
+import { DepartmentWorkspaceEntity } from 'src/modules/department/standard-objects/department.workspace-entity';
+import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
+import { EmployeeAwardWorkspaceEntity } from 'src/modules/employee-award/standard-objects/employee-award.workspace-entity';
+import { EmployeeLevelWorkspaceEntity } from 'src/modules/employee-level/standard-objects/employee-level.workspace-entity';
+import { EmploymentTypeWorkspaceEntity } from 'src/modules/employment-type/standard-objects/employment-type.workspace-entity';
+import { OrganizationPositionWorkspaceEntity } from 'src/modules/position/standard-objects/position.workspace-entity';
+import { TeamWorkspaceEntity } from 'src/modules/team/standard-objects/team.workspace-entity';
 import { FavoriteFolderWorkspaceEntity } from 'src/modules/favorite-folder/standard-objects/favorite-folder.workspace-entity';
 import { FavoriteWorkspaceEntity } from 'src/modules/favorite/standard-objects/favorite.workspace-entity';
 import { MessageChannelMessageAssociationWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel-message-association.workspace-entity';
@@ -39,8 +46,15 @@ export const standardObjectMetadataDefinitions = [
   CompanyWorkspaceEntity,
   ConnectedAccountWorkspaceEntity,
   DashboardWorkspaceEntity,
+  DepartmentWorkspaceEntity,
+  EmployeeWorkspaceEntity,
+  EmployeeAwardWorkspaceEntity,
+  EmployeeLevelWorkspaceEntity,
+  EmploymentTypeWorkspaceEntity,
   FavoriteWorkspaceEntity,
   FavoriteFolderWorkspaceEntity,
+  OrganizationPositionWorkspaceEntity,
+  TeamWorkspaceEntity,
   TimelineActivityWorkspaceEntity,
   WorkflowWorkspaceEntity,
   WorkflowVersionWorkspaceEntity,
