@@ -26,11 +26,12 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 import { DepartmentWorkspaceEntity } from 'src/modules/department/standard-objects/department.workspace-entity';
-import { OrganizationPositionWorkspaceEntity } from 'src/modules/position/standard-objects/position.workspace-entity';
-import { EmploymentTypeWorkspaceEntity } from 'src/modules/employment-type/standard-objects/employment-type.workspace-entity';
-import { EmployeeLevelWorkspaceEntity } from 'src/modules/employee-level/standard-objects/employee-level.workspace-entity';
-import { TeamWorkspaceEntity } from 'src/modules/team/standard-objects/team.workspace-entity';
 import { EmployeeAwardWorkspaceEntity } from 'src/modules/employee-award/standard-objects/employee-award.workspace-entity';
+import { EmployeeLevelWorkspaceEntity } from 'src/modules/employee-level/standard-objects/employee-level.workspace-entity';
+import { EmploymentTypeWorkspaceEntity } from 'src/modules/employment-type/standard-objects/employment-type.workspace-entity';
+import { OrganizationPositionWorkspaceEntity } from 'src/modules/position/standard-objects/position.workspace-entity';
+import { TeamWorkspaceEntity } from 'src/modules/team/standard-objects/team.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 const EMAILS_FIELD_NAME = 'emails';
@@ -394,6 +395,18 @@ export class EmployeeWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsNullable()
   awards: Relation<EmployeeAwardWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: 'c2d3e4f5-6a7b-8c9d-0e1f-2a3b4c5d6e7f',
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Timeline Activities`,
+    description: msg`Events linked to the employee`,
+    icon: 'IconTimeline',
+    inverseSideTarget: () => TimelineActivityWorkspaceEntity,
+    inverseSideFieldKey: 'employee',
+  })
+  @WorkspaceIsNullable()
+  timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
 
   @WorkspaceField({
     standardId: '79940b12-d808-49c0-a3ad-e2d364dbc78b',

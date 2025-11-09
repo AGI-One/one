@@ -21,6 +21,7 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 
@@ -82,6 +83,18 @@ export class OrganizationPositionWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsNullable()
   employees: Relation<EmployeeWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: 'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a',
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Timeline Activities`,
+    description: msg`Events linked to the position`,
+    icon: 'IconTimeline',
+    inverseSideTarget: () => TimelineActivityWorkspaceEntity,
+    inverseSideFieldKey: 'organizationPosition',
+  })
+  @WorkspaceIsNullable()
+  timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
 
   @WorkspaceField({
     standardId: 'e6f71ed2-42f9-4756-ae9b-f8655485c83d',

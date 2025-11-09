@@ -21,6 +21,7 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const LEVEL_FIELD_NAME = 'level';
 
@@ -83,6 +84,18 @@ export class EmployeeLevelWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsNullable()
   employees: Relation<EmployeeWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e',
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Timeline Activities`,
+    description: msg`Events linked to the employee level`,
+    icon: 'IconTimeline',
+    inverseSideTarget: () => TimelineActivityWorkspaceEntity,
+    inverseSideFieldKey: 'employeeLevel',
+  })
+  @WorkspaceIsNullable()
+  timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
 
   @WorkspaceField({
     standardId: 'a6f7c1c9-fc2e-4b93-ac8d-da652b75a3a3',

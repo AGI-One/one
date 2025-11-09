@@ -22,6 +22,16 @@ const ORDERED_STANDARD_OBJECTS: string[] = [
   CoreObjectNameSingular.EmployeeLevel,
   CoreObjectNameSingular.EmploymentType,
   CoreObjectNameSingular.EmployeeAward,
+  CoreObjectNameSingular.Product,
+  CoreObjectNameSingular.ProductCategory,
+  CoreObjectNameSingular.ProductType,
+  CoreObjectNameSingular.ProductOptionGroup,
+  CoreObjectNameSingular.ProductOption,
+  CoreObjectNameSingular.ProductVariant,
+  CoreObjectNameSingular.ProductVariantOption,
+  CoreObjectNameSingular.Warehouse,
+  CoreObjectNameSingular.WarehouseProduct,
+  CoreObjectNameSingular.WarehouseProductVariant,
 ];
 
 type NavigationDrawerSectionForObjectMetadataItemsProps = {

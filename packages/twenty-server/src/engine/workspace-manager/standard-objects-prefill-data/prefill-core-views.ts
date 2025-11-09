@@ -27,6 +27,15 @@ import { opportunitiesAllView } from 'src/engine/workspace-manager/standard-obje
 import { opportunitiesByStageView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunity-by-stage.view';
 import { organizationPositionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/organization-positions-all.view';
 import { peopleAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/people-all.view';
+import { productCategoriesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/product-categories-all.view';
+import { productOptionGroupsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/product-option-groups-all.view';
+import { productOptionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/product-options-all.view';
+import { productTypesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/product-types-all.view';
+import { productVariantsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/product-variants-all.view';
+import { productsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/products-all.view';
+import { warehousesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/warehouses-all.view';
+import { warehouseProductsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/warehouse-products-all.view';
+import { warehouseProductVariantsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/warehouse-product-variants-all.view';
 import { tasksAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-all.view';
 import { tasksAssignedToMeView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-assigned-to-me';
 import { tasksByStatusView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-by-status.view';
@@ -69,6 +78,15 @@ export const prefillCoreViews = async ({
     employmentTypesAllView(objectMetadataItems, true),
     employeeLevelsAllView(objectMetadataItems, true),
     employeeAwardsAllView(objectMetadataItems, true),
+    productsAllView(objectMetadataItems, true),
+    productCategoriesAllView(objectMetadataItems, true),
+    productTypesAllView(objectMetadataItems, true),
+    productVariantsAllView(objectMetadataItems, true),
+    productOptionGroupsAllView(objectMetadataItems, true),
+    productOptionsAllView(objectMetadataItems, true),
+    warehousesAllView(objectMetadataItems, true),
+    warehouseProductsAllView(objectMetadataItems, true),
+    warehouseProductVariantsAllView(objectMetadataItems, true),
   ];
 
   const queryRunner = coreDataSource.createQueryRunner();

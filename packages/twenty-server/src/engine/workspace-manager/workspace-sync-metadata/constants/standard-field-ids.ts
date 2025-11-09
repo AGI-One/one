@@ -199,6 +199,20 @@ export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
   workflowVersion: '20202020-74f1-4711-a129-e14ca0ecd744',
   workflowRun: '20202020-96f0-401b-9186-a3a0759225ac',
   dashboard: '20202020-7864-48f5-af7c-9e4b60140948',
+  productType: 'f230159e-3533-4ab4-9c48-8c04d46ba8a0',
+  productCategory: 'daaf81d3-3dfe-432b-9727-41fccf6f59f5',
+  product: 'd453f225-88c2-41f7-abf6-6f0e712368b4',
+  productVariant: 'a02849ea-89c8-4195-a09e-946d71fd6e52',
+  productOption: '9431eca4-a781-4f9e-887b-0d2d7b7a1e02',
+  productOptionGroup: 'e2a6f638-f153-4466-a444-e191bfc6cf8b',
+  warehouse: '9ed5d40d-d38b-4f59-886e-d9789993233b',
+  department: '602fd60a-2e31-4ae1-9106-d80116cdef22',
+  employee: '83ccd820-5338-4116-98ac-6ed9629e488f',
+  employeeAward: '33f1ebfb-14d6-435f-bf7f-c582999f75e1',
+  employeeLevel: 'a580250a-83b3-4feb-b3c2-b4e8fae6b08c',
+  employmentType: 'cae2f5fd-ccad-4294-a717-eabb2da34158',
+  organizationPosition: '20685591-32e4-4262-b397-a023491da96c',
+  team: 'adcdf0ae-eef6-4ab8-95c3-46956a0a1958',
   custom: '20202020-4a71-41b0-9f83-9cdcca3f8b14',
   linkedRecordCachedName: '20202020-cfdb-4bef-bbce-a29f41230934',
   linkedRecordId: '20202020-2e0e-48c0-b445-ee6c1e61687d',
@@ -656,6 +670,128 @@ export const TEAM_STANDARD_FIELD_IDS = {
   searchVector: '50c3e537-d617-4e8d-9a13-eed2fd9d1890',
 } as const;
 
+export const PRODUCT_STANDARD_FIELD_IDS = {
+  name: '9799b3f7-7bbd-4043-88c1-647e135b2df1',
+  code: '01d9c9ce-c744-4b62-bc53-dd6c59432cec',
+  description: 'dad85aa0-1cb3-4314-af1a-f1a6549e94f1',
+  enabled: 'bbbd0b6c-36ff-401f-8ace-2797b861f079',
+  imageUrl: '2ed25108-2402-4bf4-8170-ef726b8d7618',
+  productType: 'e0ff0396-e3cd-44bc-9eee-27547c069df1',
+  productCategory: '20aa068f-1e6f-4e56-8517-d1812bb1d8e7',
+  position: '0dff93b2-5163-4615-9fb4-7d0ba67abf55',
+  createdBy: '529cd2ec-3cfb-49a0-9a92-ff8108d6edda',
+  searchVector: '52d4e5ae-8d72-409c-8999-3e0089b71bb2',
+  optionGroups: 'b833e4ee-8c15-4d96-ad55-e3c7dc564b3b',
+  warehouses: '3e66a164-17e6-4a7a-b442-8dd4b31237c0',
+  variants: '7186a96b-d9be-466d-a776-1caf3e7105ba',
+  timelineActivities: '029bf18d-3c8e-4f76-bfa7-ebee505fd378',
+} as const;
+
+export const PRODUCT_CATEGORY_STANDARD_FIELD_IDS = {
+  name: '5ec7cf2d-4193-47eb-b546-a00e8f960527',
+  description: '894d720e-dead-4616-be98-d4bed9f0ee2c',
+  imageUrl: '54b0ae4d-9de7-42df-a69c-7d8572943ae4',
+  position: 'a1862811-fbe6-4c9d-97eb-9999d40a2dd5',
+  createdBy: 'a93d3ff2-f2d0-40f2-b1e4-61ad5dcddc03',
+  searchVector: 'b516f609-5497-404f-b73a-7bd0761ca143',
+  products: '301f37b0-36bc-424a-acdc-fec0e0d426a7',
+  timelineActivities: '6fd75880-acdf-4f22-a65e-2932bd6a4e4d',
+} as const;
+
+export const PRODUCT_TYPE_STANDARD_FIELD_IDS = {
+  name: 'be781767-265c-4c2a-8de7-e584b545d976',
+  description: 'cb76a843-d47d-41a5-8392-83f86f85692f',
+  icon: '6d1d53a2-bcc2-428c-9c63-b2d69a9d9138',
+  position: 'e72bf7aa-75b0-4439-8e61-b3eee877773d',
+  createdBy: 'c2d6c1d3-6b25-4b28-bebb-0cfcc6f055b4',
+  searchVector: 'ec9d4efb-2eb9-405b-8e69-f40ac1970de6',
+  products: '49f9dc93-8989-4aae-9b35-0a5a741916e6',
+  timelineActivities: 'cfbb77d6-de4e-48dd-b38f-c7734ad62026',
+} as const;
+
+export const PRODUCT_VARIANT_STANDARD_FIELD_IDS = {
+  product: 'ce7f5c8a-be61-4e25-a301-5d707ef11586',
+  sku: 'bd93475f-8427-46c7-870b-337d5750b86b',
+  quantity: '21bb9dba-5318-40e3-8a4f-45001b6e73a9',
+  enabled: 'ad3421cb-b35b-4f4a-8577-4316b8d867d7',
+  unitCost: '8c3dc103-9b53-4390-b318-1ec2b0de207f',
+  retailPrice: '834a8c13-b8f9-4e3e-b9db-c5c078d6d175',
+  trackInventory: '5c9b9cfc-db11-4801-9bca-508925f76aef',
+  canBeSold: 'f8a0011c-b91d-42de-9fb2-2c9e8e583532',
+  canBePurchased: '3a663f2d-e0ee-45b6-a41b-84caf3766e9d',
+  taxes: '15e03b55-a007-4780-a5b7-040f475e425b',
+  notes: 'd2e21e5c-9267-4541-a64b-044c331b7da3',
+  imageUrl: 'e907a5e6-ced9-4af5-9c9c-2bd08c88f521',
+  position: '8a2836e4-5f0c-467a-a873-efdd3bb6b9bc',
+  createdBy: '49942a0c-65e1-47cb-a75c-5f376837c320',
+  productVariantOptions: 'f1e2d3c4-b5a6-4978-8e9f-0a1b2c3d4e5f',
+  warehouseVariants: '0f4fdeff-3de1-4ac9-8e7e-75b2a6d1e8e5',
+  timelineActivities: '4b375e6d-7b81-4828-b144-5b0be429996f',
+} as const;
+
+export const PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS = {
+  name: '690316e3-8e85-4ab3-8a26-9376d46008fa',
+  product: 'f7ecb0d5-4bbe-40f1-abd0-a2d3c085cab9',
+  position: 'fcdced92-867d-4095-a940-851e1543facc',
+  createdBy: '08cf2d52-28d3-4318-b1a9-e4ba6f739394',
+  searchVector: '82a06f55-599f-4f12-b54c-3bbe80c1fa61',
+  options: '4ccd1bad-aab3-496c-86db-dc2d889d835e',
+  timelineActivities: 'e2a6f638-f153-4466-a444-e191bfc6cf8b',
+} as const;
+
+export const PRODUCT_OPTION_STANDARD_FIELD_IDS = {
+  name: 'a1272807-cffc-4808-9525-1d1d742f3931',
+  code: '7e20ba87-548f-4094-9bea-01224b4d906d',
+  group: 'effeab18-88e2-4f19-bb5e-12a7684980fd',
+  position: 'f32a9c6c-ba92-4a40-859f-8e57a8b49450',
+  createdBy: '3bcb50f1-654c-43da-a915-e0964ab41e87',
+  searchVector: '6def4592-502f-44ea-bf16-aff45a2244ae',
+  productVariantOptions: 'a2b3c4d5-e6f7-4859-9a0b-1c2d3e4f5a6b',
+  timelineActivities: '87edb231-fe42-48e1-90ee-494085aa6a2d',
+} as const;
+
+export const PRODUCT_VARIANT_OPTION_STANDARD_FIELD_IDS = {
+  productVariant: 'b3c4d5e6-f7a8-4b59-8c0d-2e3f4a5b6c7d',
+  productOption: 'c4d5e6f7-a8b9-4c5a-9d0e-3f4a5b6c7d8e',
+} as const;
+
+export const WAREHOUSE_STANDARD_FIELD_IDS = {
+  name: '28ed40e5-2439-465d-97b4-8c8e077842c8',
+  code: '35ce6310-baee-419e-a6d6-33b83001b4c9',
+  description: '1de2e939-2382-4694-9d43-d80b214f8740',
+  enabled: '03254f96-4b42-47ee-aa9e-852b1a0aae84',
+  logoUrl: '1e5db267-e0d1-4265-aaf1-58be748b6d4d',
+  email: 'a73cbf88-d234-4a0a-a489-810a20ebf47b',
+  phone: '64a2270b-1982-444d-96e8-e107038d2aeb',
+  address: '11404988-d7fe-4a31-9a0b-888cf1267b6e',
+  products: 'a94f34e0-6e0d-4769-80e8-deaec2489611',
+  timelineActivities: 'd861e7ee-7c40-4f86-a63b-275485446faa',
+  position: '3f8b13cd-7911-4195-83cc-70f435d4a272',
+  createdBy: 'f34035a7-3d9f-4f8d-8cea-8ddc7f7351c0',
+  searchVector: '43f8fa6c-de91-407e-a63d-d47a4be7faee',
+} as const;
+
+export const WAREHOUSE_PRODUCT_STANDARD_FIELD_IDS = {
+  warehouse: 'd04190e4-7039-487a-aae5-c44c1816f4f7',
+  warehouseId: 'e3e81418-1af3-4155-b708-43bef72c4507',
+  product: '02a008ae-51c9-4fcf-8200-d18056f3308b',
+  productId: 'a1645bb8-cac1-4760-bc54-58e0b4c8201b',
+  quantity: '5f8fd259-e473-4a2e-a677-4f8333831b8b',
+  variants: '13d04408-3946-4915-8568-39fd82759fd0',
+  position: '10f59d66-d437-42a8-b47d-8a22615f73af',
+  createdBy: '4132546b-0c91-47d6-8fc1-3bcac4eecabb',
+} as const;
+
+export const WAREHOUSE_PRODUCT_VARIANT_STANDARD_FIELD_IDS = {
+  warehouseProduct: '163883d3-8112-4467-b985-f5549dfdaa2f',
+  warehouseProductId: 'f3b99e9a-19c3-498d-a714-8c8baf74572a',
+  productVariant: 'f378b0a8-983e-4cc4-aac4-5c122c1a77ff',
+  productVariantId: 'b3d193ed-8a63-4d47-afc5-e4dc114c8a69',
+  quantity: '650a4d09-8c8e-4c33-a456-2e68fedf072d',
+  position: '2d7ab596-3383-47ce-8af7-a055f9fc3118',
+  createdBy: '77ae75a5-4cef-461b-965b-fa1947f3aba9',
+} as const;
+
 export const STANDARD_OBJECT_FIELD_IDS = {
   activityTarget: ACTIVITY_TARGET_STANDARD_FIELD_IDS,
   activity: ACTIVITY_STANDARD_FIELD_IDS,
@@ -684,6 +820,16 @@ export const STANDARD_OBJECT_FIELD_IDS = {
   noteTarget: NOTE_TARGET_STANDARD_FIELD_IDS,
   opportunity: OPPORTUNITY_STANDARD_FIELD_IDS,
   person: PERSON_STANDARD_FIELD_IDS,
+  product: PRODUCT_STANDARD_FIELD_IDS,
+  productCategory: PRODUCT_CATEGORY_STANDARD_FIELD_IDS,
+  productOption: PRODUCT_OPTION_STANDARD_FIELD_IDS,
+  productOptionGroup: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS,
+  productType: PRODUCT_TYPE_STANDARD_FIELD_IDS,
+  productVariant: PRODUCT_VARIANT_STANDARD_FIELD_IDS,
+  productVariantOption: PRODUCT_VARIANT_OPTION_STANDARD_FIELD_IDS,
+  warehouse: WAREHOUSE_STANDARD_FIELD_IDS,
+  warehouseProduct: WAREHOUSE_PRODUCT_STANDARD_FIELD_IDS,
+  warehouseProductVariant: WAREHOUSE_PRODUCT_VARIANT_STANDARD_FIELD_IDS,
   task: TASK_STANDARD_FIELD_IDS,
   taskTarget: TASK_TARGET_STANDARD_FIELD_IDS,
   timelineActivity: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS,

@@ -22,6 +22,7 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 const YEAR_FIELD_NAME = 'year';
@@ -98,6 +99,18 @@ export class EmployeeAwardWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('employee')
   employeeId: string | null;
+
+  @WorkspaceRelation({
+    standardId: 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d',
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Timeline Activities`,
+    description: msg`Events linked to the employee award`,
+    icon: 'IconTimeline',
+    inverseSideTarget: () => TimelineActivityWorkspaceEntity,
+    inverseSideFieldKey: 'employeeAward',
+  })
+  @WorkspaceIsNullable()
+  timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
 
   @WorkspaceField({
     standardId: 'e07b9483-feb9-4c87-8862-17324bf4464c',

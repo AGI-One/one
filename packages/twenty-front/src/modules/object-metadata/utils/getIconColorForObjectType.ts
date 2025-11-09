@@ -26,6 +26,26 @@ export const getIconColorForObjectType = ({
       return theme.color.red;
     case 'employeeAward':
       return theme.color.yellow;
+    case 'product':
+      return theme.color.purple; // Main product - purple for premium feel
+    case 'productCategory':
+      return theme.color.blue; // Category - blue for organization
+    case 'productType':
+      return theme.color.turquoise; // Type - turquoise for classification
+    case 'productVariant':
+      return theme.color.orange; // Variant/SKU - orange for inventory
+    case 'productOption':
+      return theme.color.green; // Option - green for choices
+    case 'productOptionGroup':
+      return theme.color.green; // Option Group - green (same family)
+    case 'productVariantOption':
+      return theme.color.yellow; // Junction - yellow for connection
+    case 'warehouse':
+      return theme.color.purple; // Warehouse - purple for facilities
+    case 'warehouseProduct':
+      return theme.color.orange; // Warehouse Product - orange for stock
+    case 'warehouseProductVariant':
+      return theme.color.yellow; // Junction - yellow for connection
     default:
       return 'currentColor';
   }
