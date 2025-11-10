@@ -64,6 +64,11 @@ msgstr ""
 msgid "A Folder of favorites"
 msgstr ""
 
+#. js-lingui-id: Fn9mlG
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "A global option group (e.g. Color, Size, Material) that can be reused across products"
+msgstr ""
+
 #. js-lingui-id: sSGYmf
 #: src/modules/messaging/common/standard-objects/message-thread.workspace-entity.ts
 msgid "A group of related messages (e.g. email thread, chat thread)"
@@ -89,6 +94,26 @@ msgstr ""
 msgid "A person"
 msgstr ""
 
+#. js-lingui-id: 6TgWFc
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "A product"
+msgstr ""
+
+#. js-lingui-id: UHB5bg
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "A product category"
+msgstr ""
+
+#. js-lingui-id: WwcVFi
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "A product option (e.g. Red, Blue, Small, Large)"
+msgstr ""
+
+#. js-lingui-id: nIQUew
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "A product variant (combination of options)"
+msgstr ""
+
 #. js-lingui-id: Q2De+v
 #: src/engine/metadata-modules/role/role.service.ts
 msgid "A role with this label already exists."
@@ -102,6 +127,11 @@ msgstr ""
 #. js-lingui-id: hk2NzW
 #: src/modules/task/standard-objects/task-target.workspace-entity.ts
 msgid "A task target"
+msgstr ""
+
+#. js-lingui-id: uE9nAg
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "A warehouse for storing products"
 msgstr ""
 
 #. js-lingui-id: ZIN9Ga
@@ -178,6 +208,7 @@ msgid "Active objects cannot be deleted"
 msgstr ""
 
 #. js-lingui-id: Du6bPw
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 msgid "Address"
 msgstr ""
@@ -206,10 +237,25 @@ msgstr ""
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/workflows-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/workflow-versions-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/workflow-runs-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/warehouses-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/teams-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/products-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/product-variants-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/product-options-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/product-option-groups-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/product-option-group-links-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/product-categories-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/people-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/organization-positions-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/opportunities-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/notes-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/inventories-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/employment-types-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/employees-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/employee-levels-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/employee-awards-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/departments-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/dashboards-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/custom-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/companies-all.view.ts
@@ -224,6 +270,11 @@ msgstr ""
 #. js-lingui-id: MjyFvC
 #: src/modules/attachment/standard-objects/attachment.workspace-entity.ts
 msgid "An attachment"
+msgstr ""
+
+#. js-lingui-id: lwEra2
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "An employee of the organization"
 msgstr ""
 
 #. js-lingui-id: eW83iC
@@ -245,6 +296,21 @@ msgstr ""
 #. js-lingui-id: bZq8rL
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 msgid "An opportunity"
+msgstr ""
+
+#. js-lingui-id: V5s302
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "An organizational department"
+msgstr ""
+
+#. js-lingui-id: qANSmM
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "An organizational position or job role"
+msgstr ""
+
+#. js-lingui-id: fe5ZiV
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "An organizational team"
 msgstr ""
 
 #. js-lingui-id: JKWicb
@@ -467,6 +533,11 @@ msgstr ""
 msgid "Automatically create records for people you participated with in an event."
 msgstr ""
 
+#. js-lingui-id: Vw5vgC
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Available quantity"
+msgstr ""
+
 #. js-lingui-id: kfcRb0
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 msgid "Avatar"
@@ -475,6 +546,61 @@ msgstr ""
 #. js-lingui-id: S/mJUR
 #: src/modules/workspace-member/standard-objects/workspace-member.workspace-entity.ts
 msgid "Avatar Url"
+msgstr ""
+
+#. js-lingui-id: MjHZW/
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Avatar URL"
+msgstr ""
+
+#. js-lingui-id: qipDDG
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Average Bonus"
+msgstr ""
+
+#. js-lingui-id: Ep5yeq
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Average bonus of the employee"
+msgstr ""
+
+#. js-lingui-id: utXmaH
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Average Income"
+msgstr ""
+
+#. js-lingui-id: A6CdoQ
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Average income of the employee"
+msgstr ""
+
+#. js-lingui-id: vxjLI6
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Award name"
+msgstr ""
+
+#. js-lingui-id: oosprE
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Awards"
+msgstr ""
+
+#. js-lingui-id: o1fz97
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Awards and recognitions given to employees"
+msgstr ""
+
+#. js-lingui-id: ySx4R2
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Awards received by the employee"
+msgstr ""
+
+#. js-lingui-id: RBApr4
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Bill Rate Currency"
+msgstr ""
+
+#. js-lingui-id: Dsy9Rw
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Bill Rate Value"
 msgstr ""
 
 #. js-lingui-id: K1172m
@@ -498,6 +624,11 @@ msgstr ""
 #: src/modules/task/standard-objects/task.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
 msgid "Body"
+msgstr ""
+
+#. js-lingui-id: gqWJCF
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Brief description of the employee"
 msgstr ""
 
 #. js-lingui-id: 6+byWT
@@ -572,6 +703,16 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "Calendar events"
+msgstr ""
+
+#. js-lingui-id: /RIuO9
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Can Be Purchased"
+msgstr ""
+
+#. js-lingui-id: WRzSgw
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Can Be Sold"
 msgstr ""
 
 #. js-lingui-id: eSaCR/
@@ -654,6 +795,18 @@ msgstr ""
 #. js-lingui-id: NRF7pg
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 msgid "Close date"
+msgstr ""
+
+#. js-lingui-id: EWPtMO
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Code"
+msgstr ""
+
+#. js-lingui-id: jZlrte
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Color"
 msgstr ""
 
 #. js-lingui-id: 96YB1a
@@ -775,6 +928,11 @@ msgstr ""
 msgid "Contradicting field permissions have been detected on a relation field ({fieldName})."
 msgstr ""
 
+#. js-lingui-id: 52T6/w
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Cost per unit"
+msgstr ""
+
 #. js-lingui-id: LZf/L8
 #: src/engine/metadata-modules/flat-entity/utils/find-flat-entity-by-id-in-flat-entity-maps-or-throw.util.ts
 msgid "Could not find flat entity in maps"
@@ -792,10 +950,26 @@ msgstr ""
 
 #. js-lingui-id: NCIYDF
 #: src/modules/workflow/common/standard-objects/workflow.workspace-entity.ts
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
 #: src/modules/task/standard-objects/task.workspace-entity.ts
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+#: src/modules/position/standard-objects/position.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/dashboard/standard-objects/dashboard.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 #: src/modules/attachment/standard-objects/attachment.workspace-entity.ts
@@ -845,9 +1019,29 @@ msgstr ""
 msgid "Cron trigger with same id already exists"
 msgstr ""
 
+#. js-lingui-id: SF+a8L
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Currency for billing rate"
+msgstr ""
+
 #. js-lingui-id: Mikszu
 #: src/modules/connected-account/standard-objects/connected-account.workspace-entity.ts
 msgid "Custom Connection Parameters"
+msgstr ""
+
+#. js-lingui-id: fMdMOS
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Custom Display Name"
+msgstr ""
+
+#. js-lingui-id: lZB5ME
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Custom Value"
+msgstr ""
+
+#. js-lingui-id: 2CY+Yq
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Custom value for text/textarea/number/url type option groups (XOR with option)"
 msgstr ""
 
 #. js-lingui-id: 7p5kLi
@@ -901,6 +1095,16 @@ msgstr ""
 msgid "Date format"
 msgstr ""
 
+#. js-lingui-id: bKZTGY
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Date when employee ended work"
+msgstr ""
+
+#. js-lingui-id: xRBq0E
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Date when employee started working"
+msgstr ""
+
 #. js-lingui-id: 1lL5Iu
 #: src/engine/twenty-orm/base.workspace-entity.ts
 msgid "Date when the record was deleted"
@@ -939,10 +1143,41 @@ msgstr ""
 msgid "Deleted at"
 msgstr ""
 
+#. js-lingui-id: 5HYWB0
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Department"
+msgstr ""
+
+#. js-lingui-id: v7dglb
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Department name"
+msgstr ""
+
+#. js-lingui-id: VzNBs5
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Department record position"
+msgstr ""
+
+#. js-lingui-id: 3Ab+xi
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Departments"
+msgstr ""
+
 #. js-lingui-id: Nu4oKW
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "Description"
+msgstr ""
+
+#. js-lingui-id: ULNhnl
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Detailed description of the employee"
 msgstr ""
 
 #. js-lingui-id: MRB7nI
@@ -956,6 +1191,11 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-event-participant.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event-participant.workspace-entity.ts
 msgid "Display Name"
+msgstr ""
+
+#. js-lingui-id: rmcD2+
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Display order position"
 msgstr ""
 
 #. js-lingui-id: IymH4t
@@ -989,6 +1229,11 @@ msgstr ""
 msgid "Duplicated option {field}"
 msgstr ""
 
+#. js-lingui-id: O3oNi5
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Email"
+msgstr ""
+
 #. js-lingui-id: BBXuRb
 #: src/engine/core-modules/email-verification/email-verification-exception-filter.util.ts
 msgid "Email already verified."
@@ -1013,18 +1258,228 @@ msgstr ""
 
 #. js-lingui-id: BXEcos
 #: src/modules/person/standard-objects/person.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
 msgid "Emails"
 msgstr ""
 
+#. js-lingui-id: tKlWWY
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Emoji"
+msgstr ""
+
+#. js-lingui-id: Flmwkt
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee"
+msgstr ""
+
+#. js-lingui-id: qY8DR9
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Employee Award"
+msgstr ""
+
+#. js-lingui-id: m7OOVN
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Employee award record position"
+msgstr ""
+
+#. js-lingui-id: fsUKcf
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Employee Awards"
+msgstr ""
+
+#. js-lingui-id: t5rimx
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee Level"
+msgstr ""
+
+#. js-lingui-id: g1Ngod
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Employee level (e.g., Junior, Mid-level, Senior, Lead, Principal)"
+msgstr ""
+
+#. js-lingui-id: Ghd0kV
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Employee level record position"
+msgstr ""
+
+#. js-lingui-id: 14UW5F
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Employee Levels"
+msgstr ""
+
+#. js-lingui-id: HuhG3q
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee record position"
+msgstr ""
+
+#. js-lingui-id: afuKie
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Employee seniority or experience level (Junior, Mid, Senior, etc.)"
+msgstr ""
+
+#. js-lingui-id: D6+Rq3
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Employee who received the award"
+msgstr ""
+
+#. js-lingui-id: pb71nR
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's avatar image URL"
+msgstr ""
+
+#. js-lingui-id: xLLGwh
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's billing rate"
+msgstr ""
+
+#. js-lingui-id: 3DIJGc
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's department"
+msgstr ""
+
+#. js-lingui-id: +G/3d+
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's email addresses"
+msgstr ""
+
+#. js-lingui-id: IuVrzM
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's employment type"
+msgstr ""
+
+#. js-lingui-id: wsQfQE
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's Facebook profile"
+msgstr ""
+
+#. js-lingui-id: /iddLw
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's full name"
+msgstr ""
+
+#. js-lingui-id: qLkx+w
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's GitHub profile"
+msgstr ""
+
+#. js-lingui-id: HIKP5t
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's GitLab profile"
+msgstr ""
+
+#. js-lingui-id: LXnTGQ
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's job title"
+msgstr ""
+
+#. js-lingui-id: ZotTAq
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's level"
+msgstr ""
+
+#. js-lingui-id: Wj1bnC
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's LinkedIn profile"
+msgstr ""
+
+#. js-lingui-id: DyWX4e
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's pay period (weekly, biweekly, monthly)"
+msgstr ""
+
+#. js-lingui-id: i12FOy
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's phone numbers"
+msgstr ""
+
+#. js-lingui-id: zzdv+B
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's position"
+msgstr ""
+
+#. js-lingui-id: Ujtwa+
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's team"
+msgstr ""
+
+#. js-lingui-id: 52uGp6
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employee's Twitter/X profile"
+msgstr ""
+
 #. js-lingui-id: gqv5ZL
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 msgid "Employees"
+msgstr ""
+
+#. js-lingui-id: 1RpeJ3
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Employees at this level"
+msgstr ""
+
+#. js-lingui-id: wOPGVG
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Employees in this department"
+msgstr ""
+
+#. js-lingui-id: QvsqUP
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Employees with this employment type"
+msgstr ""
+
+#. js-lingui-id: v0u2LJ
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Employees with this position"
+msgstr ""
+
+#. js-lingui-id: Rtb+83
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Employment Type"
+msgstr ""
+
+#. js-lingui-id: 2iOk5A
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Employment type name (e.g., Full-time, Part-time, Contract, Freelance)"
+msgstr ""
+
+#. js-lingui-id: L4txSc
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Employment type record position"
+msgstr ""
+
+#. js-lingui-id: TEnV0r
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Employment Types"
+msgstr ""
+
+#. js-lingui-id: RxzN1M
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Enabled"
 msgstr ""
 
 #. js-lingui-id: VFv2ZC
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "End Date"
+msgstr ""
+
+#. js-lingui-id: j6L5e5
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "End Work"
 msgstr ""
 
 #. js-lingui-id: EzGlkq
@@ -1042,9 +1497,34 @@ msgstr ""
 msgid "Event dashboard"
 msgstr ""
 
+#. js-lingui-id: plFvHi
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event department"
+msgstr ""
+
 #. js-lingui-id: kJDmsI
 #: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
 msgid "Event details"
+msgstr ""
+
+#. js-lingui-id: Vojnlh
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event employee"
+msgstr ""
+
+#. js-lingui-id: /XdkoE
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event employee award"
+msgstr ""
+
+#. js-lingui-id: 7ioL6m
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event employee level"
+msgstr ""
+
+#. js-lingui-id: 6K9RZU
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event employment type"
 msgstr ""
 
 #. js-lingui-id: 0JhmlM
@@ -1059,6 +1539,11 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-channel-event-association.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-channel-event-association.workspace-entity.ts
 msgid "Event ID"
+msgstr ""
+
+#. js-lingui-id: 4c5XMj
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event inventory"
 msgstr ""
 
 #. js-lingui-id: PYs3rP
@@ -1088,9 +1573,49 @@ msgstr ""
 msgid "Event person"
 msgstr ""
 
+#. js-lingui-id: rPsm/O
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event position"
+msgstr ""
+
+#. js-lingui-id: Fxqlx6
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event product"
+msgstr ""
+
+#. js-lingui-id: ZHE+xg
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event product category"
+msgstr ""
+
+#. js-lingui-id: H9mFxX
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event product option"
+msgstr ""
+
+#. js-lingui-id: PLePzg
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event product option group"
+msgstr ""
+
+#. js-lingui-id: oMZ6hl
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event product variant"
+msgstr ""
+
 #. js-lingui-id: mMq0Wy
 #: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
 msgid "Event task"
+msgstr ""
+
+#. js-lingui-id: +ikoG7
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event team"
+msgstr ""
+
+#. js-lingui-id: 2IAQ25
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+msgid "Event warehouse"
 msgstr ""
 
 #. js-lingui-id: dCV1dS
@@ -1119,9 +1644,44 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#. js-lingui-id: l0gTLB
+#: src/modules/department/standard-objects/department.workspace-entity.ts
+msgid "Events linked to the department"
+msgstr ""
+
+#. js-lingui-id: YdgOGx
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Events linked to the employee"
+msgstr ""
+
+#. js-lingui-id: rG5o93
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Events linked to the employee award"
+msgstr ""
+
+#. js-lingui-id: EwF1qj
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Events linked to the employee level"
+msgstr ""
+
+#. js-lingui-id: x8AiyE
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Events linked to the employment type"
+msgstr ""
+
 #. js-lingui-id: fHL+iH
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 msgid "Events linked to the person"
+msgstr ""
+
+#. js-lingui-id: /PdaYr
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Events linked to the position"
+msgstr ""
+
+#. js-lingui-id: rNoJQM
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Events linked to the team"
 msgstr ""
 
 #. js-lingui-id: 3/O8MM
@@ -1146,6 +1706,11 @@ msgstr ""
 msgid "Executed by"
 msgstr ""
 
+#. js-lingui-id: u8Dbzj
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Expected team size"
+msgstr ""
+
 #. js-lingui-id: AiFXmG
 #: src/engine/twenty-orm/utils/compute-relation-connect-query-configs.util.ts
 msgid "Expected the same constraint fields to be used consistently across all operations for {connectFieldName}."
@@ -1155,6 +1720,11 @@ msgstr ""
 #: src/modules/messaging/common/standard-objects/message-folder.workspace-entity.ts
 #: src/modules/messaging/common/standard-objects/message-folder.workspace-entity.ts
 msgid "External ID"
+msgstr ""
+
+#. js-lingui-id: DwuoH0
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Facebook"
 msgstr ""
 
 #. js-lingui-id: pUligB
@@ -1487,9 +2057,24 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
+#. js-lingui-id: /4TFrF
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Full Name"
+msgstr ""
+
 #. js-lingui-id: oQA+cA
 #: src/modules/attachment/standard-objects/attachment.workspace-entity.ts
 msgid "Full path"
+msgstr ""
+
+#. js-lingui-id: RkXlPZ
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "GitHub"
+msgstr ""
+
+#. js-lingui-id: vZbIkJ
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "GitLab"
 msgstr ""
 
 #. js-lingui-id: TkE8dW
@@ -1550,6 +2135,13 @@ msgstr ""
 msgid "If defined default value must contain at least one value"
 msgstr ""
 
+#. js-lingui-id: hG89Ed
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Image"
+msgstr ""
+
 #. js-lingui-id: Kfy/ML
 #: src/engine/workspace-manager/workspace-migration-v2/workspace-migration-builder-v2/validators/services/flat-index-metadata-validator.service.ts
 msgid "Index already exists"
@@ -1600,6 +2192,16 @@ msgstr ""
 #. js-lingui-id: 71VJzG
 #: src/engine/metadata-modules/utils/validate-metadata-name-is-not-too-short.utils.ts
 msgid "Input is too short: \"{name}\""
+msgstr ""
+
+#. js-lingui-id: DDNlpF
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Input Type"
+msgstr ""
+
+#. js-lingui-id: Mhybqr
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Internal notes"
 msgstr ""
 
 #. js-lingui-id: X7+bC6
@@ -1690,6 +2292,34 @@ msgstr ""
 msgid "Invalid verification code. Please try again."
 msgstr ""
 
+#. js-lingui-id: rwWNpy
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Inventories"
+msgstr ""
+
+#. js-lingui-id: ZrsGjm
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Inventory"
+msgstr ""
+
+#. js-lingui-id: crX8UM
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Inventory record name (e.g., \"Warehouse A - Product X\")"
+msgstr ""
+
+#. js-lingui-id: v9t4bU
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Inventory record position"
+msgstr ""
+
+#. js-lingui-id: bhnh17
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Is Active"
+msgstr ""
+
 #. js-lingui-id: grHYXZ
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
@@ -1708,6 +2338,11 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "Is Full Day"
+msgstr ""
+
+#. js-lingui-id: AS6r3i
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Is Global"
 msgstr ""
 
 #. js-lingui-id: 3iAfL2
@@ -1736,6 +2371,11 @@ msgstr ""
 msgid "Is Synced"
 msgstr ""
 
+#. js-lingui-id: JJDFey
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Is warehouse enabled"
+msgstr ""
+
 #. js-lingui-id: rjyWPb
 #: src/engine/api/graphql/graphql-query-runner/group-by/resolvers/utils/format-result-with-group-by-dimension-values.util.ts
 msgid "January"
@@ -1743,6 +2383,7 @@ msgstr ""
 
 #. js-lingui-id: 27z+FV
 #: src/modules/person/standard-objects/person.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
 msgid "Job Title"
 msgstr ""
 
@@ -1764,6 +2405,11 @@ msgstr ""
 #. js-lingui-id: fOjmZ1
 #: src/modules/workflow/common/standard-objects/workflow-version.workspace-entity.ts
 msgid "Json object to provide trigger"
+msgstr ""
+
+#. js-lingui-id: 2wCsDB
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "JSON validation rules for this option group"
 msgstr ""
 
 #. js-lingui-id: TVc0/Q
@@ -1869,6 +2515,11 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
+#. js-lingui-id: oCHfGC
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+msgid "Level"
+msgstr ""
+
 #. js-lingui-id: wR9USP
 #: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
 #: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
@@ -1892,6 +2543,16 @@ msgstr ""
 msgid "Linkedin"
 msgstr ""
 
+#. js-lingui-id: gggTBm
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "LinkedIn"
+msgstr ""
+
+#. js-lingui-id: aZGZSh
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Links products to their option groups"
+msgstr ""
+
 #. js-lingui-id: LeFv/R
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 msgid "List of opportunities for which that person is the point of contact"
@@ -1901,6 +2562,12 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "Location"
+msgstr ""
+
+#. js-lingui-id: iG7KNr
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Logo"
 msgstr ""
 
 #. js-lingui-id: hg6l4j
@@ -1922,6 +2589,11 @@ msgstr ""
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event.workspace-entity.ts
 msgid "Meet Link"
+msgstr ""
+
+#. js-lingui-id: wlQNTg
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Members"
 msgstr ""
 
 #. js-lingui-id: xDAtGP
@@ -2127,10 +2799,21 @@ msgstr ""
 #: src/modules/workflow/common/standard-objects/workflow.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-version.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-run.workspace-entity.ts
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+#: src/modules/position/standard-objects/position.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/messaging/common/standard-objects/message-folder.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
 #: src/modules/favorite-folder/standard-objects/favorite-folder.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 #: src/modules/attachment/standard-objects/attachment.workspace-entity.ts
 #: src/engine/twenty-orm/custom.workspace-entity.ts
@@ -2294,6 +2977,7 @@ msgid "Note title"
 msgstr ""
 
 #. js-lingui-id: 1DBGsz
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
@@ -2489,6 +3173,28 @@ msgstr ""
 msgid "Opportunity stage"
 msgstr ""
 
+#. js-lingui-id: ZRNHzg
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Option"
+msgstr ""
+
+#. js-lingui-id: oksXDy
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Option Group"
+msgstr ""
+
+#. js-lingui-id: IOJEec
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Option Group Links"
+msgstr ""
+
+#. js-lingui-id: MwfRFM
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Option groups linked to this product"
+msgstr ""
+
 #. js-lingui-id: 2mFkfl
 #: src/engine/metadata-modules/flat-field-metadata/validators/utils/validate-enum-flat-field-metadata.util.ts
 #: src/engine/metadata-modules/field-metadata/services/field-metadata-enum-validation.service.ts
@@ -2559,9 +3265,44 @@ msgstr ""
 msgid "Option value must be a string of at least one character"
 msgstr ""
 
+#. js-lingui-id: S4YqEA
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Option Values"
+msgstr ""
+
+#. js-lingui-id: VnKGxd
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Option values assigned to product variants"
+msgstr ""
+
+#. js-lingui-id: pRFy/H
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Option values that define this variant"
+msgstr ""
+
+#. js-lingui-id: 0zpgxV
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Options"
+msgstr ""
+
 #. js-lingui-id: EabrTR
 #: src/engine/metadata-modules/flat-field-metadata/validators/utils/validate-enum-flat-field-metadata.util.ts
 msgid "Options are required for enum fields"
+msgstr ""
+
+#. js-lingui-id: HM8ba5
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Organization Position"
+msgstr ""
+
+#. js-lingui-id: m3hBCW
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Organization Positions"
+msgstr ""
+
+#. js-lingui-id: 93C/o4
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Override the default display name"
 msgstr ""
 
 #. js-lingui-id: AODALE
@@ -2578,6 +3319,11 @@ msgstr ""
 #. js-lingui-id: wT0H4O
 #: src/engine/core-modules/auth/services/sign-in-up.service.ts
 msgid "Password too weak"
+msgstr ""
+
+#. js-lingui-id: TsjkDp
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Pay Period"
 msgstr ""
 
 #. js-lingui-id: l6qKfi
@@ -2631,12 +3377,14 @@ msgid "Person record Position"
 msgstr ""
 
 #. js-lingui-id: zmwvG2
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 msgid "Phone"
 msgstr ""
 
 #. js-lingui-id: m2ivgq
 #: src/modules/person/standard-objects/person.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
 msgid "Phones"
 msgstr ""
 
@@ -2671,17 +3419,53 @@ msgstr ""
 #: src/modules/workflow/common/standard-objects/workflow.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-version.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-run.workspace-entity.ts
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
 #: src/modules/task/standard-objects/task.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
 #: src/modules/favorite-folder/standard-objects/favorite-folder.workspace-entity.ts
 #: src/modules/favorite/standard-objects/favorite.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/dashboard/standard-objects/dashboard.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 #: src/engine/twenty-orm/custom.workspace-entity.ts
 #: src/engine/twenty-orm/custom.workspace-entity.ts
 msgid "Position"
+msgstr ""
+
+#. js-lingui-id: Xn29mY
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Position name"
+msgstr ""
+
+#. js-lingui-id: 8RcG99
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Position Order"
+msgstr ""
+
+#. js-lingui-id: 1uJp+s
+#: src/modules/position/standard-objects/position.workspace-entity.ts
+msgid "Position record order"
+msgstr ""
+
+#. js-lingui-id: 8x1s80
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Predefined options in this group (only for select type)"
 msgstr ""
 
 #. js-lingui-id: TTHIbk
@@ -2694,9 +3478,149 @@ msgstr ""
 msgid "Preferred language"
 msgstr ""
 
+#. js-lingui-id: rNqTKZ
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Prefix"
+msgstr ""
+
 #. js-lingui-id: WJIL29
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 msgid "Probability"
+msgstr ""
+
+#. js-lingui-id: K47k8R
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Product"
+msgstr ""
+
+#. js-lingui-id: MMdzJK
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "Product Categories"
+msgstr ""
+
+#. js-lingui-id: 1JwlHk
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Product Category"
+msgstr ""
+
+#. js-lingui-id: tpLqyP
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "Product category record position"
+msgstr ""
+
+#. js-lingui-id: zwmLzW
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Product Links"
+msgstr ""
+
+#. js-lingui-id: kDxvPu
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Product Option"
+msgstr ""
+
+#. js-lingui-id: x2gwQz
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Product Option Group"
+msgstr ""
+
+#. js-lingui-id: uTjynZ
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Product Option Group Link"
+msgstr ""
+
+#. js-lingui-id: SyVFKc
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Product Option Group Links"
+msgstr ""
+
+#. js-lingui-id: rt/oMD
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Product option group record position"
+msgstr ""
+
+#. js-lingui-id: X8s+Xr
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Product Option Groups"
+msgstr ""
+
+#. js-lingui-id: xWnwGA
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Product option record position"
+msgstr ""
+
+#. js-lingui-id: HiuEp7
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Product Options"
+msgstr ""
+
+#. js-lingui-id: jGuXaa
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Product record position"
+msgstr ""
+
+#. js-lingui-id: UYl7n/
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Product Variant"
+msgstr ""
+
+#. js-lingui-id: qA4WBe
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Product variant inventories in this warehouse"
+msgstr ""
+
+#. js-lingui-id: 39eqo3
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Product Variant Option Value"
+msgstr ""
+
+#. js-lingui-id: oM/jsF
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Product Variant Option Values"
+msgstr ""
+
+#. js-lingui-id: bnibcI
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Product variant record position"
+msgstr ""
+
+#. js-lingui-id: 2rtm5r
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Product variants"
+msgstr ""
+
+#. js-lingui-id: K+W1Cn
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Product Variants"
+msgstr ""
+
+#. js-lingui-id: N0qXpE
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Products"
+msgstr ""
+
+#. js-lingui-id: LHsUca
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "Products in this category"
+msgstr ""
+
+#. js-lingui-id: PE50TJ
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Products using this option group"
+msgstr ""
+
+#. js-lingui-id: n8vBmd
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Profile Link"
 msgstr ""
 
 #. js-lingui-id: dtGxRz
@@ -2724,6 +3648,11 @@ msgstr ""
 msgid "provider"
 msgstr ""
 
+#. js-lingui-id: 7d1a0d
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Public"
+msgstr ""
+
 #. js-lingui-id: OL88cI
 #: src/engine/core-modules/public-domain/public-domain.service.ts
 msgid "Public domain already registered"
@@ -2732,6 +3661,17 @@ msgstr ""
 #. js-lingui-id: Capzni
 #: src/engine/core-modules/dns-manager/services/dns-manager.service.ts
 msgid "Public domain URL is not defined. Please set the PUBLIC_DOMAIN_URL environment variable"
+msgstr ""
+
+#. js-lingui-id: VbWX2u
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Quantity"
+msgstr ""
+
+#. js-lingui-id: IgHSUa
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Quantity reserved for pending orders"
 msgstr ""
 
 #. js-lingui-id: YfbwOB
@@ -2759,6 +3699,11 @@ msgstr ""
 #. js-lingui-id: 2rvMKg
 #: src/modules/connected-account/standard-objects/connected-account.workspace-entity.ts
 msgid "Refresh Token"
+msgstr ""
+
+#. js-lingui-id: 0ee218
+#: src/engine/core-modules/auth/auth.resolver.ts
+msgid "Registration is closed. This instance is already configured for a customer."
 msgstr ""
 
 #. js-lingui-id: 2LpFdR
@@ -2801,10 +3746,30 @@ msgstr ""
 msgid "Request has expired, please try again."
 msgstr ""
 
+#. js-lingui-id: ZgZ+c1
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Require Plan To Track"
+msgstr ""
+
+#. js-lingui-id: TMLAx2
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Required"
+msgstr ""
+
+#. js-lingui-id: i3wdDL
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Reserved Quantity"
+msgstr ""
+
 #. js-lingui-id: rnCndp
 #: src/modules/calendar/common/standard-objects/calendar-event-participant.workspace-entity.ts
 #: src/modules/calendar/common/standard-objects/calendar-event-participant.workspace-entity.ts
 msgid "Response Status"
+msgstr ""
+
+#. js-lingui-id: 1zpwES
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Retail Price"
 msgstr ""
 
 #. js-lingui-id: GDvlUT
@@ -2863,6 +3828,11 @@ msgstr ""
 msgid "Search vector"
 msgstr ""
 
+#. js-lingui-id: mlWTOA
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Selling price"
+msgstr ""
+
 #. js-lingui-id: hgvbYY
 #: src/engine/api/graphql/graphql-query-runner/group-by/resolvers/utils/format-result-with-group-by-dimension-values.util.ts
 msgid "September"
@@ -2908,6 +3878,21 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#. js-lingui-id: Q8agOx
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Share Profile View"
+msgstr ""
+
+#. js-lingui-id: JdfObV
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Short Description"
+msgstr ""
+
+#. js-lingui-id: y90mqQ
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "SKU"
+msgstr ""
+
 #. js-lingui-id: RyE+Of
 #: src/engine/metadata-modules/role/role.service.ts
 msgid "Some of the information provided is invalid. Please check your input and try again."
@@ -2945,6 +3930,11 @@ msgstr ""
 msgid "Start of the week"
 msgstr ""
 
+#. js-lingui-id: L1fGlr
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Started Work On"
+msgstr ""
+
 #. js-lingui-id: RS0o7b
 #: src/modules/workflow/common/standard-objects/workflow-run.workspace-entity.ts
 msgid "State"
@@ -2973,6 +3963,16 @@ msgstr ""
 #. js-lingui-id: u+rv4L
 #: src/modules/workflow/workflow-runner/workspace-services/workflow-runner.workspace-service.ts
 msgid "Step is not a form"
+msgstr ""
+
+#. js-lingui-id: XyVaJP
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Stock Keeping Unit / Internal Reference"
+msgstr ""
+
+#. js-lingui-id: aZBa6j
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Stores option values for product variants (either from predefined options or custom values)"
 msgstr ""
 
 #. js-lingui-id: YFMPch
@@ -3155,6 +4155,73 @@ msgstr ""
 msgid "TaskTarget task"
 msgstr ""
 
+#. js-lingui-id: 8NNkIb
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Tax percentage"
+msgstr ""
+
+#. js-lingui-id: ZowkxF
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Taxes"
+msgstr ""
+
+#. js-lingui-id: KM6m8p
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Team"
+msgstr ""
+
+#. js-lingui-id: PPJAKn
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team color for visual identification"
+msgstr ""
+
+#. js-lingui-id: XSXIab
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team emoji icon"
+msgstr ""
+
+#. js-lingui-id: ralbWY
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team logo URL"
+msgstr ""
+
+#. js-lingui-id: T0u3ig
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team members"
+msgstr ""
+
+#. js-lingui-id: kb9JYk
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team name"
+msgstr ""
+
+#. js-lingui-id: iRoEkJ
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team prefix for identifiers"
+msgstr ""
+
+#. js-lingui-id: Q+lDFk
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team profile link"
+msgstr ""
+
+#. js-lingui-id: e4obs9
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team record position"
+msgstr ""
+
+#. js-lingui-id: m1A5W5
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Team Size"
+msgstr ""
+
+#. js-lingui-id: CAL6E9
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Teams"
+msgstr ""
+
 #. js-lingui-id: xeiujy
 #: src/modules/messaging/common/standard-objects/message.workspace-entity.ts
 #: src/modules/messaging/common/standard-objects/message.workspace-entity.ts
@@ -3198,10 +4265,26 @@ msgstr ""
 
 #. js-lingui-id: zGBDEH
 #: src/modules/workflow/common/standard-objects/workflow.workspace-entity.ts
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
 #: src/modules/task/standard-objects/task.workspace-entity.ts
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+#: src/modules/position/standard-objects/position.workspace-entity.ts
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/dashboard/standard-objects/dashboard.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 #: src/modules/attachment/standard-objects/attachment.workspace-entity.ts
@@ -3270,6 +4353,88 @@ msgstr ""
 msgid "The opportunity name"
 msgstr ""
 
+#. js-lingui-id: xNF/IO
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "The option code"
+msgstr ""
+
+#. js-lingui-id: a2P+qw
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "The option group"
+msgstr ""
+
+#. js-lingui-id: rbuv7V
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "The option group name (e.g. Color, Size, Material)"
+msgstr ""
+
+#. js-lingui-id: C0uk5s
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "The option group this option belongs to"
+msgstr ""
+
+#. js-lingui-id: LxvgQS
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "The option name (e.g. Red, Small, Cotton)"
+msgstr ""
+
+#. js-lingui-id: I+FyAV
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "The product"
+msgstr ""
+
+#. js-lingui-id: cg2V4o
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "The product category"
+msgstr ""
+
+#. js-lingui-id: Syvwwt
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "The product category description"
+msgstr ""
+
+#. js-lingui-id: TX7rBr
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "The product category image URL"
+msgstr ""
+
+#. js-lingui-id: 42zcd3
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "The product category name"
+msgstr ""
+
+#. js-lingui-id: lRHBFj
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "The product code (SKU)"
+msgstr ""
+
+#. js-lingui-id: 4mXuwo
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "The product description"
+msgstr ""
+
+#. js-lingui-id: JCZqYw
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "The product image URL"
+msgstr ""
+
+#. js-lingui-id: t13hY8
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "The product name"
+msgstr ""
+
+#. js-lingui-id: +wPg+n
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "The product this variant belongs to"
+msgstr ""
+
+#. js-lingui-id: XsW1z7
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "The product variant"
+msgstr ""
+
 #. js-lingui-id: Zi9X+u
 #: src/engine/metadata-modules/role/role.service.ts
 msgid "The role you are looking for could not be found. It may have been deleted or you may not have access to it."
@@ -3288,6 +4453,11 @@ msgstr ""
 msgid "The role you are trying to modify could not be found. It may have been deleted or you may not have access to it."
 msgstr ""
 
+#. js-lingui-id: nZiuBu
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "The selected option (only for select type option groups)"
+msgstr ""
+
 #. js-lingui-id: H1tAJD
 #: src/engine/metadata-modules/flat-object-metadata/validators/utils/validate-flat-object-metadata-label.util.ts
 msgid "The singular and plural labels cannot be the same for an object"
@@ -3296,6 +4466,11 @@ msgstr ""
 #. js-lingui-id: FOEWHl
 #: src/engine/metadata-modules/flat-object-metadata/validators/utils/validate-flat-object-metadata-name.util.ts
 msgid "The singular and plural names cannot be the same for an object"
+msgstr ""
+
+#. js-lingui-id: MTByBd
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "The warehouse location"
 msgstr ""
 
 #. js-lingui-id: 5N6QtE
@@ -3420,6 +4595,11 @@ msgstr ""
 msgid "Time format"
 msgstr ""
 
+#. js-lingui-id: 3vIF27
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Time Tracking Enabled"
+msgstr ""
+
 #. js-lingui-id: Mz2JN2
 #: src/modules/workspace-member/standard-objects/workspace-member.workspace-entity.ts
 msgid "Time zone"
@@ -3429,10 +4609,24 @@ msgstr ""
 #: src/modules/workflow/common/standard-objects/workflow.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-version.workspace-entity.ts
 #: src/modules/workflow/common/standard-objects/workflow-run.workspace-entity.ts
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
 #: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/team/standard-objects/team.workspace-entity.ts
 #: src/modules/task/standard-objects/task.workspace-entity.ts
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+#: src/modules/position/standard-objects/position.workspace-entity.ts
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 #: src/modules/note/standard-objects/note.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+#: src/modules/employee-level/standard-objects/employee-level.workspace-entity.ts
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+#: src/modules/department/standard-objects/department.workspace-entity.ts
 #: src/modules/dashboard/standard-objects/dashboard.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 #: src/engine/twenty-orm/custom.workspace-entity.ts
@@ -3449,6 +4643,11 @@ msgstr ""
 msgid "Timeline activities linked to the dashboard"
 msgstr ""
 
+#. js-lingui-id: fwGMmq
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Timeline Activities linked to the inventory"
+msgstr ""
+
 #. js-lingui-id: 4/UzU5
 #: src/modules/note/standard-objects/note.workspace-entity.ts
 msgid "Timeline Activities linked to the note."
@@ -3457,6 +4656,31 @@ msgstr ""
 #. js-lingui-id: p6feIz
 #: src/modules/opportunity/standard-objects/opportunity.workspace-entity.ts
 msgid "Timeline Activities linked to the opportunity."
+msgstr ""
+
+#. js-lingui-id: Te68IU
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Timeline activities linked to the product"
+msgstr ""
+
+#. js-lingui-id: IPj1n7
+#: src/modules/product-category/standard-objects/product-category.workspace-entity.ts
+msgid "Timeline activities linked to the product category"
+msgstr ""
+
+#. js-lingui-id: 7A8dEp
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Timeline activities linked to the product option"
+msgstr ""
+
+#. js-lingui-id: GHJwOK
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Timeline activities linked to the product option group"
+msgstr ""
+
+#. js-lingui-id: D85EoC
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Timeline activities linked to the product variant"
 msgstr ""
 
 #. js-lingui-id: yvPwuF
@@ -3472,6 +4696,11 @@ msgstr ""
 #. js-lingui-id: N9HMa/
 #: src/modules/workflow/common/standard-objects/workflow-version.workspace-entity.ts
 msgid "Timeline activities linked to the version"
+msgstr ""
+
+#. js-lingui-id: o98lRA
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Timeline activities linked to the warehouse"
 msgstr ""
 
 #. js-lingui-id: B1CYKX
@@ -3498,9 +4727,39 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#. js-lingui-id: 87uR+n
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Total available quantity"
+msgstr ""
+
+#. js-lingui-id: PhTKoR
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Total hours worked"
+msgstr ""
+
+#. js-lingui-id: ms5Pl7
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Total Work Hours"
+msgstr ""
+
+#. js-lingui-id: CCPIeg
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Track Inventory"
+msgstr ""
+
+#. js-lingui-id: uYW52Z
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Tracks product variant inventory levels across warehouses"
+msgstr ""
+
 #. js-lingui-id: G3myU+
 #: src/engine/api/graphql/graphql-query-runner/group-by/resolvers/utils/format-result-with-group-by-dimension-values.util.ts
 msgid "Tuesday"
+msgstr ""
+
+#. js-lingui-id: cQBPCw
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Twitter/X"
 msgstr ""
 
 #. js-lingui-id: +zy2Nq
@@ -3513,6 +4772,16 @@ msgstr ""
 msgid "Type (deprecated)"
 msgstr ""
 
+#. js-lingui-id: qUmgYR
+#: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
+msgid "Type of employment (full-time, part-time, contract, etc.)"
+msgstr ""
+
+#. js-lingui-id: 8Rs73w
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Type of input (select, text, textarea, number, url)"
+msgstr ""
+
 #. js-lingui-id: RBJNRI
 #: src/engine/metadata-modules/field-metadata/services/field-metadata.service.ts
 #: src/engine/metadata-modules/field-metadata/services/field-metadata.service.ts
@@ -3523,6 +4792,11 @@ msgstr ""
 #: src/engine/workspace-manager/workspace-migration-v2/workspace-migration-builder-v2/validators/services/flat-index-metadata-validator.service.ts
 #: src/engine/workspace-manager/workspace-migration-v2/workspace-migration-builder-v2/validators/services/flat-index-metadata-validator.service.ts
 msgid "Unique index cannot be created for field {fieldName} of type {fieldType}"
+msgstr ""
+
+#. js-lingui-id: kMuJ8N
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Unit Cost"
 msgstr ""
 
 #. js-lingui-id: EBZdX5
@@ -3551,6 +4825,11 @@ msgstr ""
 msgid "User already exists"
 msgstr ""
 
+#. js-lingui-id: QzXLSi
+#: src/engine/core-modules/auth/services/sign-in-up.service.ts
+msgid "User already exists in system"
+msgstr ""
+
 #. js-lingui-id: l9dlVi
 #: src/engine/core-modules/auth/strategies/jwt.auth.strategy.ts
 #: src/engine/core-modules/auth/services/auth.service.ts
@@ -3570,6 +4849,11 @@ msgstr ""
 #. js-lingui-id: d1BTW8
 #: src/modules/workspace-member/standard-objects/workspace-member.workspace-entity.ts
 msgid "User Id"
+msgstr ""
+
+#. js-lingui-id: ENXYg8
+#: src/engine/core-modules/auth/services/sign-in-up.service.ts
+msgid "User is already in this workspace"
 msgstr ""
 
 #. js-lingui-id: pMOjQa
@@ -3623,10 +4907,41 @@ msgstr ""
 msgid "Validation failed for 0 object(s) and 0 field(s)"
 msgstr ""
 
+#. js-lingui-id: 0u1kP/
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Validation Rules"
+msgstr ""
+
 #. js-lingui-id: UBPzFQ
 #: src/engine/metadata-modules/flat-field-metadata/validators/utils/validate-enum-flat-field-metadata.util.ts
 #: src/engine/metadata-modules/field-metadata/services/field-metadata-enum-validation.service.ts
 msgid "Value must be in UPPER_CASE and follow snake_case \"{sanitizedValue}\""
+msgstr ""
+
+#. js-lingui-id: R2wTTQ
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Values assigned to product variants using this option"
+msgstr ""
+
+#. js-lingui-id: ZWZjuT
+#: src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity.ts
+msgid "Variant"
+msgstr ""
+
+#. js-lingui-id: yaqWeb
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Variant image URL"
+msgstr ""
+
+#. js-lingui-id: 0lv53i
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+#: src/modules/product-option/standard-objects/product-option.workspace-entity.ts
+msgid "Variant Option Values"
+msgstr ""
+
+#. js-lingui-id: SDRhYQ
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Variants"
 msgstr ""
 
 #. js-lingui-id: 7aatUy
@@ -3873,6 +5188,63 @@ msgstr ""
 msgid "Visibility"
 msgstr ""
 
+#. js-lingui-id: CLAwPL
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+#: src/modules/timeline/standard-objects/timeline-activity.workspace-entity.ts
+#: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
+msgid "Warehouse"
+msgstr ""
+
+#. js-lingui-id: Z7YkBY
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse address"
+msgstr ""
+
+#. js-lingui-id: iV8fsl
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse code"
+msgstr ""
+
+#. js-lingui-id: JZNvOY
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse contact email"
+msgstr ""
+
+#. js-lingui-id: pmAKCS
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse contact phone"
+msgstr ""
+
+#. js-lingui-id: oon3DS
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse description"
+msgstr ""
+
+#. js-lingui-id: qC9GZ7
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Warehouse inventory records for this variant"
+msgstr ""
+
+#. js-lingui-id: YC/sIb
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse logo URL"
+msgstr ""
+
+#. js-lingui-id: UWIo1/
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse name"
+msgstr ""
+
+#. js-lingui-id: mz0Q6s
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouse record position"
+msgstr ""
+
+#. js-lingui-id: E88U+3
+#: src/modules/warehouse/standard-objects/warehouse.workspace-entity.ts
+msgid "Warehouses"
+msgstr ""
+
 #. js-lingui-id: xvV2NJ
 #: src/engine/twenty-orm/error-handling/compute-twenty-orm-exception.ts
 msgid "We are experiencing a temporary issue with our database. Please try again later."
@@ -3911,6 +5283,66 @@ msgstr ""
 #. js-lingui-id: TVkCrJ
 #: src/engine/core-modules/email-verification/services/email-verification.service.ts
 msgid "Welcome to Twenty: Please Confirm Your Email"
+msgstr ""
+
+#. js-lingui-id: fEFklM
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Whether team members can view each other's profiles"
+msgstr ""
+
+#. js-lingui-id: 60bqRt
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Whether team requires a daily plan for time tracking"
+msgstr ""
+
+#. js-lingui-id: Gh4tvO
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Whether the employee is currently active"
+msgstr ""
+
+#. js-lingui-id: pZMF18
+#: src/modules/product/standard-objects/product.workspace-entity.ts
+msgid "Whether the product is enabled"
+msgstr ""
+
+#. js-lingui-id: 1s5POF
+#: src/modules/team/standard-objects/team.workspace-entity.ts
+msgid "Whether the team is public or private"
+msgstr ""
+
+#. js-lingui-id: j1mR+M
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Whether the variant is enabled"
+msgstr ""
+
+#. js-lingui-id: qovIiK
+#: src/modules/product-option-group/standard-objects/product-option-group.workspace-entity.ts
+msgid "Whether this option group is globally reusable across products"
+msgstr ""
+
+#. js-lingui-id: jYUh/6
+#: src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity.ts
+msgid "Whether this option group is required"
+msgstr ""
+
+#. js-lingui-id: 1rMvzu
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Whether this variant can be purchased"
+msgstr ""
+
+#. js-lingui-id: mkkN7x
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Whether this variant can be sold"
+msgstr ""
+
+#. js-lingui-id: Jufh/b
+#: src/modules/employee/standard-objects/employee.workspace-entity.ts
+msgid "Whether time tracking is enabled for this employee"
+msgstr ""
+
+#. js-lingui-id: A8FNtS
+#: src/modules/product-variant/standard-objects/product-variant.workspace-entity.ts
+msgid "Whether to track inventory for this variant"
 msgstr ""
 
 #. js-lingui-id: bLt/0J
@@ -4163,6 +5595,16 @@ msgstr ""
 #: src/modules/person/standard-objects/person.workspace-entity.ts
 #: src/modules/company/standard-objects/company.workspace-entity.ts
 msgid "X"
+msgstr ""
+
+#. js-lingui-id: 3PAU4M
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Year"
+msgstr ""
+
+#. js-lingui-id: T8qxlW
+#: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
+msgid "Year the award was received"
 msgstr ""
 
 #. js-lingui-id: 1SQnFB
