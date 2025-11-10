@@ -861,7 +861,7 @@ export class AuthResolver {
   @Mutation(() => AdminCreateUserOutput)
   @UseGuards(
     WorkspaceAuthGuard,
-    SettingsPermissionsGuard(PermissionFlagType.WORKSPACE_MEMBERS),
+    SettingsPermissionGuard(PermissionFlagType.WORKSPACE_MEMBERS),
   )
   async adminCreateUser(
     @Args('adminCreateUserInput') adminCreateUserInput: AdminCreateUserInput,

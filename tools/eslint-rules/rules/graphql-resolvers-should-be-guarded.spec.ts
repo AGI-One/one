@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-        @UseGuards(WorkspaceAuthGuard, SettingsPermissionsGuard(PermissionFlagType.WORKSPACE))
+        @UseGuards(WorkspaceAuthGuard, SettingsPermissionGuard(PermissionFlagType.WORKSPACE))
         class TestResolver {
           @Mutation(() => String)
           async createSomething() {}
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: `
         class TestResolver {
           @Mutation(() => String)
-          @UseGuards(WorkspaceAuthGuard, SettingsPermissionsGuard(PermissionFlagType.WORKSPACE))
+          @UseGuards(WorkspaceAuthGuard, SettingsPermissionGuard(PermissionFlagType.WORKSPACE))
           async createSomething() {}
         }
       `,
