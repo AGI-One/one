@@ -622,6 +622,12 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
+#. js-lingui-id: BvRPma
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Add New User"
+msgstr ""
+
 #. js-lingui-id: erHjaG
 #: src/modules/workflow/workflow-diagram/components/WorkflowDiagramRightClickCommandMenu.tsx
 msgid "Add node"
@@ -708,6 +714,11 @@ msgstr ""
 #: src/modules/action-menu/actions/record-actions/constants/DashboardActionsConfig.tsx
 #: src/modules/action-menu/actions/record-actions/constants/DashboardActionsConfig.tsx
 msgid "Add to favorites"
+msgstr ""
+
+#. js-lingui-id: Ls08BH
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+msgid "Add User"
 msgstr ""
 
 #. js-lingui-id: q9e2Bs
@@ -1682,6 +1693,7 @@ msgstr ""
 #. js-lingui-id: dEgA5A
 #: src/pages/settings/ai/components/SettingsAgentHandoffForm.tsx
 #: src/pages/auth/Authorize.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/ui/layout/modal/components/ConfirmationModal.tsx
 #: src/modules/ui/feedback/snack-bar-manager/components/SnackBar.tsx
 #: src/modules/spreadsheet-import/steps/components/ImportDataStep.tsx
@@ -2384,6 +2396,16 @@ msgstr ""
 msgid "Create a new AI agent"
 msgstr ""
 
+#. js-lingui-id: zghyyd
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+msgid "Create a new user account for this workspace"
+msgstr ""
+
+#. js-lingui-id: BF9A/F
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Create a new user account with email and password. The user will be able to log in immediately after creation."
+msgstr ""
+
 #. js-lingui-id: zNoOC2
 #: src/modules/object-record/record-table/empty-state/utils/getEmptyStateSubTitle.ts
 msgid "Create a workflow and return here to view its versions"
@@ -2458,6 +2480,11 @@ msgstr ""
 #. js-lingui-id: jmetDx
 #: src/modules/object-record/object-options-dropdown/components/ObjectOptionsDropdownLayoutContent.tsx
 msgid "Create Select..."
+msgstr ""
+
+#. js-lingui-id: Jd2r4y
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Create User"
 msgstr ""
 
 #. js-lingui-id: zt6Erc
@@ -3418,6 +3445,7 @@ msgstr ""
 #: src/pages/settings/SettingsWorkspaceMembers.tsx
 #: src/pages/settings/SettingsProfile.tsx
 #: src/pages/auth/PasswordReset.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/roles/role-assignment/components/SettingsRoleAssignmentTableHeader.tsx
 #: src/modules/settings/roles/role-assignment/components/SettingsRoleAssignmentTable.tsx
 #: src/modules/settings/admin-panel/components/SettingsAdminGeneral.tsx
@@ -3630,9 +3658,19 @@ msgstr ""
 msgid "Enter array of items or variable expression"
 msgstr ""
 
+#. js-lingui-id: xUgUTh
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter first name"
+msgstr ""
+
 #. js-lingui-id: 9/30HU
 #: src/modules/settings/data-model/fields/forms/date/utils/getDisplayFormatSelectDescription.tsx
 msgid "Enter in <0>Unicode</0> format"
+msgstr ""
+
+#. js-lingui-id: 9/1YKL
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter last name"
 msgstr ""
 
 #. js-lingui-id: O6t21f
@@ -3658,6 +3696,11 @@ msgstr ""
 msgid "Enter number greater than 1"
 msgstr ""
 
+#. js-lingui-id: ddypSs
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter temporary password"
+msgstr ""
+
 #. js-lingui-id: yZMXC2
 #: src/modules/advanced-text-editor/hooks/useAdvancedTextEditor.ts
 msgid "Enter text or Type '/' for commands"
@@ -3677,6 +3720,11 @@ msgstr ""
 #: src/pages/settings/ai/forms/components/SettingsAIAgentForm.tsx
 #: src/pages/settings/ai/components/SettingsAgentSettingsTab.tsx
 msgid "Enter the system prompt that defines this agent's behavior and capabilities"
+msgstr ""
+
+#. js-lingui-id: OW2jOU
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter user email"
 msgstr ""
 
 #. js-lingui-id: rYIISB
@@ -4106,6 +4154,11 @@ msgstr ""
 msgid "Failed to create handoff"
 msgstr ""
 
+#. js-lingui-id: Dgy2qQ
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Failed to create user:"
+msgstr ""
+
 #. js-lingui-id: pUligB
 #: src/modules/settings/admin-panel/health-status/hooks/useDeleteJobs.ts
 msgid "Failed to delete jobs. Please try again later."
@@ -4317,8 +4370,14 @@ msgstr ""
 
 #. js-lingui-id: kODvZJ
 #: src/pages/onboarding/CreateProfile.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/profile/components/NameFields.tsx
 msgid "First Name"
+msgstr ""
+
+#. js-lingui-id: 4pwejF
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "First name is required"
 msgstr ""
 
 #. js-lingui-id: ylQd2j
@@ -4965,6 +5024,11 @@ msgstr ""
 msgid "Invalid email"
 msgstr ""
 
+#. js-lingui-id: XILg0L
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Invalid email address"
+msgstr ""
+
 #. js-lingui-id: /m52AE
 #: src/modules/settings/accounts/components/SettingsAccountsBlocklistInput.tsx
 #: src/modules/settings/accounts/components/SettingsAccountsBlocklistInput.tsx
@@ -5293,8 +5357,14 @@ msgstr ""
 
 #. js-lingui-id: UXBCwc
 #: src/pages/onboarding/CreateProfile.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/profile/components/NameFields.tsx
 msgid "Last Name"
+msgstr ""
+
+#. js-lingui-id: ve9JTU
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Last name is required"
 msgstr ""
 
 #. js-lingui-id: s0kiVA
@@ -6738,6 +6808,7 @@ msgid "paragraph"
 msgstr ""
 
 #. js-lingui-id: 8ZsakT
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/security/components/SettingsSecurityAuthProvidersOptionsList.tsx
 #: src/modules/settings/security/components/SettingsSecurityAuthBypassOptionsList.tsx
 msgid "Password"
@@ -6751,6 +6822,11 @@ msgstr ""
 #. js-lingui-id: BxQ79w
 #: src/pages/auth/PasswordReset.tsx
 msgid "Password has been updated"
+msgstr ""
+
+#. js-lingui-id: vwGkYB
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Password must be at least 8 characters"
 msgstr ""
 
 #. js-lingui-id: mi6Rel

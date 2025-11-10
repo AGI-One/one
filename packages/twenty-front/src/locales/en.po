@@ -622,6 +622,12 @@ msgstr "Add new"
 msgid "Add New"
 msgstr "Add New"
 
+#. js-lingui-id: BvRPma
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Add New User"
+msgstr "Add New User"
+
 #. js-lingui-id: erHjaG
 #: src/modules/workflow/workflow-diagram/components/WorkflowDiagramRightClickCommandMenu.tsx
 msgid "Add node"
@@ -709,6 +715,11 @@ msgstr "Add to Favorite"
 #: src/modules/action-menu/actions/record-actions/constants/DashboardActionsConfig.tsx
 msgid "Add to favorites"
 msgstr "Add to favorites"
+
+#. js-lingui-id: Ls08BH
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+msgid "Add User"
+msgstr "Add User"
 
 #. js-lingui-id: q9e2Bs
 #: src/modules/views/view-picker/components/ViewPickerListContent.tsx
@@ -1682,6 +1693,7 @@ msgstr "Can't scan? Copy the"
 #. js-lingui-id: dEgA5A
 #: src/pages/settings/ai/components/SettingsAgentHandoffForm.tsx
 #: src/pages/auth/Authorize.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/ui/layout/modal/components/ConfirmationModal.tsx
 #: src/modules/ui/feedback/snack-bar-manager/components/SnackBar.tsx
 #: src/modules/spreadsheet-import/steps/components/ImportDataStep.tsx
@@ -2384,6 +2396,16 @@ msgstr "Create {targetObjectLabelSingular}"
 msgid "Create a new AI agent"
 msgstr "Create a new AI agent"
 
+#. js-lingui-id: zghyyd
+#: src/pages/settings/SettingsWorkspaceMembers.tsx
+msgid "Create a new user account for this workspace"
+msgstr "Create a new user account for this workspace"
+
+#. js-lingui-id: BF9A/F
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Create a new user account with email and password. The user will be able to log in immediately after creation."
+msgstr "Create a new user account with email and password. The user will be able to log in immediately after creation."
+
 #. js-lingui-id: zNoOC2
 #: src/modules/object-record/record-table/empty-state/utils/getEmptyStateSubTitle.ts
 msgid "Create a workflow and return here to view its versions"
@@ -2459,6 +2481,11 @@ msgstr "Create select field"
 #: src/modules/object-record/object-options-dropdown/components/ObjectOptionsDropdownLayoutContent.tsx
 msgid "Create Select..."
 msgstr "Create Select..."
+
+#. js-lingui-id: Jd2r4y
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Create User"
+msgstr "Create User"
 
 #. js-lingui-id: zt6Erc
 #: src/modules/views/view-picker/components/ViewPickerContentCreateMode.tsx
@@ -3418,6 +3445,7 @@ msgstr "Eighth"
 #: src/pages/settings/SettingsWorkspaceMembers.tsx
 #: src/pages/settings/SettingsProfile.tsx
 #: src/pages/auth/PasswordReset.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/roles/role-assignment/components/SettingsRoleAssignmentTableHeader.tsx
 #: src/modules/settings/roles/role-assignment/components/SettingsRoleAssignmentTable.tsx
 #: src/modules/settings/admin-panel/components/SettingsAdminGeneral.tsx
@@ -3630,10 +3658,20 @@ msgstr "Enter an item"
 msgid "Enter array of items or variable expression"
 msgstr "Enter array of items or variable expression"
 
+#. js-lingui-id: xUgUTh
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter first name"
+msgstr "Enter first name"
+
 #. js-lingui-id: 9/30HU
 #: src/modules/settings/data-model/fields/forms/date/utils/getDisplayFormatSelectDescription.tsx
 msgid "Enter in <0>Unicode</0> format"
 msgstr "Enter in <0>Unicode</0> format"
+
+#. js-lingui-id: 9/1YKL
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter last name"
+msgstr "Enter last name"
 
 #. js-lingui-id: O6t21f
 #: src/modules/advanced-text-editor/components/EditLinkPopover.tsx
@@ -3658,6 +3696,11 @@ msgstr "Enter number between 0 and 59"
 msgid "Enter number greater than 1"
 msgstr "Enter number greater than 1"
 
+#. js-lingui-id: ddypSs
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter temporary password"
+msgstr "Enter temporary password"
+
 #. js-lingui-id: yZMXC2
 #: src/modules/advanced-text-editor/hooks/useAdvancedTextEditor.ts
 msgid "Enter text or Type '/' for commands"
@@ -3678,6 +3721,11 @@ msgstr "Enter the infos to set the connection"
 #: src/pages/settings/ai/components/SettingsAgentSettingsTab.tsx
 msgid "Enter the system prompt that defines this agent's behavior and capabilities"
 msgstr "Enter the system prompt that defines this agent's behavior and capabilities"
+
+#. js-lingui-id: OW2jOU
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Enter user email"
+msgstr "Enter user email"
 
 #. js-lingui-id: rYIISB
 #: src/modules/settings/admin-panel/components/SettingsAdminGeneral.tsx
@@ -4106,6 +4154,11 @@ msgstr "Failed to create {translatedMetadataName}. Related {relatedEntityNames} 
 msgid "Failed to create handoff"
 msgstr "Failed to create handoff"
 
+#. js-lingui-id: Dgy2qQ
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Failed to create user:"
+msgstr "Failed to create user:"
+
 #. js-lingui-id: pUligB
 #: src/modules/settings/admin-panel/health-status/hooks/useDeleteJobs.ts
 msgid "Failed to delete jobs. Please try again later."
@@ -4317,9 +4370,15 @@ msgstr "First 5 lines"
 
 #. js-lingui-id: kODvZJ
 #: src/pages/onboarding/CreateProfile.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/profile/components/NameFields.tsx
 msgid "First Name"
 msgstr "First Name"
+
+#. js-lingui-id: 4pwejF
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "First name is required"
+msgstr "First name is required"
 
 #. js-lingui-id: ylQd2j
 #: src/modules/workflow/workflow-steps/workflow-actions/utils/getActionHeaderTypeOrThrow.ts
@@ -4965,6 +5024,11 @@ msgstr "Invalid cron expression"
 msgid "Invalid email"
 msgstr "Invalid email"
 
+#. js-lingui-id: XILg0L
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Invalid email address"
+msgstr "Invalid email address"
+
 #. js-lingui-id: /m52AE
 #: src/modules/settings/accounts/components/SettingsAccountsBlocklistInput.tsx
 #: src/modules/settings/accounts/components/SettingsAccountsBlocklistInput.tsx
@@ -5293,9 +5357,15 @@ msgstr "Last message {lastMessageSentAtFormatted}"
 
 #. js-lingui-id: UXBCwc
 #: src/pages/onboarding/CreateProfile.tsx
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/profile/components/NameFields.tsx
 msgid "Last Name"
 msgstr "Last Name"
+
+#. js-lingui-id: ve9JTU
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Last name is required"
+msgstr "Last name is required"
 
 #. js-lingui-id: s0kiVA
 #: src/modules/information-banner/components/billing/InformationBannerFailPaymentInfo.tsx
@@ -6738,6 +6808,7 @@ msgid "paragraph"
 msgstr "paragraph"
 
 #. js-lingui-id: 8ZsakT
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
 #: src/modules/settings/security/components/SettingsSecurityAuthProvidersOptionsList.tsx
 #: src/modules/settings/security/components/SettingsSecurityAuthBypassOptionsList.tsx
 msgid "Password"
@@ -6752,6 +6823,11 @@ msgstr "Password has been set"
 #: src/pages/auth/PasswordReset.tsx
 msgid "Password has been updated"
 msgstr "Password has been updated"
+
+#. js-lingui-id: vwGkYB
+#: src/modules/workspace-member/components/AdminCreateUserForm.tsx
+msgid "Password must be at least 8 characters"
+msgstr "Password must be at least 8 characters"
 
 #. js-lingui-id: mi6Rel
 #: src/modules/auth/sign-in-up/hooks/useHandleResetPassword.ts
