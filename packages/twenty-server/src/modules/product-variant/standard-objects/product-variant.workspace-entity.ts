@@ -4,23 +4,37 @@ import { FieldMetadataType, RelationOnDeleteAction } from 'twenty-shared/types';
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
 import { Relation } from 'src/engine/workspace-manager/workspace-sync-metadata/interfaces/relation.interface';
 
-import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
+import { SEARCH_VECTOR_FIELD } from 'src/engine/metadata-modules/constants/search-vector-field.constants';
 import { ActorMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/actor.composite-type';
 import { CurrencyMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/currency.composite-type';
+import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
 import { BaseWorkspaceEntity } from 'src/engine/twenty-orm/base.workspace-entity';
 import { WorkspaceEntity } from 'src/engine/twenty-orm/decorators/workspace-entity.decorator';
+import { WorkspaceFieldIndex } from 'src/engine/twenty-orm/decorators/workspace-field-index.decorator';
 import { WorkspaceField } from 'src/engine/twenty-orm/decorators/workspace-field.decorator';
 import { WorkspaceIsFieldUIReadOnly } from 'src/engine/twenty-orm/decorators/workspace-is-field-ui-readonly.decorator';
 import { WorkspaceIsNullable } from 'src/engine/twenty-orm/decorators/workspace-is-nullable.decorator';
+import { WorkspaceIsSearchable } from 'src/engine/twenty-orm/decorators/workspace-is-searchable.decorator';
 import { WorkspaceIsSystem } from 'src/engine/twenty-orm/decorators/workspace-is-system.decorator';
 import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
 import { WorkspaceRelation } from 'src/engine/twenty-orm/decorators/workspace-relation.decorator';
 import { PRODUCT_VARIANT_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
+import {
+  type FieldTypeAndNameMetadata,
+  getTsVectorColumnExpressionFromFields,
+} from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
+import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
+import { ProductVariantOptionValueWorkspaceEntity } from 'src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity';
 import { ProductWorkspaceEntity } from 'src/modules/product/standard-objects/product.workspace-entity';
-import { ProductVariantOptionWorkspaceEntity } from 'src/modules/product-variant-option/standard-objects/product-variant-option.workspace-entity';
-import { WarehouseProductVariantWorkspaceEntity } from 'src/modules/warehouse-product-variant/standard-objects/warehouse-product-variant.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
+
+const SKU_FIELD_NAME = 'sku';
+
+export const SEARCH_FIELDS_FOR_PRODUCT_VARIANT: FieldTypeAndNameMetadata[] = [
+  { name: SKU_FIELD_NAME, type: FieldMetadataType.TEXT },
+];
 
 @WorkspaceEntity({
   standardId: STANDARD_OBJECT_IDS.productVariant,
@@ -31,6 +45,7 @@ import { WarehouseProductVariantWorkspaceEntity } from 'src/modules/warehouse-pr
   icon: STANDARD_OBJECT_ICONS.productVariant,
   labelIdentifierStandardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.sku,
 })
+@WorkspaceIsSearchable()
 export class ProductVariantWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceField({
     standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.sku,
@@ -181,31 +196,33 @@ export class ProductVariantWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceJoinColumn('product')
   productId: string | null;
 
-  // Relations - ProductVariantOptions (OneToMany to junction table)
+  // Relations - ProductVariantOptionValues (junction table storing option selections)
   @WorkspaceRelation({
-    standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.productVariantOptions,
+    standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.optionValues,
     type: RelationType.ONE_TO_MANY,
-    label: msg`Variant Options`,
-    description: msg`Options that define this variant`,
-    icon: 'IconLink',
-    inverseSideTarget: () => ProductVariantOptionWorkspaceEntity,
-    inverseSideFieldKey: 'productVariant',
+    label: msg`Option Values`,
+    description: msg`Option values that define this variant`,
+    icon: 'IconList',
+    inverseSideTarget: () => ProductVariantOptionValueWorkspaceEntity,
+    inverseSideFieldKey: 'variant',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  productVariantOptions: Relation<ProductVariantOptionWorkspaceEntity[]>;
+  optionValues: Relation<ProductVariantOptionValueWorkspaceEntity[]>;
+
+  // Relations - Inventories (junction to warehouses)
   @WorkspaceRelation({
-    standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.warehouseVariants,
+    standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.inventories,
     type: RelationType.ONE_TO_MANY,
-    label: msg`Warehouse Variants`,
-    description: msg`Warehouse inventory for this variant`,
-    icon: 'IconBoxSeam',
-    inverseSideTarget: () => WarehouseProductVariantWorkspaceEntity,
-    inverseSideFieldKey: 'productVariant',
+    label: msg`Inventories`,
+    description: msg`Warehouse inventory records for this variant`,
+    icon: 'IconPackages',
+    inverseSideTarget: () => InventoryWorkspaceEntity,
+    inverseSideFieldKey: 'variant',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  warehouseVariants: Relation<WarehouseProductVariantWorkspaceEntity[]>;
+  inventories: Relation<InventoryWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.timelineActivities,
@@ -220,4 +237,20 @@ export class ProductVariantWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   @WorkspaceIsSystem()
   timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
+
+  @WorkspaceField({
+    standardId: PRODUCT_VARIANT_STANDARD_FIELD_IDS.searchVector,
+    type: FieldMetadataType.TS_VECTOR,
+    label: SEARCH_VECTOR_FIELD.label,
+    description: SEARCH_VECTOR_FIELD.description,
+    icon: 'IconSearch',
+    generatedType: 'STORED',
+    asExpression: getTsVectorColumnExpressionFromFields(
+      SEARCH_FIELDS_FOR_PRODUCT_VARIANT,
+    ),
+  })
+  @WorkspaceIsNullable()
+  @WorkspaceIsSystem()
+  @WorkspaceFieldIndex({ indexType: IndexType.GIN })
+  searchVector: string;
 }

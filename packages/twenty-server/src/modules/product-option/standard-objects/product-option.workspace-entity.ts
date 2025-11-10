@@ -4,7 +4,6 @@ import { FieldMetadataType, RelationOnDeleteAction } from 'twenty-shared/types';
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
 import { Relation } from 'src/engine/workspace-manager/workspace-sync-metadata/interfaces/relation.interface';
 
-import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { SEARCH_VECTOR_FIELD } from 'src/engine/metadata-modules/constants/search-vector-field.constants';
 import { ActorMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/actor.composite-type';
 import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
@@ -26,7 +25,8 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 import { ProductOptionGroupWorkspaceEntity } from 'src/modules/product-option-group/standard-objects/product-option-group.workspace-entity';
-import { ProductVariantOptionWorkspaceEntity } from 'src/modules/product-variant-option/standard-objects/product-variant-option.workspace-entity';
+import { ProductVariantOptionValueWorkspaceEntity } from 'src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 const CODE_FIELD_NAME = 'code';
@@ -120,19 +120,20 @@ export class ProductOptionWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('group')
   groupId: string | null;
-  // Relations - ProductVariantOptions (OneToMany to junction table)
+
+  // Relations - ProductVariantOptionValues
   @WorkspaceRelation({
-    standardId: PRODUCT_OPTION_STANDARD_FIELD_IDS.productVariantOptions,
+    standardId: PRODUCT_OPTION_STANDARD_FIELD_IDS.variantOptionValues,
     type: RelationType.ONE_TO_MANY,
-    label: msg`Variant Options`,
-    description: msg`Product variant options using this option`,
-    icon: 'IconLink',
-    inverseSideTarget: () => ProductVariantOptionWorkspaceEntity,
-    inverseSideFieldKey: 'productOption',
+    label: msg`Variant Option Values`,
+    description: msg`Values assigned to product variants using this option`,
+    icon: 'IconList',
+    inverseSideTarget: () => ProductVariantOptionValueWorkspaceEntity,
+    inverseSideFieldKey: 'option',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  productVariantOptions: Relation<ProductVariantOptionWorkspaceEntity[]>;
+  variantOptionValues: Relation<ProductVariantOptionValueWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: PRODUCT_OPTION_STANDARD_FIELD_IDS.timelineActivities,

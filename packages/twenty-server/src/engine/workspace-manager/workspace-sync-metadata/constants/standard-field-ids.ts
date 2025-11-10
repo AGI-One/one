@@ -199,13 +199,13 @@ export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
   workflowVersion: '20202020-74f1-4711-a129-e14ca0ecd744',
   workflowRun: '20202020-96f0-401b-9186-a3a0759225ac',
   dashboard: '20202020-7864-48f5-af7c-9e4b60140948',
-  productType: 'f230159e-3533-4ab4-9c48-8c04d46ba8a0',
   productCategory: 'daaf81d3-3dfe-432b-9727-41fccf6f59f5',
   product: 'd453f225-88c2-41f7-abf6-6f0e712368b4',
   productVariant: 'a02849ea-89c8-4195-a09e-946d71fd6e52',
   productOption: '9431eca4-a781-4f9e-887b-0d2d7b7a1e02',
   productOptionGroup: 'e2a6f638-f153-4466-a444-e191bfc6cf8b',
   warehouse: '9ed5d40d-d38b-4f59-886e-d9789993233b',
+  inventory: '3f4a5b6c-7d8e-9f0a-1b2c-3d4e5f6a7b8c',
   department: '602fd60a-2e31-4ae1-9106-d80116cdef22',
   employee: '83ccd820-5338-4116-98ac-6ed9629e488f',
   employeeAward: '33f1ebfb-14d6-435f-bf7f-c582999f75e1',
@@ -676,13 +676,11 @@ export const PRODUCT_STANDARD_FIELD_IDS = {
   description: 'dad85aa0-1cb3-4314-af1a-f1a6549e94f1',
   enabled: 'bbbd0b6c-36ff-401f-8ace-2797b861f079',
   imageUrl: '2ed25108-2402-4bf4-8170-ef726b8d7618',
-  productType: 'e0ff0396-e3cd-44bc-9eee-27547c069df1',
   productCategory: '20aa068f-1e6f-4e56-8517-d1812bb1d8e7',
   position: '0dff93b2-5163-4615-9fb4-7d0ba67abf55',
   createdBy: '529cd2ec-3cfb-49a0-9a92-ff8108d6edda',
   searchVector: '52d4e5ae-8d72-409c-8999-3e0089b71bb2',
-  optionGroups: 'b833e4ee-8c15-4d96-ad55-e3c7dc564b3b',
-  warehouses: '3e66a164-17e6-4a7a-b442-8dd4b31237c0',
+  optionGroupLinks: '0c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f',
   variants: '7186a96b-d9be-466d-a776-1caf3e7105ba',
   timelineActivities: '029bf18d-3c8e-4f76-bfa7-ebee505fd378',
 } as const;
@@ -696,17 +694,6 @@ export const PRODUCT_CATEGORY_STANDARD_FIELD_IDS = {
   searchVector: 'b516f609-5497-404f-b73a-7bd0761ca143',
   products: '301f37b0-36bc-424a-acdc-fec0e0d426a7',
   timelineActivities: '6fd75880-acdf-4f22-a65e-2932bd6a4e4d',
-} as const;
-
-export const PRODUCT_TYPE_STANDARD_FIELD_IDS = {
-  name: 'be781767-265c-4c2a-8de7-e584b545d976',
-  description: 'cb76a843-d47d-41a5-8392-83f86f85692f',
-  icon: '6d1d53a2-bcc2-428c-9c63-b2d69a9d9138',
-  position: 'e72bf7aa-75b0-4439-8e61-b3eee877773d',
-  createdBy: 'c2d6c1d3-6b25-4b28-bebb-0cfcc6f055b4',
-  searchVector: 'ec9d4efb-2eb9-405b-8e69-f40ac1970de6',
-  products: '49f9dc93-8989-4aae-9b35-0a5a741916e6',
-  timelineActivities: 'cfbb77d6-de4e-48dd-b38f-c7734ad62026',
 } as const;
 
 export const PRODUCT_VARIANT_STANDARD_FIELD_IDS = {
@@ -724,18 +711,23 @@ export const PRODUCT_VARIANT_STANDARD_FIELD_IDS = {
   imageUrl: 'e907a5e6-ced9-4af5-9c9c-2bd08c88f521',
   position: '8a2836e4-5f0c-467a-a873-efdd3bb6b9bc',
   createdBy: '49942a0c-65e1-47cb-a75c-5f376837c320',
-  productVariantOptions: 'f1e2d3c4-b5a6-4978-8e9f-0a1b2c3d4e5f',
-  warehouseVariants: '0f4fdeff-3de1-4ac9-8e7e-75b2a6d1e8e5',
+  optionValues: '1d2e3f4a-5b6c-7d8e-9f0a-b1c2d3e4f5a6',
+  inventories: '2e3f4a5b-6c7d-8e9f-0a1b-c2d3e4f5a6b7',
   timelineActivities: '4b375e6d-7b81-4828-b144-5b0be429996f',
+  searchVector: '5c6d7e8f-9a0b-1c2d-3e4f-5a6b7c8d9e0f',
 } as const;
 
 export const PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS = {
   name: '690316e3-8e85-4ab3-8a26-9376d46008fa',
-  product: 'f7ecb0d5-4bbe-40f1-abd0-a2d3c085cab9',
+  isGlobal: '5c34d8b2-9e7f-4a1c-b8d6-3e5f9a2c1d4b',
+  inputType: '7e9a1f2b-4c5d-4e6a-b7c8-d9e0f1a2b3c4',
+  validationRules: '3f4a5b6c-7d8e-4f9a-a0b1-c2d3e4f5a6b7',
   position: 'fcdced92-867d-4095-a940-851e1543facc',
   createdBy: '08cf2d52-28d3-4318-b1a9-e4ba6f739394',
   searchVector: '82a06f55-599f-4f12-b54c-3bbe80c1fa61',
+  productLinks: '8a9b0c1d-2e3f-4a5b-c6d7-e8f9a0b1c2d3',
   options: '4ccd1bad-aab3-496c-86db-dc2d889d835e',
+  variantOptionValues: '9b0c1d2e-3f4a-5b6c-d7e8-f9a0b1c2d3e4',
   timelineActivities: 'e2a6f638-f153-4466-a444-e191bfc6cf8b',
 } as const;
 
@@ -746,13 +738,8 @@ export const PRODUCT_OPTION_STANDARD_FIELD_IDS = {
   position: 'f32a9c6c-ba92-4a40-859f-8e57a8b49450',
   createdBy: '3bcb50f1-654c-43da-a915-e0964ab41e87',
   searchVector: '6def4592-502f-44ea-bf16-aff45a2244ae',
-  productVariantOptions: 'a2b3c4d5-e6f7-4859-9a0b-1c2d3e4f5a6b',
+  variantOptionValues: '9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f',
   timelineActivities: '87edb231-fe42-48e1-90ee-494085aa6a2d',
-} as const;
-
-export const PRODUCT_VARIANT_OPTION_STANDARD_FIELD_IDS = {
-  productVariant: 'b3c4d5e6-f7a8-4b59-8c0d-2e3f4a5b6c7d',
-  productOption: 'c4d5e6f7-a8b9-4c5a-9d0e-3f4a5b6c7d8e',
 } as const;
 
 export const WAREHOUSE_STANDARD_FIELD_IDS = {
@@ -764,32 +751,39 @@ export const WAREHOUSE_STANDARD_FIELD_IDS = {
   email: 'a73cbf88-d234-4a0a-a489-810a20ebf47b',
   phone: '64a2270b-1982-444d-96e8-e107038d2aeb',
   address: '11404988-d7fe-4a31-9a0b-888cf1267b6e',
-  products: 'a94f34e0-6e0d-4769-80e8-deaec2489611',
+  inventories: '3f4a5b6c-7d8e-9f0a-1b2c-3d4e5f6a7b8c',
   timelineActivities: 'd861e7ee-7c40-4f86-a63b-275485446faa',
   position: '3f8b13cd-7911-4195-83cc-70f435d4a272',
   createdBy: 'f34035a7-3d9f-4f8d-8cea-8ddc7f7351c0',
   searchVector: '43f8fa6c-de91-407e-a63d-d47a4be7faee',
 } as const;
 
-export const WAREHOUSE_PRODUCT_STANDARD_FIELD_IDS = {
-  warehouse: 'd04190e4-7039-487a-aae5-c44c1816f4f7',
-  warehouseId: 'e3e81418-1af3-4155-b708-43bef72c4507',
-  product: '02a008ae-51c9-4fcf-8200-d18056f3308b',
-  productId: 'a1645bb8-cac1-4760-bc54-58e0b4c8201b',
-  quantity: '5f8fd259-e473-4a2e-a677-4f8333831b8b',
-  variants: '13d04408-3946-4915-8568-39fd82759fd0',
-  position: '10f59d66-d437-42a8-b47d-8a22615f73af',
-  createdBy: '4132546b-0c91-47d6-8fc1-3bcac4eecabb',
+export const INVENTORY_STANDARD_FIELD_IDS = {
+  name: 'e7f8a9b0-1c2d-3e4f-5a6b-7c8d9e0f1a2b',
+  warehouse: '94d46cd8-c4f4-4c96-9e9b-9ba13e5a6c58',
+  variant: 'db5bdc64-85e6-4cfb-ae60-c8b7e0a0c5e7',
+  quantity: 'f3a7c8b1-9d4e-4f5a-8c6b-2e1d9a7f3c4e',
+  reservedQuantity: 'a8f9c3d2-7e4b-4a9c-b5d8-6f2e1c9a8b7d',
+  position: 'b9c0d1e2-8f7a-4b6c-9d5e-3a4f5c6b7d8e',
+  timelineActivities: '4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a',
+  createdBy: 'c2d8e9f1-6a7b-4c8d-9e3f-1a2b7c8d9e0f',
 } as const;
 
-export const WAREHOUSE_PRODUCT_VARIANT_STANDARD_FIELD_IDS = {
-  warehouseProduct: '163883d3-8112-4467-b985-f5549dfdaa2f',
-  warehouseProductId: 'f3b99e9a-19c3-498d-a714-8c8baf74572a',
-  productVariant: 'f378b0a8-983e-4cc4-aac4-5c122c1a77ff',
-  productVariantId: 'b3d193ed-8a63-4d47-afc5-e4dc114c8a69',
-  quantity: '650a4d09-8c8e-4c33-a456-2e68fedf072d',
-  position: '2d7ab596-3383-47ce-8af7-a055f9fc3118',
-  createdBy: '77ae75a5-4cef-461b-965b-fa1947f3aba9',
+export const PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS = {
+  product: 'c114c75a-73f1-40f9-a40d-0b95c6f4c6cb',
+  optionGroup: '6eae34cd-a3ac-4bce-bb5a-e80ca319eaae',
+  required: 'fa1a79cc-d022-4384-82df-402cedc02674',
+  position: '628f3925-dc22-4f01-9d86-a48979fbba33',
+  customDisplayName: '4caa5f16-a4a0-4e8c-8615-a8fb4fce93db',
+  createdBy: 'a07f36c7-ba74-4ab4-85a2-312d79328d6d',
+} as const;
+
+export const PRODUCT_VARIANT_OPTION_VALUE_STANDARD_FIELD_IDS = {
+  variant: 'bcdcfa19-cbcc-4355-a4e2-c9ed94e13f6a',
+  optionGroup: '8a0f2ca6-0e4e-470b-92da-d8b1e37efca1',
+  option: '0c8e3ce2-8f29-42f1-ad54-c4bd52e19b9a',
+  customValue: '72c63e47-d7cd-4fc3-98dd-e4329adfc729',
+  createdBy: 'd1e5bb0e-6f18-49e9-90b1-29c4e8b42e8f',
 } as const;
 
 export const STANDARD_OBJECT_FIELD_IDS = {
@@ -809,6 +803,7 @@ export const STANDARD_OBJECT_FIELD_IDS = {
   dashboard: DASHBOARD_STANDARD_FIELD_IDS,
   favorite: FAVORITE_STANDARD_FIELD_IDS,
   auditLog: AUDIT_LOGS_STANDARD_FIELD_IDS,
+  inventory: INVENTORY_STANDARD_FIELD_IDS,
   messageChannelMessageAssociation:
     MESSAGE_CHANNEL_MESSAGE_ASSOCIATION_STANDARD_FIELD_IDS,
   messageChannel: MESSAGE_CHANNEL_STANDARD_FIELD_IDS,
@@ -824,12 +819,10 @@ export const STANDARD_OBJECT_FIELD_IDS = {
   productCategory: PRODUCT_CATEGORY_STANDARD_FIELD_IDS,
   productOption: PRODUCT_OPTION_STANDARD_FIELD_IDS,
   productOptionGroup: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS,
-  productType: PRODUCT_TYPE_STANDARD_FIELD_IDS,
+  productOptionGroupLink: PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS,
   productVariant: PRODUCT_VARIANT_STANDARD_FIELD_IDS,
-  productVariantOption: PRODUCT_VARIANT_OPTION_STANDARD_FIELD_IDS,
+  productVariantOptionValue: PRODUCT_VARIANT_OPTION_VALUE_STANDARD_FIELD_IDS,
   warehouse: WAREHOUSE_STANDARD_FIELD_IDS,
-  warehouseProduct: WAREHOUSE_PRODUCT_STANDARD_FIELD_IDS,
-  warehouseProductVariant: WAREHOUSE_PRODUCT_VARIANT_STANDARD_FIELD_IDS,
   task: TASK_STANDARD_FIELD_IDS,
   taskTarget: TASK_TARGET_STANDARD_FIELD_IDS,
   timelineActivity: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS,

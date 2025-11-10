@@ -11,13 +11,9 @@ export const STANDARD_OBJECTS_BY_PRIORITY_RANK = {
   department: 1,
   team: 1,
   productCategory: 1, // Low priority - organizational
-  productType: 1, // Low priority - organizational
   productOptionGroup: 0, // Lowest priority - configuration
   productOption: 0, // Lowest priority - configuration
-  productVariantOption: 0, // Lowest priority - junction table
   warehouse: 2, // Medium priority - inventory location
-  warehouseProduct: 1, // Low priority - junction table with quantity
-  warehouseProductVariant: 0, // Lowest priority - SKU-level junction
   organizationPosition: 0,
   employeeLevel: 0,
   employmentType: 0,

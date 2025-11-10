@@ -4,7 +4,6 @@ import { FieldMetadataType, RelationOnDeleteAction } from 'twenty-shared/types';
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
 import { Relation } from 'src/engine/workspace-manager/workspace-sync-metadata/interfaces/relation.interface';
 
-import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { SEARCH_VECTOR_FIELD } from 'src/engine/metadata-modules/constants/search-vector-field.constants';
 import { ActorMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/actor.composite-type';
 import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
@@ -16,7 +15,6 @@ import { WorkspaceIsFieldUIReadOnly } from 'src/engine/twenty-orm/decorators/wor
 import { WorkspaceIsNullable } from 'src/engine/twenty-orm/decorators/workspace-is-nullable.decorator';
 import { WorkspaceIsSearchable } from 'src/engine/twenty-orm/decorators/workspace-is-searchable.decorator';
 import { WorkspaceIsSystem } from 'src/engine/twenty-orm/decorators/workspace-is-system.decorator';
-import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
 import { WorkspaceRelation } from 'src/engine/twenty-orm/decorators/workspace-relation.decorator';
 import { PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
@@ -25,8 +23,10 @@ import {
   type FieldTypeAndNameMetadata,
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
-import { ProductWorkspaceEntity } from 'src/modules/product/standard-objects/product.workspace-entity';
+import { ProductOptionGroupLinkWorkspaceEntity } from 'src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity';
 import { ProductOptionWorkspaceEntity } from 'src/modules/product-option/standard-objects/product-option.workspace-entity';
+import { ProductVariantOptionValueWorkspaceEntity } from 'src/modules/product-variant-option-value/standard-objects/product-variant-option-value.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 
@@ -38,7 +38,7 @@ export const SEARCH_FIELDS_FOR_PRODUCT_OPTION_GROUP: FieldTypeAndNameMetadata[] 
   namePlural: 'productOptionGroups',
   labelSingular: msg`Product Option Group`,
   labelPlural: msg`Product Option Groups`,
-  description: msg`A group of product options (e.g. Color, Size)`,
+  description: msg`A global option group (e.g. Color, Size, Material) that can be reused across products`,
   icon: STANDARD_OBJECT_ICONS.productOptionGroup,
   labelIdentifierStandardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.name,
 })
@@ -52,6 +52,35 @@ export class ProductOptionGroupWorkspaceEntity extends BaseWorkspaceEntity {
     icon: 'IconBoxMultiple',
   })
   name: string;
+
+  @WorkspaceField({
+    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.isGlobal,
+    type: FieldMetadataType.BOOLEAN,
+    label: msg`Is Global`,
+    description: msg`Whether this option group is globally reusable across products`,
+    icon: 'IconWorld',
+    defaultValue: true,
+  })
+  isGlobal: boolean;
+
+  @WorkspaceField({
+    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.inputType,
+    type: FieldMetadataType.TEXT,
+    label: msg`Input Type`,
+    description: msg`Type of input (select, text, textarea, number, url)`,
+    icon: 'IconForms',
+  })
+  inputType: string | null;
+
+  @WorkspaceField({
+    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.validationRules,
+    type: FieldMetadataType.RAW_JSON,
+    label: msg`Validation Rules`,
+    description: msg`JSON validation rules for this option group`,
+    icon: 'IconShieldCheck',
+  })
+  @WorkspaceIsNullable()
+  validationRules: object | null;
 
   // System fields
   @WorkspaceField({
@@ -91,28 +120,26 @@ export class ProductOptionGroupWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceFieldIndex({ indexType: IndexType.GIN })
   searchVector: string;
 
-  // Relations - Product
+  // Relations - ProductOptionGroupLinks (junction to products)
   @WorkspaceRelation({
-    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.product,
-    type: RelationType.MANY_TO_ONE,
-    label: msg`Product`,
-    description: msg`The product this option group belongs to`,
+    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.productLinks,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Product Links`,
+    description: msg`Products using this option group`,
     icon: 'IconPackage',
-    inverseSideTarget: () => ProductWorkspaceEntity,
-    inverseSideFieldKey: 'optionGroups',
+    inverseSideTarget: () => ProductOptionGroupLinkWorkspaceEntity,
+    inverseSideFieldKey: 'optionGroup',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  product: Relation<ProductWorkspaceEntity> | null;
+  productLinks: Relation<ProductOptionGroupLinkWorkspaceEntity[]>;
 
-  @WorkspaceJoinColumn('product')
-  productId: string | null;
   // Relations - ProductOptions
   @WorkspaceRelation({
     standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.options,
     type: RelationType.ONE_TO_MANY,
     label: msg`Options`,
-    description: msg`Options in this group`,
+    description: msg`Predefined options in this group (only for select type)`,
     icon: 'IconAdjustments',
     inverseSideTarget: () => ProductOptionWorkspaceEntity,
     inverseSideFieldKey: 'group',
@@ -120,6 +147,20 @@ export class ProductOptionGroupWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsNullable()
   options: Relation<ProductOptionWorkspaceEntity[]>;
+
+  // Relations - ProductVariantOptionValues
+  @WorkspaceRelation({
+    standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.variantOptionValues,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Variant Option Values`,
+    description: msg`Option values assigned to product variants`,
+    icon: 'IconList',
+    inverseSideTarget: () => ProductVariantOptionValueWorkspaceEntity,
+    inverseSideFieldKey: 'optionGroup',
+    onDelete: RelationOnDeleteAction.CASCADE,
+  })
+  @WorkspaceIsNullable()
+  variantOptionValues: Relation<ProductVariantOptionValueWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.timelineActivities,

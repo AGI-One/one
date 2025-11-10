@@ -46,11 +46,22 @@ export const productOptionGroupsAllView = (
           productOptionGroupObjectMetadata.fields.find(
             (field) =>
               field.standardId ===
-              PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.product,
+              PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.inputType,
           )?.id ?? '',
         position: 1,
         isVisible: true,
-        size: 200,
+        size: 150,
+      },
+      {
+        fieldMetadataId:
+          productOptionGroupObjectMetadata.fields.find(
+            (field) =>
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.isGlobal,
+          )?.id ?? '',
+        position: 2,
+        isVisible: true,
+        size: 100,
       },
       {
         fieldMetadataId:
@@ -59,7 +70,7 @@ export const productOptionGroupsAllView = (
               field.standardId ===
               PRODUCT_OPTION_GROUP_STANDARD_FIELD_IDS.createdBy,
           )?.id ?? '',
-        position: 2,
+        position: 3,
         isVisible: true,
         size: 150,
       },
@@ -69,7 +80,7 @@ export const productOptionGroupsAllView = (
             (field) =>
               field.standardId === BASE_OBJECT_STANDARD_FIELD_IDS.createdAt,
           )?.id ?? '',
-        position: 3,
+        position: 4,
         isVisible: true,
         size: 150,
       },

@@ -4,7 +4,6 @@ import { FieldMetadataType, RelationOnDeleteAction } from 'twenty-shared/types';
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
 import { Relation } from 'src/engine/workspace-manager/workspace-sync-metadata/interfaces/relation.interface';
 
-import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { SEARCH_VECTOR_FIELD } from 'src/engine/metadata-modules/constants/search-vector-field.constants';
 import { ActorMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/actor.composite-type';
 import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
@@ -25,11 +24,10 @@ import {
   type FieldTypeAndNameMetadata,
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
-import { ProductTypeWorkspaceEntity } from 'src/modules/product-type/standard-objects/product-type.workspace-entity';
 import { ProductCategoryWorkspaceEntity } from 'src/modules/product-category/standard-objects/product-category.workspace-entity';
-import { ProductOptionGroupWorkspaceEntity } from 'src/modules/product-option-group/standard-objects/product-option-group.workspace-entity';
+import { ProductOptionGroupLinkWorkspaceEntity } from 'src/modules/product-option-group-link/standard-objects/product-option-group-link.workspace-entity';
 import { ProductVariantWorkspaceEntity } from 'src/modules/product-variant/standard-objects/product-variant.workspace-entity';
-import { WarehouseProductWorkspaceEntity } from 'src/modules/warehouse-product/standard-objects/warehouse-product.workspace-entity';
+import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 const CODE_FIELD_NAME = 'code';
@@ -138,23 +136,6 @@ export class ProductWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceFieldIndex({ indexType: IndexType.GIN })
   searchVector: string;
 
-  // Relations - ProductType
-  @WorkspaceRelation({
-    standardId: PRODUCT_STANDARD_FIELD_IDS.productType,
-    type: RelationType.MANY_TO_ONE,
-    label: msg`Product Type`,
-    description: msg`The product type`,
-    icon: 'IconTag',
-    inverseSideTarget: () => ProductTypeWorkspaceEntity,
-    inverseSideFieldKey: 'products',
-    onDelete: RelationOnDeleteAction.SET_NULL,
-  })
-  @WorkspaceIsNullable()
-  productType: Relation<ProductTypeWorkspaceEntity> | null;
-
-  @WorkspaceJoinColumn('productType')
-  productTypeId: string | null;
-
   // Relations - ProductCategory
   @WorkspaceRelation({
     standardId: PRODUCT_STANDARD_FIELD_IDS.productCategory,
@@ -172,31 +153,20 @@ export class ProductWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceJoinColumn('productCategory')
   productCategoryId: string | null;
 
-  // Relations - ProductOptionGroups
+  // Relations - ProductOptionGroupLinks (junction to option groups)
   @WorkspaceRelation({
-    standardId: PRODUCT_STANDARD_FIELD_IDS.optionGroups,
+    standardId: PRODUCT_STANDARD_FIELD_IDS.optionGroupLinks,
     type: RelationType.ONE_TO_MANY,
-    label: msg`Option Groups`,
-    description: msg`Product option groups`,
+    label: msg`Option Group Links`,
+    description: msg`Option groups linked to this product`,
     icon: 'IconBoxMultiple',
-    inverseSideTarget: () => ProductOptionGroupWorkspaceEntity,
+    inverseSideTarget: () => ProductOptionGroupLinkWorkspaceEntity,
     inverseSideFieldKey: 'product',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  optionGroups: Relation<ProductOptionGroupWorkspaceEntity[]>;
+  optionGroupLinks: Relation<ProductOptionGroupLinkWorkspaceEntity[]>;
 
-  // Relations - Warehouses
-  @WorkspaceRelation({
-    standardId: PRODUCT_STANDARD_FIELD_IDS.warehouses,
-    type: RelationType.ONE_TO_MANY,
-    label: msg`Warehouses`,
-    description: msg`Warehouses storing this product`,
-    icon: 'IconBuilding',
-    inverseSideTarget: () => WarehouseProductWorkspaceEntity,
-    inverseSideFieldKey: 'product',
-  })
-  warehouses: Relation<WarehouseProductWorkspaceEntity[]>;
   // Relations - ProductVariants
   @WorkspaceRelation({
     standardId: PRODUCT_STANDARD_FIELD_IDS.variants,

@@ -12,8 +12,8 @@ import { PhonesMetadata } from 'src/engine/metadata-modules/field-metadata/compo
 import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
 import { BaseWorkspaceEntity } from 'src/engine/twenty-orm/base.workspace-entity';
 import { WorkspaceEntity } from 'src/engine/twenty-orm/decorators/workspace-entity.decorator';
-import { WorkspaceField } from 'src/engine/twenty-orm/decorators/workspace-field.decorator';
 import { WorkspaceFieldIndex } from 'src/engine/twenty-orm/decorators/workspace-field-index.decorator';
+import { WorkspaceField } from 'src/engine/twenty-orm/decorators/workspace-field.decorator';
 import { WorkspaceIsFieldUIReadOnly } from 'src/engine/twenty-orm/decorators/workspace-is-field-ui-readonly.decorator';
 import { WorkspaceIsNullable } from 'src/engine/twenty-orm/decorators/workspace-is-nullable.decorator';
 import { WorkspaceIsSearchable } from 'src/engine/twenty-orm/decorators/workspace-is-searchable.decorator';
@@ -23,11 +23,11 @@ import { WAREHOUSE_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/works
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
 import {
-  type FieldTypeAndNameMetadata,
-  getTsVectorColumnExpressionFromFields,
+    type FieldTypeAndNameMetadata,
+    getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
+import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
-import { WarehouseProductWorkspaceEntity } from 'src/modules/warehouse-product/standard-objects/warehouse-product.workspace-entity';
 
 const NAME_FIELD_NAME = 'name';
 const CODE_FIELD_NAME = 'code';
@@ -127,17 +127,17 @@ export class WarehouseWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   address: AddressMetadata | null;
 
-  // Relations
+  // Relations - Inventories (junction to product variants)
   @WorkspaceRelation({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.products,
+    standardId: WAREHOUSE_STANDARD_FIELD_IDS.inventories,
     type: RelationType.ONE_TO_MANY,
-    label: msg`Products`,
-    description: msg`Products in this warehouse`,
-    icon: 'IconPackage',
-    inverseSideTarget: () => WarehouseProductWorkspaceEntity,
+    label: msg`Inventories`,
+    description: msg`Product variant inventories in this warehouse`,
+    icon: 'IconPackages',
+    inverseSideTarget: () => InventoryWorkspaceEntity,
     inverseSideFieldKey: 'warehouse',
   })
-  products: Relation<WarehouseProductWorkspaceEntity[]>;
+  inventories: Relation<InventoryWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: WAREHOUSE_STANDARD_FIELD_IDS.timelineActivities,

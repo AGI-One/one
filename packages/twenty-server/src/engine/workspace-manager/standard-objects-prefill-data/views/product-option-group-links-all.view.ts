@@ -3,25 +3,28 @@ import { msg } from '@lingui/core/macro';
 import { type ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadata/object-metadata.entity';
 import {
   BASE_OBJECT_STANDARD_FIELD_IDS,
-  PRODUCT_STANDARD_FIELD_IDS,
+  PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
 
-export const productsAllView = (
+export const productOptionGroupLinksAllView = (
   objectMetadataItems: ObjectMetadataEntity[],
   useCoreNaming = false,
 ) => {
-  const productObjectMetadata = objectMetadataItems.find(
-    (object) => object.standardId === STANDARD_OBJECT_IDS.product,
+  const productOptionGroupLinkObjectMetadata = objectMetadataItems.find(
+    (object) =>
+      object.standardId === STANDARD_OBJECT_IDS.productOptionGroupLink,
   );
 
-  if (!productObjectMetadata) {
-    throw new Error('Product object metadata not found');
+  if (!productOptionGroupLinkObjectMetadata) {
+    throw new Error('ProductOptionGroupLink object metadata not found');
   }
 
   return {
-    name: useCoreNaming ? msg`All {objectLabelPlural}` : 'All Products',
-    objectMetadataId: productObjectMetadata.id,
+    name: useCoreNaming
+      ? msg`All {objectLabelPlural}`
+      : 'All Product Option Group Links',
+    objectMetadataId: productOptionGroupLinkObjectMetadata.id,
     type: 'table',
     key: 'INDEX',
     position: 0,
@@ -31,8 +34,10 @@ export const productsAllView = (
     fields: [
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
-            (field) => field.standardId === PRODUCT_STANDARD_FIELD_IDS.name,
+          productOptionGroupLinkObjectMetadata.fields.find(
+            (field) =>
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS.product,
           )?.id ?? '',
         position: 0,
         isVisible: true,
@@ -40,27 +45,32 @@ export const productsAllView = (
       },
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
-            (field) => field.standardId === PRODUCT_STANDARD_FIELD_IDS.code,
+          productOptionGroupLinkObjectMetadata.fields.find(
+            (field) =>
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS.optionGroup,
           )?.id ?? '',
         position: 1,
         isVisible: true,
-        size: 150,
+        size: 210,
       },
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
+          productOptionGroupLinkObjectMetadata.fields.find(
             (field) =>
-              field.standardId === PRODUCT_STANDARD_FIELD_IDS.productCategory,
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS.required,
           )?.id ?? '',
         position: 2,
         isVisible: true,
-        size: 150,
+        size: 100,
       },
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
-            (field) => field.standardId === PRODUCT_STANDARD_FIELD_IDS.enabled,
+          productOptionGroupLinkObjectMetadata.fields.find(
+            (field) =>
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS.position,
           )?.id ?? '',
         position: 3,
         isVisible: true,
@@ -68,9 +78,10 @@ export const productsAllView = (
       },
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
+          productOptionGroupLinkObjectMetadata.fields.find(
             (field) =>
-              field.standardId === PRODUCT_STANDARD_FIELD_IDS.description,
+              field.standardId ===
+              PRODUCT_OPTION_GROUP_LINK_STANDARD_FIELD_IDS.customDisplayName,
           )?.id ?? '',
         position: 4,
         isVisible: true,
@@ -78,7 +89,7 @@ export const productsAllView = (
       },
       {
         fieldMetadataId:
-          productObjectMetadata.fields.find(
+          productOptionGroupLinkObjectMetadata.fields.find(
             (field) =>
               field.standardId === BASE_OBJECT_STANDARD_FIELD_IDS.createdAt,
           )?.id ?? '',

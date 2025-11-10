@@ -1,202 +1,583 @@
-# Hướng Dẫn Thêm Standard Object Mới Vào Twenty# Hướng Dẫn Thêm Standard Object Mới Vào Twenty
+# Hướng Dẫn Thêm Standard Object Mới Vào Twenty
 
+## Tổng Quan
 
+Standard Object là các đối tượng dữ liệu cốt lõi được định nghĩa sẵn trong hệ thống Twenty (như Company, Person, Opportunity, Task, Department, Employee, Team...). Khác với Custom Object (do người dùng tự tạo), Standard Object được hard-code vào source code và có sẵn cho tất cả workspace.
 
-## Tổng Quan## Tổng Quan
+Hướng dẫn này sẽ chỉ ra cách thêm một Standard Object mới vào hệ thống, bao gồm tất cả các file cần tạo và cập nhật.
 
+## Cấu Trúc Thư Mục
 
+Mỗi Standard Object thường được tổ chức trong một module riêng biệt với cấu trúc như sau:
 
-Standard Object là các đối tượng dữ liệu cốt lõi được định nghĩa sẵn trong hệ thống Twenty (như Company, Person, Opportunity, Task, Department, Employee, Team...). Khác với Custom Object (do người dùng tự tạo), Standard Object được hard-code vào source code và có sẵn cho tất cả workspace.Standard Object là các đối tượng dữ liệu cốt lõi được định nghĩa sẵn trong hệ thống Twenty (như Company, Person, Opportunity, Task, Department, Employee, Team...). Khác với Custom Object (do người dùng tự tạo), Standard Object được hard-code vào source code và có sẵn cho tất cả workspace.
-
-
-
-## Cấu Trúc Thư MụcHướng dẫn này sẽ chỉ ra cách thêm một Standard Object mới vào hệ thống, bao gồm tất cả các file cần tạo và cập nhật.
-
-
-
-```## Cấu Trúc Thư Mục
-
+```
 packages/twenty-server/src/modules/
-
-└── [tên-module]/                          # Ví dụ: product, employeeMỗi Standard Object thường được tổ chức trong một module riêng biệt với cấu trúc như sau:
-
+└── [tên-module]/                          # Tên module (ví dụ: product, employee)
     ├── standard-objects/                   # Thư mục chứa workspace entity
-
-    │   └── [tên-module].workspace-entity.ts```
-
-    └── ...                                 # Các thư mục khác (services, resolvers...)packages/twenty-server/src/modules/
-
-```└── [tên-module]/                          # Tên module (ví dụ: product, employee)
-
-    ├── standard-objects/                   # Thư mục chứa workspace entity
-
-## Tổng Quan Các Bước    │   └── [tên-module].workspace-entity.ts
-
+    │   └── [tên-module].workspace-entity.ts
     ├── constants/                          # (Tùy chọn) Constants cho module
+    │   └── [tên-constant].ts
+    └── ...                                 # Các thư mục khác (services, resolvers...)
+```
 
-1. ✅ **Chuẩn bị UUIDs và Constants** (5 files)    │   └── [tên-constant].ts
+## Tổng Quan Các Bước
 
-2. ✅ **Tạo workspace entity**     └── ...                                 # Các thư mục khác (services, resolvers...)
-
-3. ✅ **Thêm relations** (nếu có)```
-
-4. ✅ **Đăng ký backend** (1 file)
-
-5. ✅ **Cập nhật frontend** (3 files)## Tổng Quan Các Bước
-
-6. ✅ **Tạo views** (khuyến nghị)
-
-7. ✅ **Chạy migration**1. ✅ **Chuẩn bị UUIDs và Constants**
-
+1. ✅ **Chuẩn bị UUIDs và Constants**
 2. ✅ **Tạo module và workspace entity**
-
----3. ✅ **Thêm relations (nếu có)**
-
+3. ✅ **Thêm relations (nếu có)**
 4. ✅ **Đăng ký object vào backend**
-
-## Bước 1: Chuẩn Bị Constants (5 Files)5. ✅ **Cập nhật frontend**
-
+5. ✅ **Cập nhật frontend**
 6. ✅ **Chạy migration**
-
-### 1.1. Tạo UUIDs
 
 ---
 
+## Các Bước Thực Hiện Chi Tiết
+
+### Bước 1: Chuẩn Bị IDs và Constants
+
+#### 1.1. Tạo UUID cho Object và Fields
+
+Trước tiên, bạn cần tạo các UUID duy nhất cho:
+- Object standardId (1 cái)
+- Mỗi field standardId (nhiều cái)
+
+**Cách tạo UUID:**
+
 ```bash
-
-# macOS/Linux## Các Bước Thực Hiện Chi Tiết
-
+# Trên macOS/Linux (tạo lowercase UUID)
 uuidgen | tr '[:upper:]' '[:lower:]'
 
-```### Bước 1: Chuẩn Bị IDs và Constants
-
-
-
-Cần tạo UUID cho:#### 1.1. Tạo UUID cho Object và Fields
-
-- 1 object standardId
-
-- N field standardIds (mỗi field 1 UUID)Trước tiên, bạn cần tạo các UUID duy nhất cho:
-
-- Object standardId (1 cái)
-
-### 1.2. File `standard-object-ids.ts`- Mỗi field standardId (nhiều cái)
-
-
-
-**Đường dẫn:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids.ts`**Cách tạo UUID:**
-
-
-
-```typescript```bash
-
-export const STANDARD_OBJECT_IDS = {# Trên macOS/Linux (tạo lowercase UUID)
-
-  // ... existing objects (alphabetically)uuidgen | tr '[:upper:]' '[:lower:]'
-
-  product: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-
-} as const;# Hoặc dùng online tool
-
-```https://www.uuidgenerator.net/
-
+# Hoặc dùng online tool
+https://www.uuidgenerator.net/
 ```
-
-### 1.3. File `standard-field-ids.ts`
 
 **Lưu ý:** Lưu lại các UUID này, bạn sẽ cần sử dụng chúng ở nhiều nơi.
 
-**Đường dẫn:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids.ts`
-
 #### 1.2. Thêm Object ID vào `standard-object-ids.ts`
 
+**File:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids.ts`
+
+Thêm ID của object mới vào constant:
+
 ```typescript
-
-export const PRODUCT_STANDARD_FIELD_IDS = {**File:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids.ts`
-
-  name: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
-
-  description: 'c3d4e5f6-a7b8-9012-cdef-123456789012',Thêm ID của object mới vào constant:
-
-  price: 'd4e5f6a7-b8c9-0123-def1-234567890123',
-
-  position: 'e5f6a7b8-c9d0-1234-ef12-345678901234',```typescript
-
-  createdBy: 'f6a7b8c9-d0e1-2345-f123-456789012345',export const STANDARD_OBJECT_IDS = {
-
-  searchVector: 'a7b8c9d0-e1f2-3456-0123-456789abcdef',  // ... existing objects
-
-} as const;  product: '[UUID-MỚI]', // UUID bạn vừa tạo
-
-```} as const;
-
+export const STANDARD_OBJECT_IDS = {
+  // ... existing objects
+  product: '[UUID-MỚI]', // UUID bạn vừa tạo
+} as const;
 ```
-
-### 1.4. File `standard-object-icons.ts`
 
 **Ví dụ thực tế:**
 
-**Đường dẫn:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons.ts````typescript
-
+```typescript
 export const STANDARD_OBJECT_IDS = {
-
-```typescript  company: '20202020-b374-4779-a561-80086cb2e17f',
-
-export const STANDARD_OBJECT_ICONS = {  person: '20202020-e674-48e5-a542-72570eee7213',
-
-  // ... existing icons  product: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', // ← Thêm dòng này
-
-  product: 'IconBox', // Icon từ Tabler Icons} as const;
-
-} as const;```
-
+  company: '20202020-b374-4779-a561-80086cb2e17f',
+  person: '20202020-e674-48e5-a542-72570eee7213',
+  product: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', // ← Thêm dòng này
+} as const;
 ```
 
 #### 1.3. Thêm Field IDs vào `standard-field-ids.ts`
 
-**Lưu ý:** Icon từ [Tabler Icons](https://tabler.io/icons) với prefix `Icon`.
-
 **File:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids.ts`
-
-### 1.5. File `standard-objects-by-priority-rank.ts`
 
 Tạo một constant chứa tất cả field IDs của object:
 
-**Đường dẫn:** `packages/twenty-server/src/engine/core-modules/search/constants/standard-objects-by-priority-rank.ts`
-
 ```typescript
-
-```typescriptexport const PRODUCT_STANDARD_FIELD_IDS = {
-
-export const STANDARD_OBJECTS_BY_PRIORITY_RANK = {  name: '[UUID-MỚI]',
-
-  person: 5,           // Core entities  description: '[UUID-MỚI]',
-
-  company: 4,          // Major entities  price: '[UUID-MỚI]',
-
-  opportunity: 3,      // Business objects  position: '[UUID-MỚI]',
-
-  product: 3,          // ← Thêm vào đây (business object)  createdBy: '[UUID-MỚI]',
-
-  employee: 2,         // Secondary objects  searchVector: '[UUID-MỚI]',
-
-  task: 1,             // Organizational objects  // ... các field khác
-
-  // ... existing objects} as const;
-
-} as const;```
-
+export const PRODUCT_STANDARD_FIELD_IDS = {
+  name: '[UUID-MỚI]',
+  description: '[UUID-MỚI]',
+  price: '[UUID-MỚI]',
+  position: '[UUID-MỚI]',
+  createdBy: '[UUID-MỚI]',
+  searchVector: '[UUID-MỚI]',
+  // ... các field khác
+} as const;
 ```
 
 **Ví dụ thực tế:**
 
-**Hướng dẫn chọn priority:**```typescript
+```typescript
+export const PRODUCT_STANDARD_FIELD_IDS = {
+  name: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+  description: 'c3d4e5f6-a7b8-9012-cdef-123456789012',
+  price: 'd4e5f6a7-b8c9-0123-def1-234567890123',
+  position: 'e5f6a7b8-c9d0-1234-ef12-345678901234',
+  createdBy: 'f6a7b8c9-d0e1-2345-f123-456789012345',
+  searchVector: 'a7b8c9d0-e1f2-3456-0123-456789abcdef',
+} as const;
+```
 
-- **5**: Core entities (Person)export const PRODUCT_STANDARD_FIELD_IDS = {
+#### 1.4. Thêm Icon vào `standard-object-icons.ts`
 
-- **4**: Major entities (Company)  name: 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+**File:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons.ts`
 
-- **3**: Business objects (Opportunity, Product)  description: 'c3d4e5f6-a7b8-9012-cdef-123456789012',
+Thêm icon cho object:
+
+```typescript
+export const STANDARD_OBJECT_ICONS = {
+  // ... existing icons
+  product: 'IconBox', // Icon từ Tabler Icons
+} as const;
+```
+
+**Lưu ý:** Icon phải là tên icon hợp lệ từ [Tabler Icons](https://tabler.io/icons) với prefix `Icon`.
+
+#### 1.5. Thêm Search Priority vào `standard-objects-by-priority-rank.ts`
+
+**File:** `packages/twenty-server/src/engine/core-modules/search/constants/standard-objects-by-priority-rank.ts`
+
+Thêm độ ưu tiên search (số càng cao càng ưu tiên):
+
+```typescript
+export const STANDARD_OBJECTS_BY_PRIORITY_RANK = {
+  person: 5,
+  company: 4,
+  opportunity: 3,
+  product: 3, // High priority - core business object
+  employee: 2,
+  // ... existing objects
+} as const;
+```
+
+**Hướng dẫn chọn priority:**
+- **5**: Core entities (Person)
+- **4**: Major entities (Company)
+- **3**: Business objects (Opportunity, Product)
+- **2**: Secondary objects (Employee, Note)
+- **1**: Organizational objects (Task, Department, Team)
+- **0**: Configuration/lookup objects
+
+---
+
+### Bước 2: Tạo Module và Workspace Entity
+
+#### 2.1. Tạo Thư Mục Module
+
+```bash
+mkdir -p packages/twenty-server/src/modules/product/standard-objects
+```
+
+#### 2.2. Tạo File Workspace Entity
+
+**Đường dẫn:** `packages/twenty-server/src/modules/product/standard-objects/product.workspace-entity.ts`
+
+**Template cơ bản cho Workspace Entity:**
+
+```typescript
+import { msg } from '@lingui/core/macro';
+import { FieldMetadataType, RelationOnDeleteAction } from 'twenty-shared/types';
+
+import { SEARCH_VECTOR_FIELD } from 'src/engine/metadata-modules/constants/search-vector-field.constants';
+import { ActorMetadata } from 'src/engine/metadata-modules/field-metadata/composite-types/actor.composite-type';
+import { IndexType } from 'src/engine/metadata-modules/index-metadata/types/indexType.types';
+import { BaseWorkspaceEntity } from 'src/engine/twenty-orm/base.workspace-entity';
+import { WorkspaceEntity } from 'src/engine/twenty-orm/decorators/workspace-entity.decorator';
+import { WorkspaceFieldIndex } from 'src/engine/twenty-orm/decorators/workspace-field-index.decorator';
+import { WorkspaceField } from 'src/engine/twenty-orm/decorators/workspace-field.decorator';
+import { WorkspaceIsFieldUIReadOnly } from 'src/engine/twenty-orm/decorators/workspace-is-field-ui-readonly.decorator';
+import { WorkspaceIsNullable } from 'src/engine/twenty-orm/decorators/workspace-is-nullable.decorator';
+import { WorkspaceIsSearchable } from 'src/engine/twenty-orm/decorators/workspace-is-searchable.decorator';
+import { WorkspaceIsSystem } from 'src/engine/twenty-orm/decorators/workspace-is-system.decorator';
+import { PRODUCT_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
+import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
+import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
+import {
+  type FieldTypeAndNameMetadata,
+  getTsVectorColumnExpressionFromFields,
+} from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
+
+// Định nghĩa các field sẽ được search
+const NAME_FIELD_NAME = 'name';
+
+export const SEARCH_FIELDS_FOR_PRODUCT: FieldTypeAndNameMetadata[] = [
+  { name: NAME_FIELD_NAME, type: FieldMetadataType.TEXT },
+];
+
+@WorkspaceEntity({
+  standardId: STANDARD_OBJECT_IDS.product,        // Dùng constant đã tạo
+  namePlural: 'products',                         // Tên số nhiều (dùng trong API)
+  labelSingular: msg`Product`,                    // Label số ít (hiển thị UI)
+  labelPlural: msg`Products`,                     // Label số nhiều (hiển thị UI)
+  description: msg`A product in the system`,      // Mô tả
+  icon: STANDARD_OBJECT_ICONS.product,           // Dùng constant đã tạo
+  shortcut: 'P',                                  // Phím tắt (tùy chọn)
+  labelIdentifierStandardId: PRODUCT_STANDARD_FIELD_IDS.name,  // Field identifier chính
+  imageIdentifierStandardId: PRODUCT_STANDARD_FIELD_IDS.imageUrl, // (Tùy chọn) Field cho avatar/image
+})
+@WorkspaceIsSearchable()  // Cho phép search full-text
+export class ProductWorkspaceEntity extends BaseWorkspaceEntity {
+  // Field chính (Label Identifier)
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.name,  // Dùng constant đã tạo
+    type: FieldMetadataType.TEXT,
+    label: msg`Name`,
+    description: msg`Product name`,
+    icon: 'IconBox',
+  })
+  name: string;
+
+  // Các field khác (nullable)
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.description,
+    type: FieldMetadataType.TEXT,
+    label: msg`Description`,
+    description: msg`Product description`,
+    icon: 'IconFileText',
+  })
+  @WorkspaceIsNullable()
+  description: string | null;
+
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.price,
+    type: FieldMetadataType.NUMBER,
+    label: msg`Price`,
+    description: msg`Product price`,
+    icon: 'IconCurrencyDollar',
+  })
+  @WorkspaceIsNullable()
+  price: number | null;
+
+  // System fields (BẮT BUỘC)
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.position,
+    type: FieldMetadataType.POSITION,
+    label: msg`Position`,
+    description: msg`Product record position`,
+    icon: 'IconHierarchy2',
+    defaultValue: 0,
+  })
+  @WorkspaceIsSystem()
+  position: number;
+
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.createdBy,
+    type: FieldMetadataType.ACTOR,
+    label: msg`Created by`,
+    icon: 'IconCreativeCommonsSa',
+    description: msg`The creator of the record`,
+  })
+  @WorkspaceIsFieldUIReadOnly()
+  createdBy: ActorMetadata;
+
+  // Search vector (BẮT BUỘC nếu @WorkspaceIsSearchable())
+  @WorkspaceField({
+    standardId: PRODUCT_STANDARD_FIELD_IDS.searchVector,
+    type: FieldMetadataType.TS_VECTOR,
+    label: SEARCH_VECTOR_FIELD.label,
+    description: SEARCH_VECTOR_FIELD.description,
+    icon: 'IconBox',
+    generatedType: 'STORED',
+    asExpression: getTsVectorColumnExpressionFromFields(
+      SEARCH_FIELDS_FOR_PRODUCT,
+    ),
+  })
+  @WorkspaceIsNullable()
+  @WorkspaceIsSystem()
+  @WorkspaceFieldIndex({ indexType: IndexType.GIN })
+  searchVector: string;
+}
+```
+
+---
+
+### Bước 3: Thêm Relations (Nếu Có)
+
+Nếu object của bạn cần liên kết với các object khác, hãy thêm relations. Nhớ import thêm:
+
+```typescript
+import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
+import { Relation } from 'src/engine/workspace-manager/workspace-sync-metadata/interfaces/relation.interface';
+import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
+import { WorkspaceRelation } from 'src/engine/twenty-orm/decorators/workspace-relation.decorator';
+```
+
+#### 3.1. Many-to-One Relation
+
+Ví dụ: Product thuộc về một Category
+
+```typescript
+// Thêm vào ProductWorkspaceEntity class:
+import { CategoryWorkspaceEntity } from 'src/modules/category/standard-objects/category.workspace-entity';
+
+@WorkspaceRelation({
+  standardId: PRODUCT_STANDARD_FIELD_IDS.category,  // Thêm vào constant
+  type: RelationType.MANY_TO_ONE,
+  label: msg`Category`,
+  description: msg`Product category`,
+  icon: 'IconTag',
+  inverseSideTarget: () => CategoryWorkspaceEntity,
+  inverseSideFieldKey: 'products',
+  onDelete: RelationOnDeleteAction.SET_NULL,
+})
+@WorkspaceIsNullable()
+category: Relation<CategoryWorkspaceEntity> | null;
+
+@WorkspaceJoinColumn('category')
+categoryId: string | null;
+```
+
+#### 3.2. One-to-Many Relation
+
+Ví dụ: Category có nhiều Products
+
+```typescript
+// Trong CategoryWorkspaceEntity class:
+import { ProductWorkspaceEntity } from 'src/modules/product/standard-objects/product.workspace-entity';
+
+@WorkspaceRelation({
+  standardId: CATEGORY_STANDARD_FIELD_IDS.products,  // Thêm vào constant
+  type: RelationType.ONE_TO_MANY,
+  label: msg`Products`,
+  description: msg`Products in this category`,
+  icon: 'IconBox',
+  inverseSideTarget: () => ProductWorkspaceEntity,
+  inverseSideFieldKey: 'category',
+  onDelete: RelationOnDeleteAction.SET_NULL,
+})
+@WorkspaceIsNullable()
+products: Relation<ProductWorkspaceEntity[]>;
+```
+
+**Lưu ý quan trọng về Relations:**
+- `inverseSideTarget`: Trỏ đến entity liên kết
+- `inverseSideFieldKey`: Tên field ở phía bên kia của relation
+- `onDelete`: Hành động khi xóa (SET_NULL, CASCADE, RESTRICT)
+- Many-to-One cần thêm `@WorkspaceJoinColumn` và field `[name]Id`
+- Relation 2 chiều: Phải định nghĩa ở cả 2 entity
+
+---
+
+### Bước 4: Đăng Ký Standard Object Vào Backend
+
+#### 4.1. Import và Thêm vào Array
+
+**File:** `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/standard-objects/index.ts`
+
+**Bước 1:** Thêm import ở đầu file (theo thứ tự alphabet):
+
+```typescript
+// ... existing imports
+import { ProductWorkspaceEntity } from 'src/modules/product/standard-objects/product.workspace-entity';
+// ... other imports
+```
+
+**Bước 2:** Thêm vào array `standardObjectMetadataDefinitions` (theo thứ tự alphabet):
+
+```typescript
+export const standardObjectMetadataDefinitions = [
+  AttachmentWorkspaceEntity,
+  BlocklistWorkspaceEntity,
+  // ... existing entities
+  ProductWorkspaceEntity,        // ← Thêm vào đây
+  // ... other entities
+];
+```
+
+**Lưu ý:** Danh sách thường được sắp xếp theo alphabet để dễ quản lý.
+
+---
+
+### Bước 5: Cập Nhật Frontend
+
+#### 5.1. Thêm Vào CoreObjectNameSingular
+
+**File:** `packages/twenty-front/src/modules/object-metadata/types/CoreObjectNameSingular.ts`
+
+```typescript
+export enum CoreObjectNameSingular {
+  // ... existing objects
+  Product = 'product',
+}
+```
+
+#### 5.2. Thêm Vào Navigation
+
+**File:** `packages/twenty-front/src/modules/object-metadata/components/NavigationDrawerSectionForObjectMetadataItems.tsx`
+
+Thêm object vào navigation với thứ tự mong muốn:
+
+```typescript
+const ORDERED_STANDARD_OBJECTS: string[] = [
+  CoreObjectNameSingular.Person,
+  CoreObjectNameSingular.Company,
+  CoreObjectNameSingular.Opportunity,
+  CoreObjectNameSingular.Product,    // ← Thêm vào đây
+  CoreObjectNameSingular.Task,
+  // ... other objects
+];
+```
+
+#### 5.3. Thêm Màu Sắc Icon
+
+**File:** `packages/twenty-front/src/modules/object-metadata/utils/getIconColorForObjectType.ts`
+
+Thêm màu sắc cho icon của object:
+
+```typescript
+export const getIconColorForObjectType = ({
+  objectType,
+  theme,
+}: {
+  objectType: string;
+  theme: Theme;
+}): string => {
+  switch (objectType) {
+    case 'note':
+      return theme.color.yellow;
+    case 'task':
+      return theme.color.blue;
+    case 'product':
+      return theme.color.purple; // ← Thêm vào đây
+    // ... other cases
+    default:
+      return 'currentColor';
+  }
+};
+```
+
+**Các màu có sẵn:**
+- `theme.color.blue` - Xanh dương
+- `theme.color.purple` - Tím
+- `theme.color.green` - Xanh lá
+- `theme.color.orange` - Cam
+- `theme.color.turquoise` - Xanh ngọc
+- `theme.color.red` - Đỏ
+- `theme.color.yellow` - Vàng
+
+---
+
+### Bước 6: Chạy Migration
+
+Sau khi hoàn tất tất cả các bước trên, cần sync metadata để cập nhật database schema.
+
+#### 6.1. Build Server
+
+```bash
+cd packages/twenty-server
+yarn build
+```
+
+#### 6.2. Sync Metadata
+
+**Sync cho một workspace cụ thể:**
+
+```bash
+yarn command:prod workspace:sync-metadata -w [workspace-id]
+```
+
+**Sync cho tất cả workspaces:**
+
+```bash
+yarn command:prod workspace:sync-metadata
+```
+
+**Lưu ý:** Migration này sẽ:
+- Tạo bảng mới trong database
+- Tạo các column cho tất cả fields
+- Tạo indexes
+- Tạo relations/foreign keys
+
+---
+
+## Lưu Ý Quan Trọng
+
+### 1. UUID phải duy nhất
+- Sử dụng constants để tránh typo
+- Không được trùng lặp
+
+### 2. Label Identifier & Image Identifier
+- `labelIdentifierStandardId`: Field làm tiêu đề chính của record (thường là `name` hoặc `title`)
+- `imageIdentifierStandardId` (Tùy chọn): Field cho avatar/image (ví dụ: `avatarUrl`, `imageUrl`)
+  - Chỉ dùng khi object cần hiển thị hình ảnh (Person, Company, WorkspaceMember...)
+
+### 3. System Fields (Bắt Buộc)
+- `position` - Sắp xếp records
+- `createdBy` - Người tạo record
+
+### 4. Search Vector
+- Bắt buộc nếu có `@WorkspaceIsSearchable()`
+- Định nghĩa `SEARCH_FIELDS_FOR_[OBJECT]`
+
+### 5. Relations
+- Many-to-One: Cần `@WorkspaceJoinColumn` và `[name]Id`
+- Cập nhật cả 2 phía (inverse side)
+
+### 6. Constants
+- LUÔN dùng `STANDARD_OBJECT_IDS.[objectName]`
+- LUÔN dùng `[OBJECT]_STANDARD_FIELD_IDS.[fieldName]`
+- LUÔN dùng `STANDARD_OBJECT_ICONS.[objectName]`
+
+---
+
+## Checklist Hoàn Chỉnh
+
+Khi thêm Standard Object mới, đảm bảo bạn đã:
+
+### Backend (Server)
+
+**Bước 1: Chuẩn bị Constants**
+- [ ] **Tạo UUID** cho object và tất cả fields
+- [ ] **Thêm object ID** vào `standard-object-ids.ts`
+- [ ] **Thêm field IDs** vào `standard-field-ids.ts` (tạo constant `[OBJECT]_STANDARD_FIELD_IDS`)
+- [ ] **Thêm icon** vào `standard-object-icons.ts`
+- [ ] **Thêm search priority** vào `standard-objects-by-priority-rank.ts`
+
+**Bước 2: Tạo Entity**
+- [ ] **Tạo module folder** `packages/twenty-server/src/modules/[tên-module]/standard-objects/`
+- [ ] **Tạo workspace entity file** `[tên-module].workspace-entity.ts`
+- [ ] **Định nghĩa @WorkspaceEntity** decorator với đầy đủ options
+- [ ] **Định nghĩa tất cả fields** cần thiết
+- [ ] **Thêm system fields** bắt buộc: `position`, `createdBy`
+- [ ] **Thêm search vector** (nếu object là searchable - `@WorkspaceIsSearchable()`)
+- [ ] **Sử dụng constants** cho tất cả standardId
+
+**Bước 3: Relations (nếu có)**
+- [ ] **Thêm Many-to-One relations** với `@WorkspaceJoinColumn`
+- [ ] **Thêm One-to-Many relations** ở phía ngược lại
+- [ ] **Đảm bảo inverseSideFieldKey** đúng ở cả 2 phía
+
+**Bước 4: Đăng ký**
+- [ ] **Import entity** vào `standard-objects/index.ts`
+- [ ] **Thêm vào array** `standardObjectMetadataDefinitions`
+
+### Frontend (Nếu cần)
+
+- [ ] **Thêm vào CoreObjectNameSingular.ts** (nếu cần hiển thị trong UI)
+- [ ] **Thêm vào ORDERED_STANDARD_OBJECTS** (nếu cần trong navigation)
+- [ ] **Thêm màu icon** vào `getIconColorForObjectType.ts`
+
+### Migration
+
+- [ ] **Build server** (`yarn build`)
+- [ ] **Chạy workspace:sync-metadata** để cập nhật database
+
+### Testing
+
+- [ ] **Kiểm tra object** xuất hiện trong metadata
+- [ ] **Test tạo record** mới
+- [ ] **Test relations** hoạt động đúng
+- [ ] **Test search** (nếu searchable)
+
+---
+
+## Tài Liệu Tham Khảo
+
+**Code Examples:**
+- Simple: `company`, `person`, `opportunity`
+- Complex: `employee`, `department`, `team`
+
+**Key Files:**
+- Constants: `packages/twenty-server/src/engine/workspace-manager/workspace-sync-metadata/constants/`
+- Decorators: `packages/twenty-server/src/engine/twenty-orm/decorators/`
+- Composite Types: `packages/twenty-server/src/engine/metadata-modules/field-metadata/composite-types/`
+
+**External:**
+- [Tabler Icons](https://tabler.io/icons)
+
+---
+
+**Happy coding! 🚀**
+
 
 - **2**: Secondary objects (Employee, Note)  price: 'd4e5f6a7-b8c9-0123-def1-234567890123',
 

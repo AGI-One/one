@@ -24,6 +24,7 @@ import { EmployeeAwardWorkspaceEntity } from 'src/modules/employee-award/standar
 import { EmployeeLevelWorkspaceEntity } from 'src/modules/employee-level/standard-objects/employee-level.workspace-entity';
 import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
 import { EmploymentTypeWorkspaceEntity } from 'src/modules/employment-type/standard-objects/employment-type.workspace-entity';
+import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { NoteWorkspaceEntity } from 'src/modules/note/standard-objects/note.workspace-entity';
 import { OpportunityWorkspaceEntity } from 'src/modules/opportunity/standard-objects/opportunity.workspace-entity';
 import { PersonWorkspaceEntity } from 'src/modules/person/standard-objects/person.workspace-entity';
@@ -31,7 +32,6 @@ import { OrganizationPositionWorkspaceEntity } from 'src/modules/position/standa
 import { ProductCategoryWorkspaceEntity } from 'src/modules/product-category/standard-objects/product-category.workspace-entity';
 import { ProductOptionGroupWorkspaceEntity } from 'src/modules/product-option-group/standard-objects/product-option-group.workspace-entity';
 import { ProductOptionWorkspaceEntity } from 'src/modules/product-option/standard-objects/product-option.workspace-entity';
-import { ProductTypeWorkspaceEntity } from 'src/modules/product-type/standard-objects/product-type.workspace-entity';
 import { ProductVariantWorkspaceEntity } from 'src/modules/product-variant/standard-objects/product-variant.workspace-entity';
 import { ProductWorkspaceEntity } from 'src/modules/product/standard-objects/product.workspace-entity';
 import { TaskWorkspaceEntity } from 'src/modules/task/standard-objects/task.workspace-entity';
@@ -274,22 +274,6 @@ export class TimelineActivityWorkspaceEntity extends BaseWorkspaceEntity {
   dashboardId: string | null;
 
   @WorkspaceRelation({
-    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.productType,
-    type: RelationType.MANY_TO_ONE,
-    label: msg`Product Type`,
-    description: msg`Event product type`,
-    icon: 'IconTag',
-    inverseSideTarget: () => ProductTypeWorkspaceEntity,
-    inverseSideFieldKey: 'timelineActivities',
-    onDelete: RelationOnDeleteAction.SET_NULL,
-  })
-  @WorkspaceIsNullable()
-  productType: Relation<ProductTypeWorkspaceEntity> | null;
-
-  @WorkspaceJoinColumn('productType')
-  productTypeId: string | null;
-
-  @WorkspaceRelation({
     standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.productCategory,
     type: RelationType.MANY_TO_ONE,
     label: msg`Product Category`,
@@ -384,6 +368,22 @@ export class TimelineActivityWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('warehouse')
   warehouseId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.inventory,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Inventory`,
+    description: msg`Event inventory`,
+    icon: 'IconPackage',
+    inverseSideTarget: () => InventoryWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  inventory: Relation<InventoryWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('inventory')
+  inventoryId: string | null;
 
   @WorkspaceRelation({
     standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.department,
