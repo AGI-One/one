@@ -52,11 +52,11 @@ export const rule = createRule<[], 'restApiMethodsShouldBeGuarded'>({
   meta: {
     docs: {
       description:
-        'REST API endpoints should have authentication guards (UserAuthGuard or WorkspaceAuthGuard) or be explicitly marked as public (PublicEndpointGuard) and permission guards (SettingsPermissionsGuard or CustomPermissionGuard) to maintain our security model.',
+        'REST API endpoints should have authentication guards (UserAuthGuard or WorkspaceAuthGuard) or be explicitly marked as public (PublicEndpointGuard) and permission guards (SettingsPermissionGuard or CustomPermissionGuard) to maintain our security model.',
     },
     messages: {
       restApiMethodsShouldBeGuarded:
-        'All REST API controller endpoints must have authentication guards (@UseGuards(UserAuthGuard/WorkspaceAuthGuard/PublicEndpointGuard)) and permission guards (@UseGuards(..., SettingsPermissionsGuard(PermissionFlagType.XXX)), CustomPermissionGuard for custom logic, or NoPermissionGuard for special cases).',
+        'All REST API controller endpoints must have authentication guards (@UseGuards(UserAuthGuard/WorkspaceAuthGuard/PublicEndpointGuard)) and permission guards (@UseGuards(..., SettingsPermissionGuard(PermissionFlagType.XXX)), CustomPermissionGuard for custom logic, or NoPermissionGuard for special cases).',
     },
     schema: [],
     hasSuggestions: false,

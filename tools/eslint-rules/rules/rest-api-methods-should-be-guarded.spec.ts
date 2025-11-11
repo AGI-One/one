@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-        @UseGuards(WorkspaceAuthGuard, SettingsPermissionsGuard(PermissionFlagType.WORKSPACE))
+        @UseGuards(WorkspaceAuthGuard, SettingsPermissionGuard(PermissionFlagType.WORKSPACE))
         class TestController {
           @Delete()
           deleteMethod() {}
