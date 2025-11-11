@@ -7,17 +7,12 @@ import { CalendarEventWorkspaceEntity } from 'src/modules/calendar/common/standa
 import { CompanyWorkspaceEntity } from 'src/modules/company/standard-objects/company.workspace-entity';
 import { ConnectedAccountWorkspaceEntity } from 'src/modules/connected-account/standard-objects/connected-account.workspace-entity';
 import { DashboardWorkspaceEntity } from 'src/modules/dashboard/standard-objects/dashboard.workspace-entity';
-import { DepartmentWorkspaceEntity } from 'src/modules/department/standard-objects/department.workspace-entity';
-import { EmployeeAwardWorkspaceEntity } from 'src/modules/employee-award/standard-objects/employee-award.workspace-entity';
-import { EmployeeLevelWorkspaceEntity } from 'src/modules/employee-level/standard-objects/employee-level.workspace-entity';
-import { EmployeeWorkspaceEntity } from 'src/modules/employee/standard-objects/employee.workspace-entity';
-import { EmploymentTypeWorkspaceEntity } from 'src/modules/employment-type/standard-objects/employment-type.workspace-entity';
 import { FavoriteFolderWorkspaceEntity } from 'src/modules/favorite-folder/standard-objects/favorite-folder.workspace-entity';
 import { FavoriteWorkspaceEntity } from 'src/modules/favorite/standard-objects/favorite.workspace-entity';
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { ManufacturerWorkspaceEntity } from 'src/modules/manufacturer/standard-objects/manufacturer.workspace-entity';
-import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { MessageChannelMessageAssociationWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel-message-association.workspace-entity';
 import { MessageChannelWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel.workspace-entity';
 import { MessageFolderWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-folder.workspace-entity';
@@ -28,11 +23,9 @@ import { NoteTargetWorkspaceEntity } from 'src/modules/note/standard-objects/not
 import { NoteWorkspaceEntity } from 'src/modules/note/standard-objects/note.workspace-entity';
 import { OpportunityWorkspaceEntity } from 'src/modules/opportunity/standard-objects/opportunity.workspace-entity';
 import { PersonWorkspaceEntity } from 'src/modules/person/standard-objects/person.workspace-entity';
-import { OrganizationPositionWorkspaceEntity } from 'src/modules/position/standard-objects/position.workspace-entity';
 import { SupplierWorkspaceEntity } from 'src/modules/supplier/standard-objects/supplier.workspace-entity';
 import { TaskTargetWorkspaceEntity } from 'src/modules/task/standard-objects/task-target.workspace-entity';
 import { TaskWorkspaceEntity } from 'src/modules/task/standard-objects/task.workspace-entity';
-import { TeamWorkspaceEntity } from 'src/modules/team/standard-objects/team.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { WarehouseWorkspaceEntity } from 'src/modules/warehouse/standard-objects/warehouse.workspace-entity';
 import { WorkflowAutomatedTriggerWorkspaceEntity } from 'src/modules/workflow/common/standard-objects/workflow-automated-trigger.workspace-entity';
@@ -52,15 +45,8 @@ export const standardObjectMetadataDefinitions = [
   CompanyWorkspaceEntity,
   ConnectedAccountWorkspaceEntity,
   DashboardWorkspaceEntity,
-  DepartmentWorkspaceEntity,
-  EmployeeWorkspaceEntity,
-  EmployeeAwardWorkspaceEntity,
-  EmployeeLevelWorkspaceEntity,
-  EmploymentTypeWorkspaceEntity,
   FavoriteWorkspaceEntity,
   FavoriteFolderWorkspaceEntity,
-  OrganizationPositionWorkspaceEntity,
-  TeamWorkspaceEntity,
   TimelineActivityWorkspaceEntity,
   WorkflowWorkspaceEntity,
   WorkflowVersionWorkspaceEntity,

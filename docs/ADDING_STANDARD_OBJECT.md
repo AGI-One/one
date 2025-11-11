@@ -568,6 +568,8 @@ export enum CoreObjectNameSingular {
 }
 ```
 
+**⚠️ Lưu ý:** Tên enum value phải khớp với `nameSingular` trong entity (lowercase)
+
 #### 6.2. Navigation Order
 
 **File:** `packages/twenty-front/src/modules/object-metadata/components/NavigationDrawerSectionForObjectMetadataItems.tsx`
@@ -583,6 +585,11 @@ const ORDERED_STANDARD_OBJECTS: string[] = [
 ];
 ```
 
+**Tips:**
+- Thứ tự này quyết định vị trí hiển thị trong navigation menu
+- Các object không có trong list này sẽ được sắp xếp theo `createdAt`
+- Thường đặt objects quan trọng ở trên cùng
+
 #### 6.3. Icon Color
 
 **File:** `packages/twenty-front/src/modules/object-metadata/utils/getIconColorForObjectType.ts`
@@ -596,6 +603,15 @@ export const getIconColorForObjectType = ({ objectType, theme }) => {
   }
 };
 ```
+
+**Available colors:**
+- `theme.color.blue` - Xanh dương (Task, Employee)
+- `theme.color.purple` - Tím (Department, Warehouse)
+- `theme.color.green` - Xanh lá (Team)
+- `theme.color.orange` - Cam (Position, Inventory)
+- `theme.color.red` - Đỏ (Employee Level)
+- `theme.color.yellow` - Vàng (Note, Award)
+- `theme.color.turquoise` - Xanh ngọc (Employment Type)
 
 #### 6.4. Default View (Khuyến Nghị)
 
@@ -658,7 +674,7 @@ yarn build
 
 **Nếu có lỗi:**
 - Kiểm tra imports
-- Kiểm tra decorators  
+- Kiểm tra decorators
 - Kiểm tra constants đã định nghĩa đúng
 - 🔥 **Timeline Activity Error:** `Field metadata for field "supplierId" is missing` → Chưa thêm field vào `TIMELINE_ACTIVITY_STANDARD_FIELD_IDS`
 
@@ -995,7 +1011,7 @@ export class EmployeeWorkspaceEntity extends BaseWorkspaceEntity {
 export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
   // ... existing fields
   material: 'uuid-1',
-  supplier: 'uuid-2', 
+  supplier: 'uuid-2',
   manufacturer: 'uuid-3',
   materialGroup: 'uuid-4',
 } as const;
@@ -1023,7 +1039,7 @@ supplierId: string | null;
 
 3. **Pattern đúng cho Timeline relations:**
 - ✅ `onDelete: RelationOnDeleteAction.SET_NULL`
-- ✅ `inverseSideFieldKey: 'timelineActivities'` 
+- ✅ `inverseSideFieldKey: 'timelineActivities'`
 - ✅ `@WorkspaceIsNullable()` và `@WorkspaceIsSystem()`
 - ❌ KHÔNG dùng `RelationOnDeleteAction.CASCADE`
 
@@ -1296,7 +1312,7 @@ A: Có, nên test local/dev trước production.
 ### Background
 Thực hiện 4 standard objects cho hệ thống quản lý vật tư PCU-Server:
 - **Material** - Quản lý vật tư
-- **Supplier** - Nhà cung cấp  
+- **Supplier** - Nhà cung cấp
 - **Manufacturer** - Nhà sản xuất
 - **MaterialGroup** - Nhóm vật tư
 
@@ -1309,7 +1325,7 @@ Thực hiện 4 standard objects cho hệ thống quản lý vật tư PCU-Serve
 Error: Field metadata for field "supplierId" is missing in object metadata timelineActivity
 ```
 
-**Root Cause:** 
+**Root Cause:**
 - Thêm UUID vào `TIMELINE_ACTIVITY_STANDARD_FIELD_IDS` ✅
 - Nhưng chưa implement relations đúng cách ❌
 
@@ -1320,7 +1336,7 @@ Error: Field metadata for field "supplierId" is missing in object metadata timel
   standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.supplier,
   type: RelationType.MANY_TO_ONE,
   label: msg`Supplier`,
-  description: msg`Event supplier`, 
+  description: msg`Event supplier`,
   icon: 'IconTruck',
   inverseSideTarget: () => SupplierWorkspaceEntity,
   inverseSideFieldKey: 'timelineActivities', // 🔥 Key point
@@ -1332,7 +1348,7 @@ supplier: Relation<SupplierWorkspaceEntity> | null;
 @WorkspaceJoinColumn('supplier')
 supplierId: string | null;
 
-// 2. Trong supplier.workspace-entity.ts  
+// 2. Trong supplier.workspace-entity.ts
 @WorkspaceRelation({
   standardId: SUPPLIER_STANDARD_FIELD_IDS.timelineActivities,
   type: RelationType.ONE_TO_MANY,
@@ -1354,7 +1370,7 @@ timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
 
 ```
 MaterialGroup (1) ←→ (N) Material
-MaterialGroup (1) ←→ (N) Supplier  
+MaterialGroup (1) ←→ (N) Supplier
 MaterialGroup (1) ←→ (N) Manufacturer
 Material (1) ←→ (N) Inventory
 ```
@@ -1373,7 +1389,7 @@ materialGroup: Relation<MaterialGroupWorkspaceEntity> | null;
 @WorkspaceJoinColumn('materialGroup')
 materialGroupId: string | null;
 
-// One-to-Many side (MaterialGroup → Materials)  
+// One-to-Many side (MaterialGroup → Materials)
 @WorkspaceRelation({
   type: RelationType.ONE_TO_MANY,
   inverseSideTarget: () => MaterialWorkspaceEntity,
@@ -1389,7 +1405,7 @@ materials: Relation<MaterialWorkspaceEntity[]>;
 ```typescript
 enum MaterialStatus {
   APPROVED = 'approved',
-  REJECTED = 'rejected', 
+  REJECTED = 'rejected',
   PENDING = 'pending',
 }
 
@@ -1446,7 +1462,7 @@ sed -i '' -e 's/description: msg`Mã định danh vật liệu`/description: msg
 
 #### Migration Process
 1. **Build Time:** ~30 seconds (TypeScript compilation)
-2. **Sync Metadata:** ~10 seconds (database schema generation) 
+2. **Sync Metadata:** ~10 seconds (database schema generation)
 3. **Index Creation:** GIN indexes for search vectors
 4. **Relation Constraints:** Foreign keys with proper cascade rules
 
@@ -1460,7 +1476,7 @@ TimelineActivity ←→ Material ←→ MaterialGroup ←→ Supplier
 
 **Key Metrics:**
 - **4 New Standard Objects**
-- **50+ Business Fields**  
+- **50+ Business Fields**
 - **12+ Relations** (bidirectional)
 - **4 Timeline Integrations**
 - **Full-text Search** on all entities
@@ -1470,13 +1486,147 @@ TimelineActivity ←→ Material ←→ MaterialGroup ←→ Supplier
 
 1. ⚠️ **Timeline relations cần đặc biệt cẩn thận** - Pattern khác business relations
 2. 🔄 **Test relations từng bước** - Dễ debug hơn khi làm hàng loạt
-3. 📝 **Constants organization** - Tạo UUIDs trước, organize theo alphabet  
+3. 📝 **Constants organization** - Tạo UUIDs trước, organize theo alphabet
 4. 🌐 **Plan localization early** - Tránh phải convert sau
 5. 🔍 **Search vector setup** - Define search fields trước khi implement entity
 
 ---
 
-## Tài Liệu Tham Khảo
+## Xóa Standard Object
+
+Nếu cần xóa một standard object khỏi hệ thống, làm theo quy trình ngược lại:
+
+### Quy Trình Xóa (Reverse Process)
+
+**⚠️ CẢNH BÁO:** Xóa standard object sẽ mất dữ liệu! Luôn backup database trước.
+
+#### 1. Xóa Timeline Relations (nếu có)
+
+**File:** `timeline-activity.workspace-entity.ts`
+
+Xóa relation và joinColumn:
+```typescript
+// XÓA các dòng này:
+@WorkspaceRelation({...})
+department: Relation<DepartmentWorkspaceEntity> | null;
+
+@WorkspaceJoinColumn('department')
+departmentId: string | null;
+```
+
+#### 2. Xóa Backend Registration
+
+**File:** `standard-objects/index.ts`
+
+```typescript
+// XÓA import
+import { ProductWorkspaceEntity } from '...';
+
+// XÓA khỏi array
+export const standardObjectMetadataDefinitions = [
+  // ... ProductWorkspaceEntity, // ← Xóa dòng này
+];
+```
+
+#### 3. Xóa Entity Files
+
+```bash
+# Xóa toàn bộ module folder
+rm -rf packages/twenty-server/src/modules/product/
+```
+
+#### 4. Xóa Constants
+
+**4 files cần update:**
+- `standard-object-ids.ts` - Xóa entry trong `STANDARD_OBJECT_IDS`
+- `standard-field-ids.ts` - Xóa constant `PRODUCT_STANDARD_FIELD_IDS`
+- `standard-object-icons.ts` - Xóa entry trong `STANDARD_OBJECT_ICONS`
+- `standard-objects-by-priority-rank.ts` - Xóa entry
+
+#### 5. Xóa Timeline Field IDs (nếu có)
+
+**File:** `standard-field-ids.ts`
+
+```typescript
+export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
+  // ... product: 'uuid', // ← Xóa dòng này
+} as const;
+```
+
+#### 6. Xóa Frontend References (nếu có)
+
+**3 files cần update:**
+- `CoreObjectNameSingular.ts` - Xóa enum entry
+- `NavigationDrawerSectionForObjectMetadataItems.tsx` - Xóa khỏi `ORDERED_STANDARD_OBJECTS`
+- `getIconColorForObjectType.ts` - Xóa case
+
+#### 7. Xóa Views (nếu có)
+
+**Files:**
+- Xóa view file: `views/products-all.view.ts`
+- Xóa import và entry trong `prefill-core-views.ts`
+
+```typescript
+// prefill-core-views.ts
+// XÓA import
+import { productsAllView } from './views/products-all.view';
+
+// XÓA khỏi array
+const views = [
+  // productsAllView, // ← Xóa dòng này
+];
+```
+
+#### 8. Build và Sync Metadata
+
+```bash
+cd packages/twenty-server
+yarn build
+yarn command:prod workspace:sync-metadata
+```
+
+**Database changes:**
+- Table `[workspaceId]_products` sẽ bị xóa
+- Metadata entries sẽ bị xóa
+- Relations sẽ bị xóa
+- **⚠️ DỮ LIỆU SẼ MẤT VĨNH VIỄN**
+
+### Checklist Xóa Object
+
+Backend:
+- [ ] Xóa timeline relations trong `timeline-activity.workspace-entity.ts`
+- [ ] Xóa imports và entries trong `standard-objects/index.ts`
+- [ ] Xóa module folder
+- [ ] Xóa constants (4 files)
+- [ ] Xóa timeline field IDs
+- [ ] Xóa view files và registrations
+
+Frontend:
+- [ ] Xóa `CoreObjectNameSingular` entry
+- [ ] Xóa khỏi `ORDERED_STANDARD_OBJECTS`
+- [ ] Xóa icon color case
+
+Migration:
+- [ ] Backup database
+- [ ] Build server
+- [ ] Sync metadata
+- [ ] Verify trong database
+
+### Ví Dụ Thực Tế
+
+Xem commit history của việc xóa 7 objects: employee, department, team, employeeAward, employeeLevel, employmentType, organizationPosition.
+
+**Files changed:**
+- 7 entity files deleted
+- 7 view files deleted
+- 4 constant files modified
+- 3 frontend files modified
+- 1 timeline file modified
+- 1 registration file modified
+
+---
+
+
 
 **Code Examples:**
 - Simple: `company`, `person`, `opportunity`
