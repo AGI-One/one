@@ -745,15 +745,8 @@ export const SUPPLIER_STANDARD_FIELD_IDS = {
 } as const;
 
 export const WAREHOUSE_STANDARD_FIELD_IDS = {
-  name: '28ed40e5-2439-465d-97b4-8c8e077842c8',
   warehouseCode: '471913d4-2f97-4afe-8883-a895767d1b2e',
   projectId: '1d007723-1869-40db-8cc9-acf7653ebbea',
-  code: '35ce6310-baee-419e-a6d6-33b83001b4c9',
-  description: '1de2e939-2382-4694-9d43-d80b214f8740',
-  enabled: '03254f96-4b42-47ee-aa9e-852b1a0aae84',
-  logoUrl: '1e5db267-e0d1-4265-aaf1-58be748b6d4d',
-  email: 'a73cbf88-d234-4a0a-a489-810a20ebf47b',
-  phone: '64a2270b-1982-444d-96e8-e107038d2aeb',
   address: '11404988-d7fe-4a31-9a0b-888cf1267b6e',
   inventories: '3f4a5b6c-7d8e-9f0a-1b2c-3d4e5f6a7b8c',
   timelineActivities: 'd861e7ee-7c40-4f86-a63b-275485446faa',
@@ -763,7 +756,6 @@ export const WAREHOUSE_STANDARD_FIELD_IDS = {
 } as const;
 
 export const INVENTORY_STANDARD_FIELD_IDS = {
-  name: 'e7f8a9b0-1c2d-3e4f-5a6b-7c8d9e0f1a2b',
   warehouse: '94d46cd8-c4f4-4c96-9e9b-9ba13e5a6c58',
   material: 'db5bdc64-85e6-4cfb-ae60-c8b7e0a0c5e7',
   openBalance: 'bb893aea-5507-4000-a1a0-6321ec812e13',

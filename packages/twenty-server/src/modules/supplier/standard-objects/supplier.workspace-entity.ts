@@ -28,9 +28,9 @@ import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-o
 
 // Search fields definition
 enum SupplierStatus {
+  NEW = 'new',
   ACTIVE = 'active',
   INACTIVE = 'inactive',
-  DRAFT = 'draft',
 }
 
 const SUPPLIER_CODE_FIELD_NAME = 'supplierCode';
@@ -224,25 +224,25 @@ export class SupplierWorkspaceEntity extends BaseWorkspaceEntity {
     icon: 'IconCircleDot',
     options: [
       {
+        value: SupplierStatus.NEW,
+        label: 'New',
+        position: 0,
+        color: 'blue',
+      },
+      {
         value: SupplierStatus.ACTIVE,
         label: 'Active',
-        position: 0,
+        position: 1,
         color: 'green',
       },
       {
         value: SupplierStatus.INACTIVE,
         label: 'Inactive',
-        position: 1,
+        position: 2,
         color: 'red',
       },
-      {
-        value: SupplierStatus.DRAFT,
-        label: 'Draft',
-        position: 2,
-        color: 'gray',
-      },
     ],
-    defaultValue: `'${SupplierStatus.ACTIVE}'`,
+    defaultValue: `'${SupplierStatus.NEW}'`,
   })
   status: string;
 

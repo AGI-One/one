@@ -32,19 +32,10 @@ export const inventoriesAllView = (
       {
         fieldMetadataId:
           inventoryObjectMetadata.fields.find(
-            (field) => field.standardId === INVENTORY_STANDARD_FIELD_IDS.name,
-          )?.id ?? '',
-        position: 0,
-        isVisible: true,
-        size: 210,
-      },
-      {
-        fieldMetadataId:
-          inventoryObjectMetadata.fields.find(
             (field) =>
               field.standardId === INVENTORY_STANDARD_FIELD_IDS.warehouse,
           )?.id ?? '',
-        position: 1,
+        position: 0,
         isVisible: true,
         size: 180,
       },
@@ -54,7 +45,7 @@ export const inventoriesAllView = (
             (field) =>
               field.standardId === INVENTORY_STANDARD_FIELD_IDS.material,
           )?.id ?? '',
-        position: 2,
+        position: 1,
         isVisible: true,
         size: 180,
       },
@@ -64,7 +55,7 @@ export const inventoriesAllView = (
             (field) =>
               field.standardId === INVENTORY_STANDARD_FIELD_IDS.currentBalance,
           )?.id ?? '',
-        position: 3,
+        position: 2,
         isVisible: true,
         size: 100,
       },

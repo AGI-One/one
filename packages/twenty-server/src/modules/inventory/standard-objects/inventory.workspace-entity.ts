@@ -29,20 +29,8 @@ import { INVENTORY_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/works
   labelPlural: msg`Inventories`,
   description: msg`Material inventory management`,
   icon: STANDARD_OBJECT_ICONS.inventory,
-  labelIdentifierStandardId: INVENTORY_STANDARD_FIELD_IDS.name,
 })
 export class InventoryWorkspaceEntity extends BaseWorkspaceEntity {
-  // Name field (optional - can be auto-generated from warehouse + variant)
-  @WorkspaceField({
-    standardId: INVENTORY_STANDARD_FIELD_IDS.name,
-    type: FieldMetadataType.TEXT,
-    label: msg`Name`,
-    description: msg`Inventory record name (e.g., "Warehouse A - Product X")`,
-    icon: 'IconTag',
-  })
-  @WorkspaceIsNullable()
-  name: string | null;
-
   // Warehouse relation
   @WorkspaceRelation({
     standardId: INVENTORY_STANDARD_FIELD_IDS.warehouse,

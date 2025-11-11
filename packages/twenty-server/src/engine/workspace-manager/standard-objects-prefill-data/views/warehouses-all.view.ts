@@ -26,25 +26,23 @@ export const warehousesAllView = (
     key: 'INDEX',
     position: 0,
     icon: 'IconBuilding',
-    kanbanFieldMetadataId:
-      warehouseObjectMetadata.fields.find(
-        (field) => field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.enabled,
-      )?.id ?? '',
     filters: [],
     fields: [
       {
         fieldMetadataId:
           warehouseObjectMetadata.fields.find(
-            (field) => field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.name,
+            (field) =>
+              field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.warehouseCode,
           )?.id ?? '',
         position: 0,
         isVisible: true,
-        size: 180,
+        size: 150,
       },
       {
         fieldMetadataId:
           warehouseObjectMetadata.fields.find(
-            (field) => field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.code,
+            (field) =>
+              field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.projectId,
           )?.id ?? '',
         position: 1,
         isVisible: true,
@@ -54,7 +52,7 @@ export const warehousesAllView = (
         fieldMetadataId:
           warehouseObjectMetadata.fields.find(
             (field) =>
-              field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.description,
+              field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.address,
           )?.id ?? '',
         position: 2,
         isVisible: true,
@@ -64,37 +62,9 @@ export const warehousesAllView = (
         fieldMetadataId:
           warehouseObjectMetadata.fields.find(
             (field) =>
-              field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.enabled,
-          )?.id ?? '',
-        position: 3,
-        isVisible: true,
-        size: 100,
-      },
-      {
-        fieldMetadataId:
-          warehouseObjectMetadata.fields.find(
-            (field) => field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.email,
-          )?.id ?? '',
-        position: 4,
-        isVisible: true,
-        size: 180,
-      },
-      {
-        fieldMetadataId:
-          warehouseObjectMetadata.fields.find(
-            (field) => field.standardId === WAREHOUSE_STANDARD_FIELD_IDS.phone,
-          )?.id ?? '',
-        position: 5,
-        isVisible: true,
-        size: 150,
-      },
-      {
-        fieldMetadataId:
-          warehouseObjectMetadata.fields.find(
-            (field) =>
               field.standardId === BASE_OBJECT_STANDARD_FIELD_IDS.createdAt,
           )?.id ?? '',
-        position: 6,
+        position: 3,
         isVisible: true,
         size: 150,
       },

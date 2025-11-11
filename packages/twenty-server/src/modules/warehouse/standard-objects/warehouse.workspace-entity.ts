@@ -1,10 +1,7 @@
 import { msg } from '@lingui/core/macro';
 import {
   ActorMetadata,
-  AddressMetadata,
-  EmailsMetadata,
   FieldMetadataType,
-  PhonesMetadata,
   RelationOnDeleteAction,
 } from 'twenty-shared/types';
 
@@ -32,12 +29,10 @@ import {
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
-const NAME_FIELD_NAME = 'name';
-const CODE_FIELD_NAME = 'code';
+const WAREHOUSE_CODE_FIELD_NAME = 'warehouseCode';
 
 export const SEARCH_FIELDS_FOR_WAREHOUSE: FieldTypeAndNameMetadata[] = [
-  { name: NAME_FIELD_NAME, type: FieldMetadataType.TEXT },
-  { name: CODE_FIELD_NAME, type: FieldMetadataType.TEXT },
+  { name: WAREHOUSE_CODE_FIELD_NAME, type: FieldMetadataType.TEXT },
 ];
 
 @WorkspaceEntity({
@@ -47,108 +42,37 @@ export const SEARCH_FIELDS_FOR_WAREHOUSE: FieldTypeAndNameMetadata[] = [
   labelPlural: msg`Warehouses`,
   description: msg`A warehouse for storing products`,
   icon: STANDARD_OBJECT_ICONS.warehouse,
-  labelIdentifierStandardId: WAREHOUSE_STANDARD_FIELD_IDS.name,
+  labelIdentifierStandardId: WAREHOUSE_STANDARD_FIELD_IDS.warehouseCode,
 })
 @WorkspaceIsSearchable()
 export class WarehouseWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.name,
-    type: FieldMetadataType.TEXT,
-    label: msg`Name`,
-    description: msg`Warehouse name`,
-    icon: 'IconBuilding',
-  })
-  name: string;
-
-  @WorkspaceField({
     standardId: WAREHOUSE_STANDARD_FIELD_IDS.warehouseCode,
     type: FieldMetadataType.TEXT,
-    label: msg`Mã kho`,
-    description: msg`Mã định danh duy nhất cho kho bãi`,
+    label: msg`Warehouse Code`,
+    description: msg`Unique warehouse identifier`,
     icon: 'IconCode',
   })
-  @WorkspaceIsNullable()
-  warehouseCode: string | null;
+  warehouseCode: string;
 
   @WorkspaceField({
     standardId: WAREHOUSE_STANDARD_FIELD_IDS.projectId,
     type: FieldMetadataType.TEXT,
-    label: msg`ID dự án`,
-    description: msg`ID của dự án liên quan đến kho bãi`,
+    label: msg`Project ID`,
+    description: msg`Project identifier associated with warehouse`,
     icon: 'IconFolder',
   })
-  @WorkspaceIsNullable()
-  projectId: string | null;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.code,
-    type: FieldMetadataType.TEXT,
-    label: msg`Code`,
-    description: msg`Warehouse code`,
-    icon: 'IconCode',
-  })
-  @WorkspaceIsNullable()
-  code: string | null;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.description,
-    type: FieldMetadataType.TEXT,
-    label: msg`Description`,
-    description: msg`Warehouse description`,
-    icon: 'IconFileText',
-  })
-  @WorkspaceIsNullable()
-  description: string | null;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.enabled,
-    type: FieldMetadataType.BOOLEAN,
-    label: msg`Enabled`,
-    description: msg`Is warehouse enabled`,
-    icon: 'IconToggleRight',
-    defaultValue: true,
-  })
-  enabled: boolean;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.logoUrl,
-    type: FieldMetadataType.TEXT,
-    label: msg`Logo`,
-    description: msg`Warehouse logo URL`,
-    icon: 'IconFileUpload',
-  })
-  @WorkspaceIsNullable()
-  logoUrl: string | null;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.email,
-    type: FieldMetadataType.EMAILS,
-    label: msg`Email`,
-    description: msg`Warehouse contact email`,
-    icon: 'IconMail',
-  })
-  @WorkspaceIsNullable()
-  email: EmailsMetadata | null;
-
-  @WorkspaceField({
-    standardId: WAREHOUSE_STANDARD_FIELD_IDS.phone,
-    type: FieldMetadataType.PHONES,
-    label: msg`Phone`,
-    description: msg`Warehouse contact phone`,
-    icon: 'IconPhone',
-  })
-  @WorkspaceIsNullable()
-  phone: PhonesMetadata | null;
+  projectId: string;
 
   @WorkspaceField({
     standardId: WAREHOUSE_STANDARD_FIELD_IDS.address,
-    type: FieldMetadataType.ADDRESS,
+    type: FieldMetadataType.TEXT,
     label: msg`Address`,
     description: msg`Warehouse address`,
     icon: 'IconMap',
   })
   @WorkspaceIsNullable()
-  address: AddressMetadata | null;
+  address: string | null;
 
   // Relations - Inventories (junction to product variants)
   @WorkspaceRelation({
