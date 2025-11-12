@@ -33,6 +33,8 @@ export const STANDARD_OBJECT_ICONS = {
   person: 'IconUser',
   quotation: 'IconFileText',
   quotationItem: 'IconListDetails',
+  materialPurchaseRequest: 'IconShoppingCart',
+  materialOrder: 'IconFileInvoice',
   supplier: 'IconTruck',
   warehouse: 'IconBuilding',
   permission: 'IconShield',

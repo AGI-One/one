@@ -24,6 +24,8 @@ import {
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
+import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
 import { QuotationWorkspaceEntity } from 'src/modules/quotation/standar-objects/quotation.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
@@ -326,6 +328,28 @@ export class SupplierWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   @WorkspaceIsSystem()
   timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: SUPPLIER_STANDARD_FIELD_IDS.materialPurchaseRequests,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Purchase Requests`,
+    description: msg`Material purchase requests for this supplier`,
+    icon: 'IconShoppingCart',
+    inverseSideTarget: () => MaterialPurchaseRequestWorkspaceEntity,
+    inverseSideFieldKey: 'supplier',
+  })
+  materialPurchaseRequests: Relation<MaterialPurchaseRequestWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: SUPPLIER_STANDARD_FIELD_IDS.materialOrders,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Orders`,
+    description: msg`Material orders for this supplier`,
+    icon: 'IconFileInvoice',
+    inverseSideTarget: () => MaterialOrderWorkspaceEntity,
+    inverseSideFieldKey: 'supplier',
+  })
+  materialOrders: Relation<MaterialOrderWorkspaceEntity[]>;
 
   @WorkspaceField({
     standardId: SUPPLIER_STANDARD_FIELD_IDS.searchVector,

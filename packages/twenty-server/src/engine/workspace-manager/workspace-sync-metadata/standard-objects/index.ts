@@ -14,6 +14,8 @@ import { JobTitleWorkspaceEntity } from 'src/modules/job-title/standard-objects/
 import { ManufacturerWorkspaceEntity } from 'src/modules/manufacturer/standard-objects/manufacturer.workspace-entity';
 import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
+import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
 import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { MessageChannelMessageAssociationWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel-message-association.workspace-entity';
 import { MessageChannelWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel.workspace-entity';
@@ -86,7 +88,9 @@ export const standardObjectMetadataDefinitions = [
   ManufacturerWorkspaceEntity,
   MaterialWorkspaceEntity,
   MaterialCategoryWorkspaceEntity,
+  MaterialGroupWorkspaceEntity,
+  MaterialOrderWorkspaceEntity,
+  MaterialPurchaseRequestWorkspaceEntity,
   QuotationWorkspaceEntity,
   QuotationItemWorkspaceEntity,
-  MaterialGroupWorkspaceEntity,
 ];

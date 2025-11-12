@@ -21,6 +21,10 @@ const ORDERED_STANDARD_OBJECTS: string[] = [
   CoreObjectNameSingular.MaterialGroup,
   CoreObjectNameSingular.Inventory,
   CoreObjectNameSingular.Warehouse,
+  CoreObjectNameSingular.Quotation,
+  CoreObjectNameSingular.QuotationItem,
+  CoreObjectNameSingular.MaterialPurchaseRequest,
+  CoreObjectNameSingular.MaterialOrder,
 ];
 
 type NavigationDrawerSectionForObjectMetadataItemsProps = {

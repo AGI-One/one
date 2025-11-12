@@ -49,6 +49,8 @@ export const STANDARD_OBJECT_IDS = {
   projectUser: '38eb037e-848e-4e4b-af7e-6c5039f2978d',
   quotation: '40be6664-4c56-4d87-88d9-5b6039f36fd0',
   quotationItem: '44e1132b-4d01-451e-b49b-b6b9aa53271a',
+  materialPurchaseRequest: '5f9c8e7a-3b2d-4c6e-9a1f-7e8d5b4c3a2b',
+  materialOrder: '6a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d',
   task: '20202020-1ba1-48ba-bc83-ef7e5990ed10',
   taskTarget: '20202020-5a9a-44e8-95df-771cd06d0fb1',
   timelineActivity: '20202020-6736-4337-b5c4-8b39fae325a5',

@@ -24,6 +24,8 @@ import { jobTitlesAllView } from 'src/engine/workspace-manager/standard-objects-
 import { manufacturersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/manufacturers-all.view';
 import { materialCategoriesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-categories-all.view';
 import { materialGroupsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-groups-all.view';
+import { materialOrdersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-orders-all.view';
+import { materialPurchaseRequestsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-purchase-requests-all.view';
 import { materialsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/materials-all.view';
 import { notesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/notes-all.view';
 import { opportunitiesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunities-all.view';
@@ -85,6 +87,8 @@ export const prefillCoreViews = async ({
     projectUsersAllView(objectMetadataItems, true),
     quotationsAllView(objectMetadataItems, true),
     quotationItemsAllView(objectMetadataItems, true),
+    materialPurchaseRequestsAllView(objectMetadataItems, true),
+    materialOrdersAllView(objectMetadataItems, true),
     materialCategoriesAllView(objectMetadataItems, true),
   ];
 

@@ -28,6 +28,7 @@ import {
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
 import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
+import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
 import { QuotationWorkspaceEntity } from 'src/modules/quotation/standar-objects/quotation.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
@@ -42,10 +43,12 @@ enum QuotationItemStatus {
 }
 
 // Search fields definition
+const NAME_FIELD_NAME = 'name';
 const NOTE_FIELD_NAME = 'note';
 const NEGOTIATION_NOTE_FIELD_NAME = 'negotiationNote';
 
 export const SEARCH_FIELDS_FOR_QUOTATION_ITEM: FieldTypeAndNameMetadata[] = [
+  { name: NAME_FIELD_NAME, type: FieldMetadataType.TEXT },
   { name: NOTE_FIELD_NAME, type: FieldMetadataType.TEXT },
   { name: NEGOTIATION_NOTE_FIELD_NAME, type: FieldMetadataType.TEXT },
 ];
@@ -57,10 +60,21 @@ export const SEARCH_FIELDS_FOR_QUOTATION_ITEM: FieldTypeAndNameMetadata[] = [
   labelPlural: msg`Quotation Items`,
   description: msg`Quotation item management`,
   icon: STANDARD_OBJECT_ICONS.quotationItem,
-  labelIdentifierStandardId: QUOTATION_ITEM_STANDARD_FIELD_IDS.quotation,
+  labelIdentifierStandardId: QUOTATION_ITEM_STANDARD_FIELD_IDS.name,
 })
 @WorkspaceIsSearchable()
 export class QuotationItemWorkspaceEntity extends BaseWorkspaceEntity {
+  // Name Field
+  @WorkspaceField({
+    standardId: QUOTATION_ITEM_STANDARD_FIELD_IDS.name,
+    type: FieldMetadataType.TEXT,
+    label: msg`Name`,
+    description: msg`Name of the quotation item`,
+    icon: 'IconTag',
+  })
+  @WorkspaceIsNullable()
+  name: string | null;
+
   // Core Relations
   @WorkspaceRelation({
     standardId: QUOTATION_ITEM_STANDARD_FIELD_IDS.quotation,
@@ -77,6 +91,23 @@ export class QuotationItemWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('quotation')
   quotationId: string | null;
+
+  // Material Purchase Request Relation
+  @WorkspaceRelation({
+    standardId: QUOTATION_ITEM_STANDARD_FIELD_IDS.materialPurchaseRequest,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Purchase Request`,
+    description: msg`Material purchase request that this item belongs to`,
+    icon: 'IconShoppingCart',
+    inverseSideTarget: () => MaterialPurchaseRequestWorkspaceEntity,
+    inverseSideFieldKey: 'quotationItems',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialPurchaseRequest: Relation<MaterialPurchaseRequestWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialPurchaseRequest')
+  materialPurchaseRequestId: string | null;
 
   // Pricing Fields
   @WorkspaceField({

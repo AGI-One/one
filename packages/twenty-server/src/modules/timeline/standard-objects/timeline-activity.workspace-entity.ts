@@ -24,6 +24,8 @@ import { JobTitleWorkspaceEntity } from 'src/modules/job-title/standard-objects/
 import { ManufacturerWorkspaceEntity } from 'src/modules/manufacturer/standard-objects/manufacturer.workspace-entity';
 import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
+import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
 import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { NoteWorkspaceEntity } from 'src/modules/note/standard-objects/note.workspace-entity';
 import { OpportunityWorkspaceEntity } from 'src/modules/opportunity/standard-objects/opportunity.workspace-entity';
@@ -370,6 +372,38 @@ export class TimelineActivityWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('quotationItem')
   quotationItemId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialPurchaseRequest,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Purchase Request`,
+    description: msg`Event material purchase request`,
+    icon: 'IconShoppingCart',
+    inverseSideTarget: () => MaterialPurchaseRequestWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialPurchaseRequest: Relation<MaterialPurchaseRequestWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialPurchaseRequest')
+  materialPurchaseRequestId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialOrder,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Order`,
+    description: msg`Event material order`,
+    icon: 'IconPackage',
+    inverseSideTarget: () => MaterialOrderWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialOrder: Relation<MaterialOrderWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialOrder')
+  materialOrderId: string | null;
 
   @WorkspaceRelation({
     standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.supplier,

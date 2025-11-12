@@ -1,8 +1,8 @@
 # Kế Hoạch Migration: Thêm 23 PCU Models vào Twenty
 
-**Ngày tạo:** 12/11/2025  
-**Dự án:** PCU-Server → Twenty Standard Objects  
-**Tổng số models:** 23  
+**Ngày tạo:** 12/11/2025
+**Dự án:** PCU-Server → Twenty Standard Objects
+**Tổng số models:** 23
 **Ước tính thời gian:** 8-12 tuần (1-2 models/tuần)
 
 ---
@@ -63,39 +63,39 @@ graph TD
     User[User P0] --> Role[Role P0]
     User --> JobTitle[JobTitle P0]
     User --> Permission[Permission P0]
-    
+
     Project[Project P0] --> User
     Project --> ProjectUser[ProjectUser P1]
-    
+
     Material[Material ✓] --> MaterialCategory[MaterialCategory P1]
     Material --> MaterialGroup[MaterialGroup ✓]
-    
+
     MaterialOrder[MaterialOrder P1] --> Supplier[Supplier ✓]
     MaterialOrder --> Project
     MaterialOrder --> MaterialPurchaseRequest[MaterialPurchaseRequest P1]
     MaterialOrder --> CommentOrder[CommentOrder P2]
     MaterialOrder --> OrderFollower[OrderFollower P2]
-    
+
     Quotation[Quotation P1] --> Supplier
     Quotation --> Project
     Quotation --> QuotationItem[QuotationItem P1]
-    
+
     MaterialRequest[MaterialRequest P2] --> Material
     MaterialRequest --> Project
-    
+
     MaterialApproval[MaterialApproval P2] --> Material
     MaterialApproval --> Project
-    
+
     MaterialPrice[MaterialPrice P1] --> Material
     MaterialPrice --> Supplier
     MaterialPrice --> MaterialPriceHistory[MaterialPriceHistory P2]
-    
+
     BoQ[BoQ P2] --> Material
     BoQ --> Project
-    
+
     PriceContract[PriceContract P1] --> Project
     PriceContract --> PriceAdjustmentFactor[PriceAdjustmentFactor P2]
-    
+
     File[File P2]
     OrderLogs[OrderLogs P3]
     Enums[Enums P3]
@@ -109,7 +109,7 @@ graph TD
 **Mục tiêu:** Setup core entities cho authentication & authorization
 
 #### 1.1. User (Tuần 1) ⏱️ 3-4 giờ
-**Dependencies:** Role, JobTitle  
+**Dependencies:** Role, JobTitle
 **Complexity:** ⭐⭐⭐ Medium-High
 
 **Fields từ PCU:**
@@ -148,7 +148,7 @@ graph TD
 ---
 
 #### 1.2. Role (Tuần 1) ⏱️ 2-3 giờ
-**Dependencies:** Permission  
+**Dependencies:** Permission
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -179,7 +179,7 @@ graph TD
 ---
 
 #### 1.3. Permission (Tuần 1) ⏱️ 2 giờ
-**Dependencies:** None  
+**Dependencies:** None
 **Complexity:** ⭐ Simple
 
 **Fields từ PCU:**
@@ -202,7 +202,7 @@ graph TD
 ---
 
 #### 1.4. JobTitle (Tuần 1-2) ⏱️ 1-2 giờ
-**Dependencies:** None  
+**Dependencies:** None
 **Complexity:** ⭐ Simple
 
 **Fields từ PCU:**
@@ -227,7 +227,7 @@ graph TD
 ### **Phase 2: Project Management (Tuần 3-4)** - P0
 
 #### 2.1. Project (Tuần 3) ⏱️ 4-5 giờ
-**Dependencies:** User  
+**Dependencies:** User
 **Complexity:** ⭐⭐⭐⭐ High
 
 **Fields từ PCU:**
@@ -292,7 +292,7 @@ enum ProjectStatus {
 ---
 
 #### 2.2. ProjectUser (Tuần 3-4) ⏱️ 2 giờ
-**Dependencies:** Project, User  
+**Dependencies:** Project, User
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -323,7 +323,7 @@ enum ProjectStatus {
 ### **Phase 3: Material Categorization (Tuần 5)** - P1
 
 #### 3.1. MaterialCategory (Tuần 5) ⏱️ 2-3 giờ
-**Dependencies:** Material (already exists)  
+**Dependencies:** Material (already exists)
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -349,10 +349,10 @@ enum ProjectStatus {
 
 ---
 
-### **Phase 4: Purchasing Flow (Tuần 6-8)** - P1
+### **Phase 4: Purchasing Flow (Tuần 6-8)** - P1 ✅ **COMPLETED**
 
-#### 4.1. Quotation (Tuần 6) ⏱️ 4-5 giờ
-**Dependencies:** Supplier (exists), Project  
+#### 4.1. Quotation (Tuần 6) ⏱️ 4-5 giờ ✅
+**Dependencies:** Supplier (exists), Project
 **Complexity:** ⭐⭐⭐⭐ High
 
 **Fields từ PCU:**
@@ -417,8 +417,8 @@ enum QuotationStatus {
 
 ---
 
-#### 4.2. QuotationItem (Tuần 6) ⏱️ 2-3 giờ
-**Dependencies:** Quotation, MaterialPurchaseRequest  
+#### 4.2. QuotationItem (Tuần 6) ⏱️ 2-3 giờ ✅
+**Dependencies:** Quotation, MaterialPurchaseRequest
 **Complexity:** ⭐⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -471,8 +471,8 @@ enum QuotationItemStatus {
 
 ---
 
-#### 4.3. MaterialPurchaseRequest (Tuần 7) ⏱️ 4-5 giờ
-**Dependencies:** Material, Project, MaterialOrder, MaterialRequest  
+#### 4.3. MaterialPurchaseRequest (Tuần 7) ⏱️ 4-5 giờ ✅
+**Dependencies:** Material, Project, MaterialOrder, MaterialRequest
 **Complexity:** ⭐⭐⭐⭐ High (40+ fields!)
 
 **Fields từ PCU:**
@@ -554,8 +554,8 @@ enum ProcurementDepartmentApprovalStatus {
 
 ---
 
-#### 4.4. MaterialOrder (Tuần 7-8) ⏱️ 4-5 giờ
-**Dependencies:** Supplier, Project, MaterialPurchaseRequest  
+#### 4.4. MaterialOrder (Tuần 7-8) ⏱️ 4-5 giờ ✅
+**Dependencies:** Supplier, Project, MaterialPurchaseRequest
 **Complexity:** ⭐⭐⭐⭐ High
 
 **Fields từ PCU:**
@@ -620,7 +620,7 @@ enum Priority {
 ### **Phase 5: Material Pricing (Tuần 9)** - P1
 
 #### 5.1. MaterialPrice (Tuần 9) ⏱️ 3-4 giờ
-**Dependencies:** Material, Supplier, Manufacturer, PriceContract  
+**Dependencies:** Material, Supplier, Manufacturer, PriceContract
 **Complexity:** ⭐⭐⭐ Medium-High
 
 **Fields từ PCU:**
@@ -668,7 +668,7 @@ enum MaterialPriceType {
 ---
 
 #### 5.2. MaterialPriceHistory (Tuần 9) ⏱️ 2 giờ
-**Dependencies:** MaterialPrice  
+**Dependencies:** MaterialPrice
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -696,7 +696,7 @@ enum MaterialPriceType {
 ---
 
 #### 5.3. PriceContract (Tuần 9) ⏱️ 3-4 giờ
-**Dependencies:** Supplier, Project  
+**Dependencies:** Supplier, Project
 **Complexity:** ⭐⭐⭐ Medium-High
 
 **Fields từ PCU:**
@@ -745,7 +745,7 @@ enum PriceContractStatus {
 ### **Phase 6: Material Requests & Approvals (Tuần 10)** - P2
 
 #### 6.1. MaterialRequest (Tuần 10) ⏱️ 3-4 giờ
-**Dependencies:** Material, Project, Manufacturer  
+**Dependencies:** Material, Project, Manufacturer
 **Complexity:** ⭐⭐⭐ Medium-High
 
 **Fields từ PCU:**
@@ -797,7 +797,7 @@ enum MaterialRequestStatus {
 ---
 
 #### 6.2. MaterialApproval (Tuần 10) ⏱️ 3 giờ
-**Dependencies:** Material, Project, Supplier, Manufacturer  
+**Dependencies:** Material, Project, Supplier, Manufacturer
 **Complexity:** ⭐⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -841,7 +841,7 @@ enum MaterialApprovalStatus {
 ---
 
 #### 6.3. BoQ (Tuần 10) ⏱️ 3-4 giờ
-**Dependencies:** Material, Project, Manufacturer  
+**Dependencies:** Material, Project, Manufacturer
 **Complexity:** ⭐⭐⭐⭐ High (30+ fields!)
 
 **Fields từ PCU:**
@@ -906,7 +906,7 @@ enum BOQType {
 ### **Phase 7: Supporting Features (Tuần 11-12)** - P2-P3
 
 #### 7.1. CommentOrder (Tuần 11) ⏱️ 2 giờ
-**Dependencies:** MaterialOrder, User  
+**Dependencies:** MaterialOrder, User
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -934,7 +934,7 @@ enum BOQType {
 ---
 
 #### 7.2. OrderFollower (Tuần 11) ⏱️ 2 giờ
-**Dependencies:** MaterialOrder, User  
+**Dependencies:** MaterialOrder, User
 **Complexity:** ⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -971,7 +971,7 @@ enum OrderFollowerAction {
 ---
 
 #### 7.3. PriceAdjustmentFactor (Tuần 11) ⏱️ 2-3 giờ
-**Dependencies:** Project, MaterialGroup  
+**Dependencies:** Project, MaterialGroup
 **Complexity:** ⭐⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -1012,7 +1012,7 @@ enum OrderFollowerAction {
 ---
 
 #### 7.4. File (Tuần 11-12) ⏱️ 2-3 giờ
-**Dependencies:** None (Generic)  
+**Dependencies:** None (Generic)
 **Complexity:** ⭐⭐⭐ Medium
 
 **Fields từ PCU:**
@@ -1060,7 +1060,7 @@ enum StoragePlatform {
 ---
 
 #### 7.5. OrderLogs (Tuần 12) ⏱️ 1-2 giờ
-**Dependencies:** MaterialOrder (indirect)  
+**Dependencies:** MaterialOrder (indirect)
 **Complexity:** ⭐ Simple
 
 **Fields từ PCU:**
@@ -1357,8 +1357,8 @@ Sử dụng checklist này cho **MỖI** object:
 ### High-Risk Items
 
 #### 1. User Entity Conflict
-**Risk:** Twenty's WorkspaceMember vs PCU's User  
-**Impact:** ⭐⭐⭐⭐⭐ Critical  
+**Risk:** Twenty's WorkspaceMember vs PCU's User
+**Impact:** ⭐⭐⭐⭐⭐ Critical
 **Mitigation:**
 - Research Twenty's authentication flow
 - Consider extending WorkspaceMember
@@ -1366,8 +1366,8 @@ Sử dụng checklist này cho **MỖI** object:
 - Get stakeholder buy-in
 
 #### 2. Complex Relations
-**Risk:** Circular dependencies, missing entities  
-**Impact:** ⭐⭐⭐⭐ High  
+**Risk:** Circular dependencies, missing entities
+**Impact:** ⭐⭐⭐⭐ High
 **Mitigation:**
 - Follow dependency graph strictly
 - Test relations incrementally
@@ -1375,8 +1375,8 @@ Sử dụng checklist này cho **MỖI** object:
 - Document relation patterns
 
 #### 3. Timeline Integration
-**Risk:** Wrong pattern → server crash  
-**Impact:** ⭐⭐⭐⭐ High  
+**Risk:** Wrong pattern → server crash
+**Impact:** ⭐⭐⭐⭐ High
 **Mitigation:**
 - ALWAYS use `SET_NULL` not `CASCADE`
 - Test timeline relations separately
@@ -1384,16 +1384,16 @@ Sử dụng checklist này cho **MỖI** object:
 - Verify `inverseSideFieldKey` matching
 
 #### 4. Enum Mismatches
-**Risk:** PCU enums không map vào Twenty  
-**Impact:** ⭐⭐⭐ Medium  
+**Risk:** PCU enums không map vào Twenty
+**Impact:** ⭐⭐⭐ Medium
 **Mitigation:**
 - Extract all enums early
 - Document enum values
 - Consider SELECT fields với custom options
 
 #### 5. File/Attachment Duplication
-**Risk:** Duplicate functionality  
-**Impact:** ⭐⭐ Low-Medium  
+**Risk:** Duplicate functionality
+**Impact:** ⭐⭐ Low-Medium
 **Mitigation:**
 - Analyze both schemas early
 - Decide reuse vs new entity
@@ -1500,13 +1500,13 @@ Sử dụng checklist này cho **MỖI** object:
 ## 📝 Notes & Decisions Log
 
 ### Decision 1: Migration Approach
-**Date:** 2025-11-12  
-**Decision:** Migrate theo phases, ưu tiên dependencies  
+**Date:** 2025-11-12
+**Decision:** Migrate theo phases, ưu tiên dependencies
 **Rationale:** Tránh circular dependencies, test từng layer
 
 ### Decision 2: Timeline Strategy
-**Date:** 2025-11-12  
-**Decision:** ✅ **ALL entities cần có Timeline Activity** (23/23 models)  
+**Date:** 2025-11-12
+**Decision:** ✅ **ALL entities cần có Timeline Activity** (23/23 models)
 **Rationale:**
 - Audit trail cực kỳ quan trọng cho PCU system
 - Cần track mọi thay đổi: WHO did WHAT and WHEN
@@ -1518,8 +1518,8 @@ Sử dụng checklist này cho **MỖI** object:
 - Performance không phải vấn đề lớn với Twenty's optimized timeline system
 
 ### Decision 3: [To be decided]
-**Date:** TBD  
-**Decision:** User mapping strategy  
+**Date:** TBD
+**Decision:** User mapping strategy
 **Options:**
 - A) Extend WorkspaceMember
 - B) Create new User entity
@@ -1599,8 +1599,8 @@ chmod +x generate-pcu-uuids.sh
 
 ---
 
-**Last Updated:** 2025-11-12  
-**Status:** 🟡 Planning Phase  
+**Last Updated:** 2025-11-12
+**Status:** 🟡 Planning Phase
 **Next Review:** After Week 1 completion
 
 ---
@@ -1649,7 +1649,7 @@ rm -rf node_modules/.cache
 @WorkspaceIsSearchable()
 export class ObjectNameWorkspaceEntity extends BaseWorkspaceEntity {
   // Business fields
-  
+
   // System fields
   @WorkspaceField({ standardId, type: POSITION, ... })
   @WorkspaceIsSystem()

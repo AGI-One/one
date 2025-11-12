@@ -16,6 +16,14 @@ export const getIconColorForObjectType = ({
       return theme.color.purple;
     case 'inventory':
       return theme.color.orange;
+    case 'quotation':
+      return theme.color.blue;
+    case 'quotationItem':
+      return theme.color.turquoise;
+    case 'materialPurchaseRequest':
+      return theme.color.green;
+    case 'materialOrder':
+      return theme.color.purple;
     default:
       return 'currentColor';
   }

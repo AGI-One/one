@@ -31,6 +31,7 @@ import {
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 enum MaterialStatus {
@@ -232,6 +233,17 @@ export class MaterialWorkspaceEntity extends BaseWorkspaceEntity {
     inverseSideFieldKey: 'material',
   })
   inventories: Relation<InventoryWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: MATERIAL_STANDARD_FIELD_IDS.materialPurchaseRequests,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Purchase Requests`,
+    description: msg`Material purchase requests for this material`,
+    icon: 'IconShoppingCart',
+    inverseSideTarget: () => MaterialPurchaseRequestWorkspaceEntity,
+    inverseSideFieldKey: 'material',
+  })
+  materialPurchaseRequests: Relation<MaterialPurchaseRequestWorkspaceEntity[]>;
 
   // System Fields
   @WorkspaceField({
