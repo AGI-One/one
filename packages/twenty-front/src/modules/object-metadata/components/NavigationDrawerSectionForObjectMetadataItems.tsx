@@ -25,6 +25,12 @@ const ORDERED_STANDARD_OBJECTS: string[] = [
   CoreObjectNameSingular.QuotationItem,
   CoreObjectNameSingular.MaterialPurchaseRequest,
   CoreObjectNameSingular.MaterialOrder,
+  CoreObjectNameSingular.MaterialPrice,
+  CoreObjectNameSingular.MaterialPriceHistory,
+  CoreObjectNameSingular.PriceContract,
+  CoreObjectNameSingular.MaterialRequest,
+  CoreObjectNameSingular.MaterialApproval,
+  CoreObjectNameSingular.BoQ,
 ];
 
 type NavigationDrawerSectionForObjectMetadataItemsProps = {

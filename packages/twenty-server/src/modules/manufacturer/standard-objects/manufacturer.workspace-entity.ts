@@ -19,11 +19,15 @@ import { MANUFACTURER_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/wo
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
 import {
-  type FieldTypeAndNameMetadata,
-  getTsVectorColumnExpressionFromFields,
+    type FieldTypeAndNameMetadata,
+    getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
+import { BoQWorkspaceEntity } from 'src/modules/boq/standard-objects/boq.workspace-entity';
+import { MaterialApprovalWorkspaceEntity } from 'src/modules/material-approval/standard-objects/material-approval.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
+import { MaterialPriceWorkspaceEntity } from 'src/modules/material-price/standard-objects/material-price.workspace-entity';
+import { MaterialRequestWorkspaceEntity } from 'src/modules/material-request/standard-objects/material-request.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
 // Search fields definition
@@ -121,6 +125,54 @@ export class ManufacturerWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   @WorkspaceIsFieldUIReadOnly()
   createdBy: ActorMetadata | null;
+
+  @WorkspaceRelation({
+    standardId: MANUFACTURER_STANDARD_FIELD_IDS.materialPrices,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Prices`,
+    description: msg`Material prices from this manufacturer`,
+    icon: 'IconCurrencyDollar',
+    inverseSideTarget: () => MaterialPriceWorkspaceEntity,
+    inverseSideFieldKey: 'manufacturer',
+  })
+  @WorkspaceIsNullable()
+  materialPrices: Relation<MaterialPriceWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: MANUFACTURER_STANDARD_FIELD_IDS.materialRequests,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Requests`,
+    description: msg`Material requests for this manufacturer`,
+    icon: 'IconFileText',
+    inverseSideTarget: () => MaterialRequestWorkspaceEntity,
+    inverseSideFieldKey: 'manufacturer',
+  })
+  @WorkspaceIsNullable()
+  materialRequests: Relation<MaterialRequestWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: MANUFACTURER_STANDARD_FIELD_IDS.materialApprovals,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Approvals`,
+    description: msg`Material approvals for this manufacturer`,
+    icon: 'IconCircleCheck',
+    inverseSideTarget: () => MaterialApprovalWorkspaceEntity,
+    inverseSideFieldKey: 'manufacturer',
+  })
+  @WorkspaceIsNullable()
+  materialApprovals: Relation<MaterialApprovalWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: MANUFACTURER_STANDARD_FIELD_IDS.boqs,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`BoQs`,
+    description: msg`Bills of quantities for this manufacturer`,
+    icon: 'IconListNumbers',
+    inverseSideTarget: () => BoQWorkspaceEntity,
+    inverseSideFieldKey: 'manufacturer',
+  })
+  @WorkspaceIsNullable()
+  boqs: Relation<BoQWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: MANUFACTURER_STANDARD_FIELD_IDS.timelineActivities,

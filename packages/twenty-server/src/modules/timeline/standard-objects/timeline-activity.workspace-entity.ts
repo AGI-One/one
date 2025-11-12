@@ -17,20 +17,26 @@ import { WorkspaceRelation } from 'src/engine/twenty-orm/decorators/workspace-re
 import { TIMELINE_ACTIVITY_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
+import { BoQWorkspaceEntity } from 'src/modules/boq/standard-objects/boq.workspace-entity';
 import { CompanyWorkspaceEntity } from 'src/modules/company/standard-objects/company.workspace-entity';
 import { DashboardWorkspaceEntity } from 'src/modules/dashboard/standard-objects/dashboard.workspace-entity';
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { JobTitleWorkspaceEntity } from 'src/modules/job-title/standard-objects/job-title.workspace-entity';
 import { ManufacturerWorkspaceEntity } from 'src/modules/manufacturer/standard-objects/manufacturer.workspace-entity';
+import { MaterialApprovalWorkspaceEntity } from 'src/modules/material-approval/standard-objects/material-approval.workspace-entity';
 import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
 import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
+import { MaterialPriceHistoryWorkspaceEntity } from 'src/modules/material-price-history/standard-objects/material-price-history.workspace-entity';
+import { MaterialPriceWorkspaceEntity } from 'src/modules/material-price/standard-objects/material-price.workspace-entity';
 import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
+import { MaterialRequestWorkspaceEntity } from 'src/modules/material-request/standard-objects/material-request.workspace-entity';
 import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { NoteWorkspaceEntity } from 'src/modules/note/standard-objects/note.workspace-entity';
 import { OpportunityWorkspaceEntity } from 'src/modules/opportunity/standard-objects/opportunity.workspace-entity';
 import { PermissionWorkspaceEntity } from 'src/modules/permission/standard-objects/permission.workspace-entity';
 import { PersonWorkspaceEntity } from 'src/modules/person/standard-objects/person.workspace-entity';
+import { PriceContractWorkspaceEntity } from 'src/modules/price-contract/standard-objects/price-contract.workspace-entity';
 import { ProjectUserWorkspaceEntity } from 'src/modules/project-user/standard-objects/project-user.workspace-entity';
 import { ProjectWorkspaceEntity } from 'src/modules/project/standard-objects/project.workspace-entity';
 import { QuotationItemWorkspaceEntity } from 'src/modules/quotation-item/standard-objects/quotation-item.workspace-entity';
@@ -547,6 +553,102 @@ export class TimelineActivityWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('projectUser')
   projectUserId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialPrice,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Price`,
+    description: msg`Event material price`,
+    icon: 'IconCurrencyDollar',
+    inverseSideTarget: () => MaterialPriceWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialPrice: Relation<MaterialPriceWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialPrice')
+  materialPriceId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialPriceHistory,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Price History`,
+    description: msg`Event material price history`,
+    icon: 'IconHistory',
+    inverseSideTarget: () => MaterialPriceHistoryWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialPriceHistory: Relation<MaterialPriceHistoryWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialPriceHistory')
+  materialPriceHistoryId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.priceContract,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Price Contract`,
+    description: msg`Event price contract`,
+    icon: 'IconFileContract',
+    inverseSideTarget: () => PriceContractWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  priceContract: Relation<PriceContractWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('priceContract')
+  priceContractId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialRequest,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Request`,
+    description: msg`Event material request`,
+    icon: 'IconFileText',
+    inverseSideTarget: () => MaterialRequestWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialRequest: Relation<MaterialRequestWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialRequest')
+  materialRequestId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.materialApproval,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Approval`,
+    description: msg`Event material approval`,
+    icon: 'IconCircleCheck',
+    inverseSideTarget: () => MaterialApprovalWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  materialApproval: Relation<MaterialApprovalWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialApproval')
+  materialApprovalId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.boq,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`BoQ`,
+    description: msg`Event bill of quantities`,
+    icon: 'IconListNumbers',
+    inverseSideTarget: () => BoQWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  boq: Relation<BoQWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('boq')
+  boqId: string | null;
 
   @WorkspaceDynamicRelation({
     type: RelationType.MANY_TO_ONE,

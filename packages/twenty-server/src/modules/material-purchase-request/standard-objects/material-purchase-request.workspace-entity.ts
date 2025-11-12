@@ -1,8 +1,8 @@
 import { msg } from '@lingui/core/macro';
 import {
-    ActorMetadata,
-    FieldMetadataType,
-    RelationOnDeleteAction,
+  ActorMetadata,
+  FieldMetadataType,
+  RelationOnDeleteAction,
 } from 'twenty-shared/types';
 
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
@@ -23,19 +23,17 @@ import { MATERIAL_PURCHASE_REQUEST_STANDARD_FIELD_IDS } from 'src/engine/workspa
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
 import {
-    type FieldTypeAndNameMetadata,
-    getTsVectorColumnExpressionFromFields,
+  type FieldTypeAndNameMetadata,
+  getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
 import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
+import { MaterialRequestWorkspaceEntity } from 'src/modules/material-request/standard-objects/material-request.workspace-entity';
 import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { ProjectWorkspaceEntity } from 'src/modules/project/standard-objects/project.workspace-entity';
 import { QuotationItemWorkspaceEntity } from 'src/modules/quotation-item/standard-objects/quotation-item.workspace-entity';
 import { SupplierWorkspaceEntity } from 'src/modules/supplier/standard-objects/supplier.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
-
-// MaterialRequest is not yet created - will be added in Phase 6
-// MaterialOrder is being created in this Phase 4
 
 enum MaterialPurchaseRequestStatus {
   WAITING_FOR_QUOTATION = 'waiting_for_quotation',
@@ -109,33 +107,21 @@ export class MaterialPurchaseRequestWorkspaceEntity extends BaseWorkspaceEntity 
   @WorkspaceIsNullable()
   purchaseRequestName: string | null;
 
-  // Relations - Material Request (will be created in Phase 6)
-  // Temporarily comment out until MaterialRequest entity is created
-  // @WorkspaceRelation({
-  //   standardId: MATERIAL_PURCHASE_REQUEST_STANDARD_FIELD_IDS.materialRequest,
-  //   type: RelationType.MANY_TO_ONE,
-  //   label: msg`Material Request`,
-  //   description: msg`Related material request`,
-  //   icon: 'IconFileText',
-  //   inverseSideTarget: () => MaterialRequestWorkspaceEntity,
-  //   inverseSideFieldKey: 'materialPurchaseRequests',
-  //   onDelete: RelationOnDeleteAction.SET_NULL,
-  // })
-  // @WorkspaceIsNullable()
-  // materialRequest: Relation<MaterialRequestWorkspaceEntity> | null;
-
-  // @WorkspaceJoinColumn('materialRequest')
-  // materialRequestId: string | null;
-
-  // Temporary placeholder for materialRequestId
-  @WorkspaceField({
-    standardId: MATERIAL_PURCHASE_REQUEST_STANDARD_FIELD_IDS.materialRequestId,
-    type: FieldMetadataType.TEXT,
-    label: msg`Material Request ID`,
-    description: msg`ID of the related material request`,
+  // Relations - Material Request
+  @WorkspaceRelation({
+    standardId: MATERIAL_PURCHASE_REQUEST_STANDARD_FIELD_IDS.materialRequest,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Material Request`,
+    description: msg`Related material request`,
     icon: 'IconFileText',
+    inverseSideTarget: () => MaterialRequestWorkspaceEntity,
+    inverseSideFieldKey: 'materialPurchaseRequests',
+    onDelete: RelationOnDeleteAction.SET_NULL,
   })
   @WorkspaceIsNullable()
+  materialRequest: Relation<MaterialRequestWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('materialRequest')
   materialRequestId: string | null;
 
   // Relations - Material

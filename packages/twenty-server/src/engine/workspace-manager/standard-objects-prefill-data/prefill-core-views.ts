@@ -17,21 +17,27 @@ import { shouldSeedWorkspaceFavorite } from 'src/engine/utils/should-seed-worksp
 import { prefillWorkspaceFavorites } from 'src/engine/workspace-manager/standard-objects-prefill-data/prefill-workspace-favorites';
 import { type ViewDefinition } from 'src/engine/workspace-manager/standard-objects-prefill-data/types/view-definition.interface';
 import { appUsersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/app-users-all.view';
+import { boqsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/boqs-all.view';
 import { companiesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/companies-all.view';
 import { dashboardsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/dashboards-all.view';
 import { inventoriesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/inventories-all.view';
 import { jobTitlesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/job-titles-all.view';
 import { manufacturersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/manufacturers-all.view';
+import { materialApprovalsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-approvals-all.view';
 import { materialCategoriesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-categories-all.view';
 import { materialGroupsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-groups-all.view';
 import { materialOrdersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-orders-all.view';
+import { materialPriceHistoriesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-price-histories-all.view';
+import { materialPricesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-prices-all.view';
 import { materialPurchaseRequestsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-purchase-requests-all.view';
+import { materialRequestsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/material-requests-all.view';
 import { materialsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/materials-all.view';
 import { notesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/notes-all.view';
 import { opportunitiesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunities-all.view';
 import { opportunitiesByStageView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/opportunity-by-stage.view';
 import { peopleAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/people-all.view';
 import { permissionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/permissions-all.view';
+import { priceContractsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/price-contracts-all.view';
 import { projectsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/projects-all.view';
 import { quotationItemsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/quotation-items-all.view';
 import { quotationsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/quotations-all.view';
@@ -88,6 +94,12 @@ export const prefillCoreViews = async ({
     quotationsAllView(objectMetadataItems, true),
     quotationItemsAllView(objectMetadataItems, true),
     materialPurchaseRequestsAllView(objectMetadataItems, true),
+    materialPricesAllView(objectMetadataItems, true),
+    materialPriceHistoriesAllView(objectMetadataItems, true),
+    priceContractsAllView(objectMetadataItems, true),
+    materialRequestsAllView(objectMetadataItems, true),
+    materialApprovalsAllView(objectMetadataItems, true),
+    boqsAllView(objectMetadataItems, true),
     materialOrdersAllView(objectMetadataItems, true),
     materialCategoriesAllView(objectMetadataItems, true),
   ];

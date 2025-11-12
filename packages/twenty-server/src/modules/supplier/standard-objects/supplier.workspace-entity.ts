@@ -23,9 +23,12 @@ import {
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
+import { MaterialApprovalWorkspaceEntity } from 'src/modules/material-approval/standard-objects/material-approval.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
 import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
+import { MaterialPriceWorkspaceEntity } from 'src/modules/material-price/standard-objects/material-price.workspace-entity';
 import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
+import { PriceContractWorkspaceEntity } from 'src/modules/price-contract/standard-objects/price-contract.workspace-entity';
 import { QuotationWorkspaceEntity } from 'src/modules/quotation/standar-objects/quotation.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 
@@ -315,6 +318,42 @@ export class SupplierWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   @WorkspaceIsFieldUIReadOnly()
   createdBy: ActorMetadata | null;
+
+  @WorkspaceRelation({
+    standardId: SUPPLIER_STANDARD_FIELD_IDS.materialPrices,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Prices`,
+    description: msg`Material prices from this supplier`,
+    icon: 'IconCurrencyDollar',
+    inverseSideTarget: () => MaterialPriceWorkspaceEntity,
+    inverseSideFieldKey: 'supplier',
+  })
+  @WorkspaceIsNullable()
+  materialPrices: Relation<MaterialPriceWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: SUPPLIER_STANDARD_FIELD_IDS.priceContracts,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Price Contracts`,
+    description: msg`Price contracts with this supplier`,
+    icon: 'IconFileContract',
+    inverseSideTarget: () => PriceContractWorkspaceEntity,
+    inverseSideFieldKey: 'supplier',
+  })
+  @WorkspaceIsNullable()
+  priceContracts: Relation<PriceContractWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: SUPPLIER_STANDARD_FIELD_IDS.materialApprovals,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Approvals`,
+    description: msg`Material approvals from this supplier`,
+    icon: 'IconCircleCheck',
+    inverseSideTarget: () => MaterialApprovalWorkspaceEntity,
+    inverseSideFieldKey: 'supplier',
+  })
+  @WorkspaceIsNullable()
+  materialApprovals: Relation<MaterialApprovalWorkspaceEntity[]>;
 
   @WorkspaceRelation({
     standardId: SUPPLIER_STANDARD_FIELD_IDS.timelineActivities,

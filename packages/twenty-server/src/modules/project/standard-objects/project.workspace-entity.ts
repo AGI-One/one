@@ -26,8 +26,12 @@ import {
   type FieldTypeAndNameMetadata,
   getTsVectorColumnExpressionFromFields,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
+import { BoQWorkspaceEntity } from 'src/modules/boq/standard-objects/boq.workspace-entity';
+import { MaterialApprovalWorkspaceEntity } from 'src/modules/material-approval/standard-objects/material-approval.workspace-entity';
 import { MaterialOrderWorkspaceEntity } from 'src/modules/material-order/standard-objects/material-order.workspace-entity';
 import { MaterialPurchaseRequestWorkspaceEntity } from 'src/modules/material-purchase-request/standard-objects/material-purchase-request.workspace-entity';
+import { MaterialRequestWorkspaceEntity } from 'src/modules/material-request/standard-objects/material-request.workspace-entity';
+import { PriceContractWorkspaceEntity } from 'src/modules/price-contract/standard-objects/price-contract.workspace-entity';
 import { ProjectUserWorkspaceEntity } from 'src/modules/project-user/standard-objects/project-user.workspace-entity';
 import { QuotationWorkspaceEntity } from 'src/modules/quotation/standar-objects/quotation.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
@@ -244,6 +248,54 @@ export class ProjectWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsFieldUIReadOnly()
   createdBy: ActorMetadata;
+
+  @WorkspaceRelation({
+    standardId: PROJECT_STANDARD_FIELD_IDS.priceContracts,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Price Contracts`,
+    description: msg`Price contracts for this project`,
+    icon: 'IconFileContract',
+    inverseSideTarget: () => PriceContractWorkspaceEntity,
+    inverseSideFieldKey: 'project',
+  })
+  @WorkspaceIsNullable()
+  priceContracts: Relation<PriceContractWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: PROJECT_STANDARD_FIELD_IDS.materialRequests,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Requests`,
+    description: msg`Material requests for this project`,
+    icon: 'IconFileText',
+    inverseSideTarget: () => MaterialRequestWorkspaceEntity,
+    inverseSideFieldKey: 'project',
+  })
+  @WorkspaceIsNullable()
+  materialRequests: Relation<MaterialRequestWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: PROJECT_STANDARD_FIELD_IDS.materialApprovals,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Material Approvals`,
+    description: msg`Material approvals for this project`,
+    icon: 'IconCircleCheck',
+    inverseSideTarget: () => MaterialApprovalWorkspaceEntity,
+    inverseSideFieldKey: 'project',
+  })
+  @WorkspaceIsNullable()
+  materialApprovals: Relation<MaterialApprovalWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
+    standardId: PROJECT_STANDARD_FIELD_IDS.boqs,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`BoQs`,
+    description: msg`Bills of quantities for this project`,
+    icon: 'IconListNumbers',
+    inverseSideTarget: () => BoQWorkspaceEntity,
+    inverseSideFieldKey: 'project',
+  })
+  @WorkspaceIsNullable()
+  boqs: Relation<BoQWorkspaceEntity[]>;
 
   // Timeline relation
   @WorkspaceRelation({
