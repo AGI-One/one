@@ -31,6 +31,7 @@ import { opportunitiesByStageView } from 'src/engine/workspace-manager/standard-
 import { peopleAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/people-all.view';
 import { permissionsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/permissions-all.view';
 import { projectsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/projects-all.view';
+import { quotationItemsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/quotation-items-all.view';
 import { quotationsAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/quotations-all.view';
 import { rolesAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/roles-all.view';
 import { suppliersAllView } from 'src/engine/workspace-manager/standard-objects-prefill-data/views/suppliers-all.view';
@@ -83,6 +84,7 @@ export const prefillCoreViews = async ({
     projectsAllView(objectMetadataItems, true),
     projectUsersAllView(objectMetadataItems, true),
     quotationsAllView(objectMetadataItems, true),
+    quotationItemsAllView(objectMetadataItems, true),
     materialCategoriesAllView(objectMetadataItems, true),
   ];
 

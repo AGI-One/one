@@ -32,6 +32,7 @@ export const STANDARD_OBJECT_ICONS = {
   opportunity: 'IconTargetArrow',
   person: 'IconUser',
   quotation: 'IconFileText',
+  quotationItem: 'IconListDetails',
   supplier: 'IconTruck',
   warehouse: 'IconBuilding',
   permission: 'IconShield',

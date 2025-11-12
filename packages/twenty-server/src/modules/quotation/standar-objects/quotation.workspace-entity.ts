@@ -29,6 +29,7 @@ import {
 // Import related entities
 import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
 import { ProjectWorkspaceEntity } from 'src/modules/project/standard-objects/project.workspace-entity';
+import { QuotationItemWorkspaceEntity } from 'src/modules/quotation-item/standard-objects/quotation-item.workspace-entity';
 import { SupplierWorkspaceEntity } from 'src/modules/supplier/standard-objects/supplier.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { AppUserWorkspaceEntity } from 'src/modules/user/standard-objects/user.workspace-entity';
@@ -223,10 +224,9 @@ export class QuotationWorkspaceEntity extends BaseWorkspaceEntity {
         label: `Expired`,
       },
     ],
-    defaultValue: QuotationStatus.RECEIVED,
+    defaultValue: `'${QuotationStatus.RECEIVED}'`,
   })
-  @WorkspaceIsNullable()
-  status: QuotationStatus | null;
+  status: string;
 
   // terms and conditions LONG_TEXT
   @WorkspaceField({
@@ -448,13 +448,25 @@ export class QuotationWorkspaceEntity extends BaseWorkspaceEntity {
   createdBy: ActorMetadata | null;
 
   @WorkspaceRelation({
+    standardId: QUOTATION_STANDARD_FIELD_IDS.quotationItems,
+    type: RelationType.ONE_TO_MANY,
+    label: msg`Quotation Items`,
+    description: msg`Items in this quotation`,
+    icon: 'IconListDetails',
+    inverseSideTarget: () => QuotationItemWorkspaceEntity,
+    inverseSideFieldKey: 'quotation',
+  })
+  @WorkspaceIsNullable()
+  quotationItems: Relation<QuotationItemWorkspaceEntity[]>;
+
+  @WorkspaceRelation({
     standardId: QUOTATION_STANDARD_FIELD_IDS.timelineActivities,
     type: RelationType.ONE_TO_MANY,
     label: msg`Timeline Activities`,
-    description: msg`Timeline Activities linked to the material`,
+    description: msg`Timeline Activities linked to the quotation`,
     icon: 'IconTimelineEvent',
     inverseSideTarget: () => TimelineActivityWorkspaceEntity,
-    inverseSideFieldKey: 'materialCategory',
+    inverseSideFieldKey: 'quotation',
   })
   @WorkspaceIsNullable()
   @WorkspaceIsSystem()

@@ -213,6 +213,7 @@ export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
   project: '53e861f9-fe1e-4829-ab6c-891bed9f6fa0',
   projectUser: '2c4afe8b-309d-4219-a088-9f5bd2bd9c73',
   quotation: 'e0bf4ca9-c7a2-4d8f-a82a-67a83ea65364',
+  quotationItem: '869d9c69-0282-4209-a98f-003f09904030',
   custom: '20202020-4a71-41b0-9f83-9cdcca3f8b14',
   linkedRecordCachedName: '20202020-cfdb-4bef-bbce-a29f41230934',
   linkedRecordId: '20202020-2e0e-48c0-b445-ee6c1e61687d',
@@ -796,6 +797,32 @@ export const QUOTATION_STANDARD_FIELD_IDS = {
   createdBy: '23d3abb7-3977-43de-924b-66dadeccd985',
   searchVector: 'adbe6e7c-65b2-4a17-9dcb-079b6496a0bc',
   timelineActivities: '97df61b3-acd5-44bd-90d6-181c837fe2ef',
+  quotationItems: '145560d5-3965-45ef-aeed-108087f3b167',
+} as const;
+
+export const QUOTATION_ITEM_STANDARD_FIELD_IDS = {
+  quotation: 'eb4b4133-2e94-4382-85a9-82978f2b6733',
+  materialPurchaseRequest: '4bed5e0c-f9b0-4d50-9d0e-1d30852a7e52',
+  quantity: '0eadc365-89a8-47e8-8983-a8131496825a',
+  unitPrice: '0359894f-ce05-4af5-ab4a-ec99f128c1e0',
+  totalPrice: '1e679a4c-9802-4bd4-a0cb-862ee30d50ad',
+  currency: '59e766bf-964f-4146-b93e-13ee246d6924',
+  status: '8482154a-18ab-4d26-820a-7556bdcfa0dd',
+  negotiatedUnitPrice: '9cdeb718-ff1f-42bd-b04c-b3a055093e17',
+  negotiatedTotalPrice: 'a15d1b92-fe6a-4295-b50a-905de4bf64cd',
+  negotiationNote: '51837690-6e46-4cec-9f83-fab81e61b314',
+  negotiatedBy: 'fb1e5f14-8608-4be3-8621-455192a672d0',
+  negotiationDate: 'b4ffbc6f-a4ab-4190-8978-1e779196abf4',
+  acceptedBy: '0842bb95-6dc7-4951-b2c2-dede47afb62e',
+  acceptedDate: '875c1efd-8002-4131-9822-1ceb98a96360',
+  acceptanceNote: '34d6f5cf-7b63-4f1c-8d0b-49340f42bd9e',
+  deliveryTime: '8553bcab-0428-493d-8514-c676b15a8c51',
+  warrantyPeriod: '43a37fad-0d65-45cd-b407-292f8cfd4504',
+  note: 'fe3ec061-832f-4b6e-982f-6f521ebf265a',
+  position: '0dc0ec67-5b5e-4d31-b209-14175376cdfb',
+  createdBy: 'ba3316fe-0d0a-4a0d-bbb5-efc29e91b430',
+  searchVector: '5e1552d3-1127-4360-ae5c-0d1116bf7f43',
+  timelineActivities: 'a1af88de-13b0-4d44-ac43-7cf3f987851b',
 } as const;
 
 export const STANDARD_OBJECT_FIELD_IDS = {
@@ -837,7 +864,8 @@ export const STANDARD_OBJECT_FIELD_IDS = {
   noteTarget: NOTE_TARGET_STANDARD_FIELD_IDS,
   opportunity: OPPORTUNITY_STANDARD_FIELD_IDS,
   person: PERSON_STANDARD_FIELD_IDS,
-
+  quotation: QUOTATION_STANDARD_FIELD_IDS,
+  quotationItem: QUOTATION_ITEM_STANDARD_FIELD_IDS,
   supplier: SUPPLIER_STANDARD_FIELD_IDS,
   warehouse: WAREHOUSE_STANDARD_FIELD_IDS,
   task: TASK_STANDARD_FIELD_IDS,

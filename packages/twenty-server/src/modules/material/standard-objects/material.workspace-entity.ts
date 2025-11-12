@@ -29,7 +29,7 @@ import {
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
-import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/quotation.workspace-entity';
+import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 

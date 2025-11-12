@@ -12,6 +12,7 @@ export const STANDARD_OBJECTS_BY_PRIORITY_RANK = {
   materialGroup: 2,
   materialCategory: 2,
   quotation: 2,
+  quotationItem: 2,
   note: 2,
   role: 2,
   task: 1,

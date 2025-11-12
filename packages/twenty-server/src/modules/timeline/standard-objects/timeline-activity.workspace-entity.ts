@@ -22,7 +22,7 @@ import { DashboardWorkspaceEntity } from 'src/modules/dashboard/standard-objects
 import { InventoryWorkspaceEntity } from 'src/modules/inventory/standard-objects/inventory.workspace-entity';
 import { JobTitleWorkspaceEntity } from 'src/modules/job-title/standard-objects/job-title.workspace-entity';
 import { ManufacturerWorkspaceEntity } from 'src/modules/manufacturer/standard-objects/manufacturer.workspace-entity';
-import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/quotation.workspace-entity';
+import { MaterialCategoryWorkspaceEntity } from 'src/modules/material-category/standard-objects/material-category.workspace-entity';
 import { MaterialGroupWorkspaceEntity } from 'src/modules/material-group/standard-objects/material-group.workspace-entity';
 import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
 import { NoteWorkspaceEntity } from 'src/modules/note/standard-objects/note.workspace-entity';
@@ -31,6 +31,7 @@ import { PermissionWorkspaceEntity } from 'src/modules/permission/standard-objec
 import { PersonWorkspaceEntity } from 'src/modules/person/standard-objects/person.workspace-entity';
 import { ProjectUserWorkspaceEntity } from 'src/modules/project-user/standard-objects/project-user.workspace-entity';
 import { ProjectWorkspaceEntity } from 'src/modules/project/standard-objects/project.workspace-entity';
+import { QuotationItemWorkspaceEntity } from 'src/modules/quotation-item/standard-objects/quotation-item.workspace-entity';
 import { QuotationWorkspaceEntity } from 'src/modules/quotation/standar-objects/quotation.workspace-entity';
 import { RoleWorkspaceEntity } from 'src/modules/role/standard-objects/role.workspace-entity';
 import { SupplierWorkspaceEntity } from 'src/modules/supplier/standard-objects/supplier.workspace-entity';
@@ -353,6 +354,22 @@ export class TimelineActivityWorkspaceEntity extends BaseWorkspaceEntity {
 
   @WorkspaceJoinColumn('quotation')
   quotationId: string | null;
+
+  @WorkspaceRelation({
+    standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.quotationItem,
+    type: RelationType.MANY_TO_ONE,
+    label: msg`Quotation Item`,
+    description: msg`Event quotation item`,
+    icon: 'IconListDetails',
+    inverseSideTarget: () => QuotationItemWorkspaceEntity,
+    inverseSideFieldKey: 'timelineActivities',
+    onDelete: RelationOnDeleteAction.SET_NULL,
+  })
+  @WorkspaceIsNullable()
+  quotationItem: Relation<QuotationItemWorkspaceEntity> | null;
+
+  @WorkspaceJoinColumn('quotationItem')
+  quotationItemId: string | null;
 
   @WorkspaceRelation({
     standardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.supplier,
