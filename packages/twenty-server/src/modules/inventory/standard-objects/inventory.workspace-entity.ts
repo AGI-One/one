@@ -17,43 +17,20 @@ import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-
 import { WorkspaceRelation } from 'src/engine/twenty-orm/decorators/workspace-relation.decorator';
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
-import { ProductVariantWorkspaceEntity } from 'src/modules/product-variant/standard-objects/product-variant.workspace-entity';
 import { TimelineActivityWorkspaceEntity } from 'src/modules/timeline/standard-objects/timeline-activity.workspace-entity';
 import { WarehouseWorkspaceEntity } from 'src/modules/warehouse/standard-objects/warehouse.workspace-entity';
-
-// Field IDs
-export const INVENTORY_STANDARD_FIELD_IDS = {
-  name: 'e7f8a9b0-1c2d-3e4f-5a6b-7c8d9e0f1a2b',
-  warehouse: '94d46cd8-c4f4-4c96-9e9b-9ba13e5a6c58',
-  variant: 'db5bdc64-85e6-4cfb-ae60-c8b7e0a0c5e7',
-  quantity: 'f3a7c8b1-9d4e-4f5a-8c6b-2e1d9a7f3c4e',
-  reservedQuantity: 'a8f9c3d2-7e4b-4a9c-b5d8-6f2e1c9a8b7d',
-  position: 'b9c0d1e2-8f7a-4b6c-9d5e-3a4f5c6b7d8e',
-  timelineActivities: '4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a',
-  createdBy: 'c2d8e9f1-6a7b-4c8d-9e3f-1a2b7c8d9e0f',
-} as const;
+import { MaterialWorkspaceEntity } from 'src/modules/material/standard-objects/material.workspace-entity';
+import { INVENTORY_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
 
 @WorkspaceEntity({
   standardId: STANDARD_OBJECT_IDS.inventory,
   namePlural: 'inventories',
   labelSingular: msg`Inventory`,
   labelPlural: msg`Inventories`,
-  description: msg`Tracks product variant inventory levels across warehouses`,
+  description: msg`Material inventory management`,
   icon: STANDARD_OBJECT_ICONS.inventory,
-  labelIdentifierStandardId: INVENTORY_STANDARD_FIELD_IDS.name,
 })
 export class InventoryWorkspaceEntity extends BaseWorkspaceEntity {
-  // Name field (optional - can be auto-generated from warehouse + variant)
-  @WorkspaceField({
-    standardId: INVENTORY_STANDARD_FIELD_IDS.name,
-    type: FieldMetadataType.TEXT,
-    label: msg`Name`,
-    description: msg`Inventory record name (e.g., "Warehouse A - Product X")`,
-    icon: 'IconTag',
-  })
-  @WorkspaceIsNullable()
-  name: string | null;
-
   // Warehouse relation
   @WorkspaceRelation({
     standardId: INVENTORY_STANDARD_FIELD_IDS.warehouse,
@@ -71,42 +48,99 @@ export class InventoryWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceJoinColumn('warehouse')
   warehouseId: string;
 
-  // ProductVariant relation
+  // Material relation
   @WorkspaceRelation({
-    standardId: INVENTORY_STANDARD_FIELD_IDS.variant,
+    standardId: INVENTORY_STANDARD_FIELD_IDS.material,
     type: RelationType.MANY_TO_ONE,
-    label: msg`Product Variant`,
-    description: msg`The product variant`,
-    icon: 'IconVersions',
-    inverseSideTarget: () => ProductVariantWorkspaceEntity,
+    label: msg`Material`,
+    description: msg`Material managed in inventory`,
+    icon: 'IconBox',
+    inverseSideTarget: () => MaterialWorkspaceEntity,
     inverseSideFieldKey: 'inventories',
     onDelete: RelationOnDeleteAction.CASCADE,
   })
   @WorkspaceIsNullable()
-  variant: Relation<ProductVariantWorkspaceEntity> | null;
+  material: Relation<MaterialWorkspaceEntity> | null;
 
-  @WorkspaceJoinColumn('variant')
-  variantId: string;
+  @WorkspaceJoinColumn('material')
+  materialId: string;
 
   // Quantity fields
   @WorkspaceField({
-    standardId: INVENTORY_STANDARD_FIELD_IDS.quantity,
+    standardId: INVENTORY_STANDARD_FIELD_IDS.openBalance,
     type: FieldMetadataType.NUMBER,
-    label: msg`Quantity`,
-    description: msg`Total available quantity`,
+    label: msg`Opening Balance`,
+    description: msg`Opening inventory balance`,
     icon: 'IconNumber',
     defaultValue: 0,
   })
-  quantity: number;
+  @WorkspaceIsNullable()
+  openBalance: number | null;
+
+  @WorkspaceField({
+    standardId: INVENTORY_STANDARD_FIELD_IDS.inboundQuantity,
+    type: FieldMetadataType.NUMBER,
+    label: msg`Inbound Quantity`,
+    description: msg`Quantity received into inventory`,
+    icon: 'IconArrowDown',
+    defaultValue: 0,
+  })
+  @WorkspaceIsNullable()
+  inboundQuantity: number | null;
+
+  @WorkspaceField({
+    standardId: INVENTORY_STANDARD_FIELD_IDS.outboundQuantity,
+    type: FieldMetadataType.NUMBER,
+    label: msg`Outbound Quantity`,
+    description: msg`Quantity issued from inventory`,
+    icon: 'IconArrowUp',
+    defaultValue: 0,
+  })
+  @WorkspaceIsNullable()
+  outboundQuantity: number | null;
+
+  @WorkspaceField({
+    standardId: INVENTORY_STANDARD_FIELD_IDS.currentBalance,
+    type: FieldMetadataType.NUMBER,
+    label: msg`Current Balance`,
+    description: msg`Current inventory balance`,
+    icon: 'IconNumber',
+    defaultValue: 0,
+  })
+  @WorkspaceIsNullable()
+  currentBalance: number | null;
+
   @WorkspaceField({
     standardId: INVENTORY_STANDARD_FIELD_IDS.reservedQuantity,
     type: FieldMetadataType.NUMBER,
     label: msg`Reserved Quantity`,
-    description: msg`Quantity reserved for pending orders`,
+    description: msg`Quantity reserved for orders`,
     icon: 'IconLock',
     defaultValue: 0,
   })
-  reservedQuantity: number;
+  @WorkspaceIsNullable()
+  reservedQuantity: number | null;
+
+  @WorkspaceField({
+    standardId: INVENTORY_STANDARD_FIELD_IDS.availableQuantity,
+    type: FieldMetadataType.NUMBER,
+    label: msg`Available Quantity`,
+    description: msg`Available quantity for use`,
+    icon: 'IconCheck',
+    defaultValue: 0,
+  })
+  @WorkspaceIsNullable()
+  availableQuantity: number | null;
+
+  @WorkspaceField({
+    standardId: INVENTORY_STANDARD_FIELD_IDS.note,
+    type: FieldMetadataType.TEXT,
+    label: msg`Note`,
+    description: msg`Notes about the inventory`,
+    icon: 'IconNotes',
+  })
+  @WorkspaceIsNullable()
+  note: string | null;
 
   // Position field for sorting
   @WorkspaceField({
