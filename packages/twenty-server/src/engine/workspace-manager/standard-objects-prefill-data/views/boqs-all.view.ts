@@ -220,7 +220,7 @@ export const boqsAllView = (
       {
         fieldMetadataId:
           boqObjectMetadata.fields.find(
-            (field) => field.standardId === BOQ_STANDARD_FIELD_IDS.parent,
+            (field) => field.standardId === BOQ_STANDARD_FIELD_IDS.parentId,
           )?.id ?? '',
         position: 21,
         isVisible: true,

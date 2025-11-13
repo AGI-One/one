@@ -1,9 +1,9 @@
 import { msg } from '@lingui/core/macro';
 import {
-    ActorMetadata,
-    FieldMetadataType,
-    RelationOnDeleteAction,
-    type CurrencyMetadata,
+  ActorMetadata,
+  FieldMetadataType,
+  RelationOnDeleteAction,
+  type CurrencyMetadata,
 } from 'twenty-shared/types';
 
 import { RelationType } from 'src/engine/metadata-modules/field-metadata/interfaces/relation-type.interface';
@@ -24,8 +24,8 @@ import { BOQ_STANDARD_FIELD_IDS } from 'src/engine/workspace-manager/workspace-s
 import { STANDARD_OBJECT_ICONS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-icons';
 import { STANDARD_OBJECT_IDS } from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-object-ids';
 import {
-    getTsVectorColumnExpressionFromFields,
-    type FieldTypeAndNameMetadata,
+  getTsVectorColumnExpressionFromFields,
+  type FieldTypeAndNameMetadata,
 } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/get-ts-vector-column-expression.util';
 // Import related entities
 import { WorkspaceJoinColumn } from 'src/engine/twenty-orm/decorators/workspace-join-column.decorator';
@@ -292,23 +292,6 @@ export class BoQWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   title: string | null;
 
-  // Self-referencing relation - Parent
-  @WorkspaceRelation({
-    standardId: BOQ_STANDARD_FIELD_IDS.parent,
-    type: RelationType.MANY_TO_ONE,
-    label: msg`Parent`,
-    description: msg`Parent BoQ item`,
-    icon: 'IconHierarchy',
-    inverseSideTarget: () => BoQWorkspaceEntity,
-    inverseSideFieldKey: 'children',
-    onDelete: RelationOnDeleteAction.SET_NULL,
-  })
-  @WorkspaceIsNullable()
-  parent: Relation<BoQWorkspaceEntity> | null;
-
-  @WorkspaceJoinColumn('parent')
-  parentId: string | null;
-
   @WorkspaceField({
     standardId: BOQ_STANDARD_FIELD_IDS.brand,
     type: FieldMetadataType.TEXT,
@@ -318,6 +301,16 @@ export class BoQWorkspaceEntity extends BaseWorkspaceEntity {
   })
   @WorkspaceIsNullable()
   brand: string | null;
+
+  @WorkspaceField({
+    standardId: BOQ_STANDARD_FIELD_IDS.parentId,
+    type: FieldMetadataType.TEXT,
+    label: msg`Parent ID`,
+    description: msg`Parent BoQ item ID for manual hierarchy handling`,
+    icon: 'IconHierarchy',
+  })
+  @WorkspaceIsNullable()
+  parentId: string | null;
 
   // System Fields - REQUIRED
   @WorkspaceField({
@@ -354,18 +347,6 @@ export class BoQWorkspaceEntity extends BaseWorkspaceEntity {
   @WorkspaceIsNullable()
   @WorkspaceIsSystem()
   timelineActivities: Relation<TimelineActivityWorkspaceEntity[]>;
-
-  // Self-referencing relation - Children
-  @WorkspaceRelation({
-    standardId: BOQ_STANDARD_FIELD_IDS.children,
-    type: RelationType.ONE_TO_MANY,
-    label: msg`Children`,
-    description: msg`Child BoQ items`,
-    icon: 'IconHierarchy',
-    inverseSideTarget: () => BoQWorkspaceEntity,
-    inverseSideFieldKey: 'parent',
-  })
-  children: Relation<BoQWorkspaceEntity[]>;
 
   // Search Vector - REQUIRED for searchable entities
   @WorkspaceField({
