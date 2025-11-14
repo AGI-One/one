@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { APP_LOCALES } from 'twenty-shared/translations';
 
 @InputType()
 export class AdminCreateUserInput {
@@ -27,5 +28,5 @@ export class AdminCreateUserInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
-  locale?: string;
+  locale?: keyof typeof APP_LOCALES;
 }

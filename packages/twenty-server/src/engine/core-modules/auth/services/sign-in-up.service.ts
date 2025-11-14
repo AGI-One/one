@@ -4,6 +4,7 @@ import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 
 import { msg } from '@lingui/core/macro';
 import { TWENTY_ICONS_BASE_URL } from 'twenty-shared/constants';
+import { APP_LOCALES } from 'twenty-shared/translations';
 import { WorkspaceActivationStatus } from 'twenty-shared/workspace';
 import { type DataSource, type QueryRunner, Repository } from 'typeorm';
 import { v4 } from 'uuid';
@@ -570,7 +571,7 @@ export class SignInUpService {
       firstName: string;
       lastName: string;
       password: string;
-      locale?: string;
+      locale?: keyof typeof APP_LOCALES;
     },
     workspace: WorkspaceEntity,
   ) {
@@ -613,7 +614,7 @@ export class SignInUpService {
         firstName: userParams.firstName,
         lastName: userParams.lastName,
         passwordHash,
-        locale: userParams.locale ?? 'en',
+        locale: userParams.locale ?? APP_LOCALES.en,
         picture: '',
         isEmailVerified: true, // Admin created users are pre-verified
       },
