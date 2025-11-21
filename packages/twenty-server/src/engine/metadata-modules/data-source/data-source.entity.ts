@@ -1,17 +1,24 @@
 import {
-  Column,
-  CreateDateColumn,
-  type DataSourceOptions,
-  Entity,
-  Index,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+    Column,
+    CreateDateColumn,
+    type DataSourceOptions,
+    Entity,
+    Index,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 
 import { ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadata/object-metadata.entity';
 
-export type DataSourceType = DataSourceOptions['type'];
+export enum DataSourceTypeEnum {
+  POSTGRES = 'postgres',
+  SHAREPOINT = 'sharepoint',
+}
+
+export type DataSourceType =
+  | DataSourceOptions['type']
+  | DataSourceTypeEnum.SHAREPOINT;
 
 @Entity('dataSource')
 @Index('IDX_DATA_SOURCE_WORKSPACE_ID_CREATED_AT', ['workspaceId', 'createdAt'])
@@ -28,7 +35,11 @@ export class DataSourceEntity {
   @Column({ nullable: true })
   schema: string;
 
-  @Column({ type: 'enum', enum: ['postgres'], default: 'postgres' })
+  @Column({
+    type: 'enum',
+    enum: DataSourceTypeEnum,
+    default: DataSourceTypeEnum.POSTGRES,
+  })
   type: DataSourceType;
 
   @Column({ default: false })

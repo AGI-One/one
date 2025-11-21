@@ -8,4 +8,5 @@ export class FileStorageException extends CustomException {
 
 export enum FileStorageExceptionCode {
   FILE_NOT_FOUND = 'FILE_NOT_FOUND',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
 }

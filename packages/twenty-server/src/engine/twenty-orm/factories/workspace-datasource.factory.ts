@@ -7,20 +7,26 @@ import { EntitySchema, Repository } from 'typeorm';
 
 import { type FeatureFlagMap } from 'src/engine/core-modules/feature-flag/interfaces/feature-flag-map.interface';
 
+import { SharePointService } from 'src/engine/core-modules/sharepoint/sharepoint.service';
 import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 import { WorkspaceEntity } from 'src/engine/core-modules/workspace/workspace.entity';
+import {
+    DataSourceEntity,
+    DataSourceTypeEnum,
+} from 'src/engine/metadata-modules/data-source/data-source.entity';
 import { DataSourceService } from 'src/engine/metadata-modules/data-source/data-source.service';
 import { WorkspaceFeatureFlagsMapCacheService } from 'src/engine/metadata-modules/workspace-feature-flags-map-cache/workspace-feature-flags-map-cache.service';
 import { WorkspaceMetadataCacheService } from 'src/engine/metadata-modules/workspace-metadata-cache/services/workspace-metadata-cache.service';
 import { WorkspacePermissionsCacheStorageService } from 'src/engine/metadata-modules/workspace-permissions-cache/workspace-permissions-cache-storage.service';
 import {
-  ROLES_PERMISSIONS,
-  WorkspacePermissionsCacheService,
+    ROLES_PERMISSIONS,
+    WorkspacePermissionsCacheService,
 } from 'src/engine/metadata-modules/workspace-permissions-cache/workspace-permissions-cache.service';
+import { SharePointWorkspaceDataSource } from 'src/engine/twenty-orm/datasource/sharepoint-workspace.datasource';
 import { WorkspaceDataSource } from 'src/engine/twenty-orm/datasource/workspace.datasource';
 import {
-  TwentyORMException,
-  TwentyORMExceptionCode,
+    TwentyORMException,
+    TwentyORMExceptionCode,
 } from 'src/engine/twenty-orm/exceptions/twenty-orm.exception';
 import { EntitySchemaFactory } from 'src/engine/twenty-orm/factories/entity-schema.factory';
 import { PromiseMemoizer } from 'src/engine/twenty-orm/storage/promise-memoizer.storage';
@@ -57,6 +63,7 @@ export class WorkspaceDatasourceFactory {
       string,
       ObjectsPermissionsByRoleId
     >,
+    private readonly sharePointService: SharePointService,
   ) {}
 
   private async safelyDestroyDataSource(
@@ -170,6 +177,20 @@ export class WorkspaceDatasourceFactory {
             cachedEntitySchemas = entitySchemas;
           }
 
+          // Check if this is a SharePoint datasource
+          if (dataSourceMetadata.type === DataSourceTypeEnum.SHAREPOINT) {
+            return this.createSharePointDataSource(
+              workspaceId,
+              dataSourceMetadata,
+              cachedObjectMetadataMaps,
+              cachedFeatureFlagMapVersion,
+              cachedFeatureFlagMap,
+              cachedRolesPermissionsVersion,
+              cachedRolesPermissions,
+            );
+          }
+
+          // PostgreSQL datasource (existing code)
           const workspaceDataSource = new WorkspaceDataSource(
             {
               workspaceId,
@@ -346,6 +367,64 @@ export class WorkspaceDatasourceFactory {
     }
 
     return workspace.metadataVersion;
+  }
+
+  private async createSharePointDataSource(
+    workspaceId: string,
+    dataSourceMetadata: DataSourceEntity,
+    cachedObjectMetadataMaps: any,
+    cachedFeatureFlagMapVersion: string,
+    cachedFeatureFlagMap: FeatureFlagMap,
+    cachedRolesPermissionsVersion: string,
+    cachedRolesPermissions: ObjectsPermissionsByRoleId,
+  ): Promise<SharePointWorkspaceDataSource> {
+    // Parse SharePoint configuration from URL or schema
+    // Format: sharepoint://{tenantId}/{siteId}?siteName={siteName}
+    const sharePointUrl = dataSourceMetadata.url || '';
+    const urlParts = sharePointUrl.replace('sharepoint://', '').split('/');
+    const tenantId = urlParts[0] || '';
+    const siteId = urlParts[1]?.split('?')[0] || '';
+
+    const urlParams = new URLSearchParams(sharePointUrl.split('?')[1] || '');
+    const siteName = urlParams.get('siteName') || undefined;
+
+    if (!tenantId || !siteId) {
+      throw new TwentyORMException(
+        `Invalid SharePoint datasource configuration for workspace ${workspaceId}`,
+        TwentyORMExceptionCode.WORKSPACE_SCHEMA_NOT_FOUND,
+      );
+    }
+
+    const sharePointDataSource = new SharePointWorkspaceDataSource(
+      {
+        workspaceId,
+        objectMetadataMaps: cachedObjectMetadataMaps,
+        featureFlagsMap: cachedFeatureFlagMap,
+        eventEmitterService: this.workspaceEventEmitter,
+      },
+      {
+        type: 'postgres', // TypeORM requirement, not actually used
+        logging: this.twentyConfigService.getLoggingConfig(),
+        schema: dataSourceMetadata.schema,
+        entities: [], // No TypeORM entities for SharePoint
+      },
+      cachedFeatureFlagMapVersion,
+      cachedFeatureFlagMap,
+      cachedRolesPermissionsVersion,
+      cachedRolesPermissions,
+      false, // SharePoint doesn't use connection pooling
+      this.sharePointService,
+      {
+        workspaceId,
+        tenantId,
+        siteId,
+        siteName,
+      },
+    );
+
+    await sharePointDataSource.initialize();
+
+    return sharePointDataSource;
   }
 
   public async destroy(workspaceId: string) {
