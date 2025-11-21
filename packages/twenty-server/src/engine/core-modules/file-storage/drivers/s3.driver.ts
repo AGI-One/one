@@ -7,26 +7,26 @@ import { Readable } from 'stream';
 import { pipeline } from 'stream/promises';
 
 import {
-  CopyObjectCommand,
-  type CreateBucketCommandInput,
-  DeleteObjectCommand,
-  DeleteObjectsCommand,
-  GetObjectCommand,
-  type HeadBucketCommandInput,
-  HeadObjectCommand,
-  ListObjectsV2Command,
-  NotFound,
-  PutObjectCommand,
-  S3,
-  type S3ClientConfig,
+    CopyObjectCommand,
+    type CreateBucketCommandInput,
+    DeleteObjectCommand,
+    DeleteObjectsCommand,
+    GetObjectCommand,
+    type HeadBucketCommandInput,
+    HeadObjectCommand,
+    ListObjectsV2Command,
+    NotFound,
+    PutObjectCommand,
+    S3,
+    type S3ClientConfig,
 } from '@aws-sdk/client-s3';
-import { isDefined } from 'twenty-shared/utils';
 import { isObject } from '@sniptt/guards';
+import { isDefined } from 'twenty-shared/utils';
 
 import { type StorageDriver } from 'src/engine/core-modules/file-storage/drivers/interfaces/storage-driver.interface';
 import {
-  FileStorageException,
-  FileStorageExceptionCode,
+    FileStorageException,
+    FileStorageExceptionCode,
 } from 'src/engine/core-modules/file-storage/interfaces/file-storage-exception';
 
 import type { Sources } from 'src/engine/core-modules/file-storage/types/source.type';
@@ -65,6 +65,17 @@ export class S3Driver implements StorageDriver {
     folder: string;
     mimeType: string | undefined;
   }): Promise<void> {
+    // Check if bucket exists and create if needed
+    const bucketExists = await this.checkBucketExists({
+      Bucket: this.bucketName,
+    });
+
+    if (!bucketExists) {
+      await this.createBucket({
+        Bucket: this.bucketName,
+      });
+    }
+
     const command = new PutObjectCommand({
       Key: `${params.folder}/${params.name}`,
       Body: params.file,
