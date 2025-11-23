@@ -4799,7 +4799,6 @@ msgstr "Tipo"
 msgid "Type (deprecated)"
 msgstr "Tipo (deprecato)"
 
-<<<<<<< HEAD
 #. js-lingui-id: qUmgYR
 #: src/modules/employment-type/standard-objects/employment-type.workspace-entity.ts
 msgid "Type of employment (full-time, part-time, contract, etc.)"
@@ -4816,8 +4815,6 @@ msgstr ""
 msgid "Unique field cannot have a default value"
 msgstr "Il campo univoco non può avere un valore predefinito"
 
-=======
->>>>>>> upstream/main
 #. js-lingui-id: WWSSTx
 #: src/engine/workspace-manager/workspace-migration-v2/workspace-migration-builder-v2/validators/services/flat-index-metadata-validator.service.ts
 #: src/engine/workspace-manager/workspace-migration-v2/workspace-migration-builder-v2/validators/services/flat-index-metadata-validator.service.ts
@@ -5635,6 +5632,9 @@ msgstr ""
 #. js-lingui-id: T8qxlW
 #: src/modules/employee-award/standard-objects/employee-award.workspace-entity.ts
 msgid "Year the award was received"
+#. js-lingui-id: 4ysDL0
+#: src/engine/twenty-orm/repository/workspace-update-query-builder.ts
+msgid "You can only update up to {QUERY_MAX_RECORDS} records at once."
 msgstr ""
 
 #. js-lingui-id: 1SQnFB
