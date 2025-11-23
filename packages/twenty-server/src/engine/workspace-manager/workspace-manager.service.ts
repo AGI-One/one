@@ -10,8 +10,8 @@ import { SharePointService } from 'src/engine/core-modules/sharepoint/sharepoint
 import { UserWorkspaceEntity } from 'src/engine/core-modules/user-workspace/user-workspace.entity';
 import { WorkspaceEntity } from 'src/engine/core-modules/workspace/workspace.entity';
 import {
-    type DataSourceEntity,
-    DataSourceTypeEnum,
+  type DataSourceEntity,
+  DataSourceTypeEnum,
 } from 'src/engine/metadata-modules/data-source/data-source.entity';
 import { DataSourceService } from 'src/engine/metadata-modules/data-source/data-source.service';
 import { ObjectMetadataServiceV2 } from 'src/engine/metadata-modules/object-metadata/object-metadata-v2.service';
