@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import { SharePointObjectListMappingService } from 'src/engine/core-modules/sharepoint/sharepoint-object-list-mapping.service';
 import { SharePointSchemaService } from 'src/engine/core-modules/sharepoint/sharepoint-schema.service';
 import { SharePointService } from 'src/engine/core-modules/sharepoint/sharepoint.service';
 import { type ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadata/object-metadata.entity';
@@ -15,6 +16,7 @@ export class SharePointWorkspaceInitService {
   constructor(
     private readonly sharePointService: SharePointService,
     private readonly sharePointSchemaService: SharePointSchemaService,
+    private readonly mappingService: SharePointObjectListMappingService,
   ) {}
 
   /**
@@ -22,6 +24,7 @@ export class SharePointWorkspaceInitService {
    * Creates SharePoint lists for each Twenty.one object
    */
   async initializeWorkspace(
+    workspaceId: string,
     tenantId: string,
     siteId: string,
     objectMetadataCollection: ObjectMetadataEntity[],
@@ -35,7 +38,8 @@ export class SharePointWorkspaceInitService {
     // Map to store object name → SharePoint list ID
     const objectToListMap = new Map<string, string>();
 
-    // Phase 1: Create all lists (without relationships)
+    // Phase 1: Create all lists (skip twentyId column)
+    this.logger.log('Phase 1: Creating lists without twentyId column...');
     for (const objectMetadata of objectMetadataCollection) {
       try {
         const { listId, listName } =
@@ -43,9 +47,18 @@ export class SharePointWorkspaceInitService {
             siteId,
             objectMetadata,
             token,
+            true, // skipTwentyIdColumn = true for Phase 1
           );
 
         objectToListMap.set(objectMetadata.nameSingular, listId);
+
+        // Save mapping to database
+        await this.mappingService.saveMapping(
+          workspaceId,
+          objectMetadata.nameSingular,
+          listId,
+          listName,
+        );
 
         this.logger.log(
           `Created list for ${objectMetadata.nameSingular}: ${listName} (${listId})`,
@@ -58,8 +71,26 @@ export class SharePointWorkspaceInitService {
       }
     }
 
-    // Phase 2: Setup relationships (Lookup columns)
-    this.logger.log('Phase 2: Setting up relationships...');
+    // Phase 2: Add twentyId column to all lists
+    this.logger.log('Phase 2: Adding twentyId column to all lists...');
+    for (const [objectName, listId] of objectToListMap.entries()) {
+      try {
+        await this.sharePointSchemaService.addTwentyIdColumn(
+          siteId,
+          listId,
+          token,
+        );
+        this.logger.debug(`Added twentyId to ${objectName}`);
+      } catch (error) {
+        this.logger.error(
+          `Failed to add twentyId to ${objectName}: ${error.message}`,
+        );
+        // Continue with other lists
+      }
+    }
+
+    // Phase 3: Setup relationships (Lookup columns)
+    this.logger.log('Phase 3: Setting up relationships...');
     await this.setupRelationships(
       tenantId,
       siteId,
@@ -194,11 +225,12 @@ export class SharePointWorkspaceInitService {
             continue;
           }
 
-          // Update Lookup column with target list ID
-          await this.sharePointSchemaService.updateLookupColumn(
+          // Create Lookup column with target list ID
+          await this.sharePointSchemaService.createLookupColumn(
             siteId,
             sourceListId,
             field.name,
+            field.label,
             targetListId,
             'Title', // Default to Title field
             token,

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { isDefined } from 'class-validator';
 import { QUERY_MAX_RECORDS } from 'twenty-shared/constants';
@@ -31,6 +31,7 @@ export class CommonUpdateManyQueryRunnerService extends CommonBaseQueryRunnerSer
   ObjectRecord[]
 > {
   protected readonly operationName = CommonQueryNames.UPDATE_MANY;
+  private readonly logger = new Logger(CommonUpdateManyQueryRunnerService.name);
 
   async run(
     args: CommonExtendedInput<UpdateManyQueryArgs>,
@@ -46,6 +47,65 @@ export class CommonUpdateManyQueryRunnerService extends CommonBaseQueryRunnerSer
       commonQueryParser,
     } = queryRunnerContext;
 
+    // Check if repository supports QueryBuilder
+    // SharePoint repository throws error on createQueryBuilder
+    const isSharePointRepository =
+      repository.constructor.name === 'SharePointRepository';
+
+    if (isSharePointRepository) {
+      // Use repository methods for SharePoint
+      // Build where clause from filter
+      const where = this.buildWhereFromFilter(args.filter);
+
+      this.logger.debug('SharePoint update - finding entities', {
+        where,
+        filter: args.filter,
+      });
+
+      const entitiesToUpdate = await repository.find({ where });
+
+      this.logger.debug('SharePoint update - found entities', {
+        count: entitiesToUpdate.length,
+        entities: entitiesToUpdate,
+      });
+
+      if (entitiesToUpdate.length === 0) {
+        return [];
+      }
+
+      // Update each entity
+      const updatedRecords: ObjectRecord[] = [];
+
+      for (const entity of entitiesToUpdate) {
+        const updated = await repository.save({
+          ...entity,
+          ...args.data,
+        });
+
+        updatedRecords.push(updated as ObjectRecord);
+      }
+
+      if (isDefined(args.selectedFieldsResult.relations)) {
+        await this.processNestedRelationsHelper.processNestedRelations({
+          objectMetadataMaps,
+          parentObjectMetadataItem: objectMetadataItemWithFieldMaps,
+          parentObjectRecords: updatedRecords,
+          relations: args.selectedFieldsResult.relations as Record<
+            string,
+            FindOptionsRelations<ObjectLiteral>
+          >,
+          limit: QUERY_MAX_RECORDS,
+          authContext,
+          workspaceDataSource,
+          rolePermissionConfig,
+          selectedFields: args.selectedFieldsResult.select,
+        });
+      }
+
+      return updatedRecords;
+    }
+
+    // Original QueryBuilder approach for PostgreSQL
     const queryBuilder = repository.createQueryBuilder(
       objectMetadataItemWithFieldMaps.nameSingular,
     );
@@ -90,6 +150,29 @@ export class CommonUpdateManyQueryRunnerService extends CommonBaseQueryRunnerSer
     }
 
     return updatedRecords;
+  }
+
+  private buildWhereFromFilter(filter: any): any {
+    // Simple conversion from GraphQL filter to TypeORM where clause
+    // Filter format: { id: { eq: 'uuid' } }
+    // Where format: { id: 'uuid' }
+    const where: any = {};
+
+    for (const [key, value] of Object.entries(filter || {})) {
+      if (typeof value === 'object' && value !== null) {
+        // Handle filter operators like { eq: 'value' }
+        if ('eq' in value) {
+          where[key] = value.eq;
+        } else if ('in' in value) {
+          where[key] = value.in;
+        }
+        // Add more operators as needed
+      } else {
+        where[key] = value;
+      }
+    }
+
+    return where;
   }
 
   async computeArgs(

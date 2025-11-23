@@ -4,13 +4,13 @@ import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
 
 import {
-  SharePointAuthToken,
-  SharePointTenantInfo,
+    SharePointAuthToken,
+    SharePointTenantInfo,
 } from 'src/engine/core-modules/sharepoint/types/sharepoint-auth.type';
 import {
-  SharePointList,
-  SharePointListCreationRequest,
-  SharePointListItem,
+    SharePointList,
+    SharePointListCreationRequest,
+    SharePointListItem,
 } from 'src/engine/core-modules/sharepoint/types/sharepoint-list.type';
 import { SharePointQueryOptions } from 'src/engine/core-modules/sharepoint/types/sharepoint-query-options.type';
 import { SharePointSite } from 'src/engine/core-modules/sharepoint/types/sharepoint-site.type';
@@ -555,16 +555,29 @@ export class SharePointService {
     const queryParams = this.buildQueryString(options);
     const url = `${graphApiBaseUrl}/sites/${siteId}/lists/${listId}/items?${queryParams}&expand=fields`;
 
+    this.logger.debug(`GET items from list ${listId}`, {
+      url,
+      filter: options?.filter,
+    });
+
     try {
       const response = await this.httpClient.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
+          // Allow filtering on non-indexed fields
+          // SharePoint requires this header for fields that aren't indexed
+          Prefer: 'HonorNonIndexedQueriesWarningMayFailRandomly',
         },
       });
 
       return response.data.value as SharePointListItem[];
     } catch (error) {
-      this.logger.error(`Failed to get items from list: ${listId}`, { error });
+      this.logger.error(`Failed to get items from list: ${listId}`, {
+        error,
+        url,
+        filter: options?.filter,
+        responseData: error.response?.data,
+      });
       throw new Error(`Could not retrieve items from list: ${listId}`);
     }
   }

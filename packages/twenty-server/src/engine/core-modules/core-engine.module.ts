@@ -45,6 +45,7 @@ import { RedisClientService } from 'src/engine/core-modules/redis-client/redis-c
 import { SearchModule } from 'src/engine/core-modules/search/search.module';
 import { serverlessModuleFactory } from 'src/engine/core-modules/serverless/serverless-module.factory';
 import { ServerlessModule } from 'src/engine/core-modules/serverless/serverless.module';
+import { SharePointModule } from 'src/engine/core-modules/sharepoint/sharepoint.module';
 import { WorkspaceSSOModule } from 'src/engine/core-modules/sso/sso.module';
 import { TelemetryModule } from 'src/engine/core-modules/telemetry/telemetry.module';
 import { TwentyConfigModule } from 'src/engine/core-modules/twenty-config/twenty-config.module';
@@ -136,6 +137,7 @@ import { FileModule } from './file/file.module';
     PageLayoutModule,
     ImpersonationModule,
     TrashCleanupModule,
+    SharePointModule,
   ],
   exports: [
     AuditModule,

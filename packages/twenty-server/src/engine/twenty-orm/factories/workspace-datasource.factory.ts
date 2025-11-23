@@ -7,6 +7,7 @@ import { EntitySchema, Repository } from 'typeorm';
 
 import { type FeatureFlagMap } from 'src/engine/core-modules/feature-flag/interfaces/feature-flag-map.interface';
 
+import { SharePointObjectListMappingService } from 'src/engine/core-modules/sharepoint/sharepoint-object-list-mapping.service';
 import { SharePointService } from 'src/engine/core-modules/sharepoint/sharepoint.service';
 import { TwentyConfigService } from 'src/engine/core-modules/twenty-config/twenty-config.service';
 import { WorkspaceEntity } from 'src/engine/core-modules/workspace/workspace.entity';
@@ -59,11 +60,12 @@ export class WorkspaceDatasourceFactory {
     @InjectRepository(WorkspaceEntity)
     private readonly workspaceRepository: Repository<WorkspaceEntity>,
     private readonly workspaceEventEmitter: WorkspaceEventEmitter,
+    private readonly sharePointService: SharePointService,
+    private readonly sharePointMappingService: SharePointObjectListMappingService,
     private readonly getFromCacheWithRecomputeService: GetDataFromCacheWithRecomputeService<
       string,
       ObjectsPermissionsByRoleId
     >,
-    private readonly sharePointService: SharePointService,
   ) {}
 
   private async safelyDestroyDataSource(
@@ -402,6 +404,17 @@ export class WorkspaceDatasourceFactory {
       );
     }
 
+    // Load object-to-list mappings from database
+    const objectToListMap =
+      await this.sharePointMappingService.getWorkspaceMappingsMap(workspaceId);
+
+    if (objectToListMap.size === 0) {
+      this.logger.warn(
+        `No SharePoint list mappings found for workspace ${workspaceId}. ` +
+          `Workspace may not be fully initialized.`,
+      );
+    }
+
     const sharePointDataSource = new SharePointWorkspaceDataSource(
       {
         workspaceId,
@@ -425,6 +438,7 @@ export class WorkspaceDatasourceFactory {
         workspaceId,
         tenantId,
         siteId,
+        objectToListMap,
       },
     );
 

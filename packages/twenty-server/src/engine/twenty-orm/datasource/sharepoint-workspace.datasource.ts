@@ -19,6 +19,7 @@ export interface SharePointDataSourceOptions {
   tenantId: string;
   siteId: string;
   siteName?: string;
+  objectToListMap?: Map<string, string>; // objectName → SharePoint list ID
 }
 
 export class SharePointWorkspaceDataSource extends WorkspaceDataSource {
@@ -85,11 +86,22 @@ export class SharePointWorkspaceDataSource extends WorkspaceDataSource {
         ? permissionOptions.shouldBypassPermissionChecks
         : false;
 
-    // Create and return a SharePoint repository
+    // Get SharePoint list ID from mapping
+    // This is loaded from sharepoint_object_list_mapping table populated during workspace init
+    const listId = this.sharePointOptions.objectToListMap?.get(entityName);
+
+    if (!listId) {
+      throw new Error(
+        `SharePoint list mapping not found for object: ${entityName}. ` +
+          `Workspace may not be initialized properly.`,
+      );
+    }
+
+    // Create and return a SharePoint repository with actual list GUID
     return new SharePointRepository<Entity>(
       this.sharePointService,
       this.sharePointOptions.siteId,
-      objectMetadata.namePlural, // Use plural name as SharePoint List name
+      listId,
       this.sharePointOptions.tenantId,
       this.internalContext,
       target,

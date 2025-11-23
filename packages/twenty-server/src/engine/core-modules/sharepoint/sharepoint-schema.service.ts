@@ -4,9 +4,9 @@ import { FieldMetadataType } from 'twenty-shared/types';
 
 import { SharePointService } from 'src/engine/core-modules/sharepoint/sharepoint.service';
 import {
-    SHAREPOINT_FIELD_TYPE_MAP,
-    type SharePointColumnSchema,
-    type SharePointListSchema,
+  SHAREPOINT_FIELD_TYPE_MAP,
+  type SharePointColumnSchema,
+  type SharePointListSchema,
 } from 'src/engine/core-modules/sharepoint/types/sharepoint-field-mapping.type';
 import { type FieldMetadataEntity } from 'src/engine/metadata-modules/field-metadata/field-metadata.entity';
 import { type ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadata/object-metadata.entity';
@@ -23,18 +23,23 @@ export class SharePointSchemaService {
 
   /**
    * Create SharePoint list from Twenty.one object metadata
+   * Phase 1: Create list with basic columns only (skip twentyId)
    */
   async createListFromObjectMetadata(
     siteId: string,
     objectMetadata: ObjectMetadataEntity,
     token: string,
+    skipTwentyIdColumn = false, // Skip twentyId in phase 1
   ): Promise<{ listId: string; listName: string }> {
     this.logger.log(
       `Creating SharePoint list for object: ${objectMetadata.nameSingular}`,
     );
 
     // Generate list schema from object metadata
-    const listSchema = this.generateListSchema(objectMetadata);
+    const listSchema = this.generateListSchema(
+      objectMetadata,
+      skipTwentyIdColumn,
+    );
 
     // Check if list already exists
     const existingLists = await this.sharePointService.getSiteLists(
@@ -81,8 +86,22 @@ export class SharePointSchemaService {
    */
   private generateListSchema(
     objectMetadata: ObjectMetadataEntity,
+    skipTwentyIdColumn = false,
   ): SharePointListSchema {
     const columns: SharePointColumnSchema[] = [];
+
+    // Add twentyId field only if not skipped
+    // This allows Phase 1 (list creation) to skip it, then Phase 2 adds it
+    if (!skipTwentyIdColumn) {
+      columns.push({
+        name: 'twentyId',
+        displayName: 'Twenty ID',
+        type: 'text',
+        required: false,
+        indexed: false,
+        description: 'Twenty.one entity UUID',
+      });
+    }
 
     // Process each field
     for (const field of objectMetadata.fields) {
@@ -166,6 +185,14 @@ export class SharePointSchemaService {
     this.logger.log(`Creating ${columns.length} columns in list ${listId}`);
 
     for (const column of columns) {
+      // Skip Lookup columns during initial creation - they will be created in Phase 2
+      if (column.type === 'Lookup' && !column.lookupListId) {
+        this.logger.debug(
+          `Skipping Lookup column ${column.name} - will be created after all lists exist`,
+        );
+        continue;
+      }
+
       try {
         await this.createColumn(siteId, listId, column, token);
         this.logger.debug(`Created column: ${column.name}`);
@@ -202,39 +229,49 @@ export class SharePointSchemaService {
 
     // Add type-specific configuration
     switch (column.type) {
+      case 'text':
       case 'Text':
         columnDef.text = { allowMultipleLines: false, maxLength: 255 };
         break;
+      case 'note':
       case 'Note':
         columnDef.text = { allowMultipleLines: true };
         break;
+      case 'number':
       case 'Number':
         columnDef.number = {};
         break;
+      case 'currency':
       case 'Currency':
         columnDef.currency = { locale: 'en-US' };
         break;
+      case 'boolean':
       case 'Boolean':
         columnDef.boolean = {};
         break;
+      case 'datetime':
       case 'DateTime':
         columnDef.dateTime = { format: 'dateTime' };
         break;
+      case 'choice':
       case 'Choice':
         columnDef.choice = {
           choices: column.choices || [],
           allowTextEntry: false,
         };
         break;
+      case 'multichoice':
       case 'MultiChoice':
         columnDef.choice = {
           choices: column.choices || [],
           allowTextEntry: false,
         };
         break;
+      case 'url':
       case 'URL':
         columnDef.hyperlinkOrPicture = { isPicture: false };
         break;
+      case 'lookup':
       case 'Lookup':
         if (column.lookupListId) {
           columnDef.lookup = {
@@ -246,6 +283,10 @@ export class SharePointSchemaService {
     }
 
     const httpClient = this.sharePointService['httpClient'];
+
+    this.logger.debug(
+      `Creating column ${column.name} with definition: ${JSON.stringify(columnDef, null, 2)}`,
+    );
 
     await httpClient.post(
       `${graphApiBaseUrl}/sites/${siteId}/lists/${listId}/columns`,
@@ -273,6 +314,60 @@ export class SharePointSchemaService {
     ];
 
     return systemFields.includes(fieldName);
+  }
+
+  /**
+   * Create Lookup column linking to another list
+   * Called during Phase 2 (relationship setup) after all lists are created
+   */
+  async createLookupColumn(
+    siteId: string,
+    listId: string,
+    columnName: string,
+    displayName: string,
+    targetListId: string,
+    targetColumnName: string = 'Title',
+    token: string,
+  ): Promise<void> {
+    this.logger.log(
+      `Creating Lookup column ${columnName} in list ${listId} pointing to list ${targetListId}`,
+    );
+
+    const graphApiBaseUrl = this.sharePointService['configService'].get<string>(
+      'sharepoint.graphApiBaseUrl',
+    );
+    const httpClient = this.sharePointService['httpClient'];
+
+    try {
+      const columnDef = {
+        name: columnName,
+        displayName: displayName,
+        lookup: {
+          listId: targetListId,
+          columnName: targetColumnName,
+        },
+      };
+
+      await httpClient.post(
+        `${graphApiBaseUrl}/sites/${siteId}/lists/${listId}/columns`,
+        columnDef,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      this.logger.debug(
+        `Created Lookup column ${columnName} -> ${targetListId}/${targetColumnName}`,
+      );
+    } catch (error) {
+      this.logger.error(
+        `Failed to create Lookup column ${columnName}: ${error.message}`,
+      );
+      throw error;
+    }
   }
 
   /**
@@ -555,5 +650,50 @@ export class SharePointSchemaService {
     ];
 
     return systemColumns.includes(columnName);
+  }
+
+  /**
+   * Add twentyId column to an existing SharePoint list
+   * Called in Phase 2 after all lists are created
+   */
+  async addTwentyIdColumn(
+    siteId: string,
+    listId: string,
+    token: string,
+  ): Promise<void> {
+    this.logger.log(`Adding twentyId column to list ${listId}`);
+
+    try {
+      const twentyIdColumn: SharePointColumnSchema = {
+        name: 'twentyId',
+        displayName: 'Twenty ID',
+        type: 'text',
+        required: false,
+        indexed: false,
+        description: 'Twenty.one entity UUID',
+      };
+
+      await this.createColumn(siteId, listId, twentyIdColumn, token);
+      this.logger.log(`Successfully added twentyId column to list ${listId}`);
+    } catch (error) {
+      // If column already exists, that's fine
+      if (
+        error.response?.status === 400 &&
+        error.response?.data?.error?.message?.includes('already exists')
+      ) {
+        this.logger.debug(`twentyId column already exists in list ${listId}`);
+      } else {
+        this.logger.error(
+          `Failed to add twentyId column to list ${listId}: ${error.message}`,
+        );
+        // Log detailed error response
+        if (error.response?.data) {
+          this.logger.error(
+            `SharePoint API error response: ${JSON.stringify(error.response.data, null, 2)}`,
+          );
+        }
+        throw error;
+      }
+    }
   }
 }

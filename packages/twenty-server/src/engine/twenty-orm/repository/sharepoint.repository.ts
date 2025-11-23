@@ -29,6 +29,7 @@ import { type DeepPartialWithNestedRelationFields } from 'src/engine/twenty-orm/
 import { type QueryDeepPartialEntityWithNestedRelationFields } from 'src/engine/twenty-orm/entity-manager/types/query-deep-partial-entity-with-nested-relation-fields.type';
 import { type WorkspaceEntityManager } from 'src/engine/twenty-orm/entity-manager/workspace-entity-manager';
 import { WorkspaceRepository } from 'src/engine/twenty-orm/repository/workspace.repository';
+import { getObjectMetadataFromEntityTarget } from 'src/engine/twenty-orm/utils/get-object-metadata-from-entity-target.util';
 
 /**
  * SharePoint implementation of WorkspaceRepository
@@ -43,6 +44,9 @@ export class SharePointRepository<
   private readonly listId: string;
   private readonly tenantId: string;
   private accessToken?: string;
+
+  // Cache for generated UUIDs (SharePoint itemId -> UUID)
+  private readonly uuidCache = new Map<string, string>();
 
   constructor(
     sharePointService: SharePointService,
@@ -98,6 +102,9 @@ export class SharePointRepository<
     const token = await this.ensureToken();
 
     const queryOptions = this.buildSharePointQuery(options);
+
+    this.logger.debug('Built SharePoint query', { queryOptions });
+
     const items = await this.sharePointService.getListItems(
       this.siteId,
       this.listId,
@@ -160,6 +167,9 @@ export class SharePointRepository<
     const token = await this.ensureToken();
 
     const queryOptions = this.buildSharePointQuery({ ...options, take: 1 });
+
+    this.logger.debug('SharePoint findOne queryOptions', { queryOptions });
+
     const items = await this.sharePointService.getListItems(
       this.siteId,
       this.listId,
@@ -167,11 +177,21 @@ export class SharePointRepository<
       token,
     );
 
+    this.logger.debug('SharePoint findOne items', {
+      itemsCount: items.length,
+      items: items.map((i) => ({ id: i.id, fields: i.fields })),
+    });
+
     if (items.length === 0) {
       return null;
     }
 
-    const entities = this.transformToEntities(items);
+    const entities = await this.transformToEntities(items);
+
+    this.logger.debug('SharePoint findOne transformed entities', {
+      entitiesCount: entities.length,
+      entities,
+    });
 
     return entities[0] || null;
   }
@@ -211,7 +231,10 @@ export class SharePointRepository<
     _options?: SaveOptions,
     _entityManager?: WorkspaceEntityManager,
   ): Promise<U | U[]> {
-    this.logger.debug('SharePoint save', { entityOrEntities });
+    this.logger.debug('SharePoint save called', {
+      entityOrEntities,
+      isArray: Array.isArray(entityOrEntities),
+    });
     const token = await this.ensureToken();
 
     const entities = Array.isArray(entityOrEntities)
@@ -220,32 +243,70 @@ export class SharePointRepository<
     const results: T[] = [];
 
     for (const entity of entities) {
-      const sharePointItem = this.transformToSharePointItem(entity);
       const entityWithId = entity as unknown as T & { id?: string };
-      const entityId = entityWithId.id;
+      let twentyUuid = entityWithId.id;
+
+      // Generate UUID if not exists
+      if (!twentyUuid) {
+        const { v4: uuidv4 } = await import('uuid');
+
+        twentyUuid = uuidv4();
+        this.logger.debug(`Generated new UUID for entity: ${twentyUuid}`);
+      }
+
+      // Apply default values for required fields
+      const entityWithDefaults = this.applyDefaultValues({
+        ...entity,
+        id: twentyUuid,
+      } as ObjectLiteral);
+
+      // Transform entity and ensure twentyId is included
+      const sharePointItem = this.transformToSharePointItem(entityWithDefaults);
+
+      // Ensure twentyId is set (transformToSharePointItem should handle this, but double-check)
+      if (!sharePointItem.twentyId) {
+        sharePointItem.twentyId = twentyUuid;
+      }
 
       let savedItem: SharePointListItem;
 
-      if (entityId) {
-        // Update existing
+      // Try to find existing item by UUID
+      this.logger.debug(`Finding SharePoint item ID for UUID: ${twentyUuid}`);
+      const sharePointItemId = await this.findSharePointItemId(twentyUuid);
+
+      if (sharePointItemId) {
+        // Item exists, update it
+        this.logger.debug(`Updating SharePoint item ${sharePointItemId}`, {
+          sharePointItem,
+        });
         savedItem = await this.sharePointService.updateListItem(
           this.siteId,
           this.listId,
-          entityId,
+          sharePointItemId,
           sharePointItem,
           token,
         );
+        this.logger.debug(
+          `Updated SharePoint item ${sharePointItemId} successfully`,
+        );
       } else {
-        // Create new
+        // Item not found, create new
+        this.logger.debug(
+          `Creating new SharePoint item with UUID: ${twentyUuid}`,
+          { sharePointItem },
+        );
         savedItem = await this.sharePointService.createListItem(
           this.siteId,
           this.listId,
           sharePointItem,
           token,
         );
+        this.logger.debug(
+          `Created SharePoint item ${savedItem.id} with UUID: ${twentyUuid}`,
+        );
       }
 
-      const transformedEntity = this.transformToEntity(savedItem);
+      const transformedEntity = await this.transformToEntity(savedItem);
 
       results.push(transformedEntity);
     }
@@ -253,6 +314,245 @@ export class SharePointRepository<
     return (Array.isArray(entityOrEntities)
       ? results
       : results[0]) as unknown as U | U[];
+  }
+
+  /**
+   * Override createQueryBuilder to return a functional stub
+   * SharePoint repository doesn't fully support QueryBuilder, but we can handle basic queries
+   * This allows GraphQL queries with relations to work
+   */
+  override createQueryBuilder(alias?: string): any {
+    this.logger.debug(
+      `SharePoint repository QueryBuilder called with alias: ${alias}`,
+    );
+
+    const queryState = {
+      alias,
+      findOptions: {} as FindManyOptions<T>,
+      whereConditions: [] as FindOptionsWhere<T>[],
+      selectedColumns: undefined as string[] | undefined,
+      orderByOptions: {} as Record<string, 'ASC' | 'DESC'>,
+      limitValue: undefined as number | undefined,
+      skipValue: undefined as number | undefined,
+    };
+
+    const stub: any = {
+      setFindOptions: (options: FindManyOptions<T>) => {
+        queryState.findOptions = { ...queryState.findOptions, ...options };
+
+        return stub;
+      },
+
+      where: (condition: FindOptionsWhere<T>) => {
+        queryState.whereConditions = [condition];
+
+        return stub;
+      },
+
+      andWhere: (condition: FindOptionsWhere<T>) => {
+        queryState.whereConditions.push(condition);
+
+        return stub;
+      },
+
+      orWhere: () => {
+        this.logger.warn('orWhere not fully supported in SharePoint stub');
+
+        return stub;
+      },
+
+      whereInIds: (ids: string[]) => {
+        // Convert to IN query
+        if (ids.length > 0) {
+          queryState.whereConditions = [{ id: { _type: 'in', _value: ids } }];
+        }
+
+        return stub;
+      },
+
+      // Join methods - log warning but don't fail
+      leftJoin: () => stub,
+      leftJoinAndSelect: () => stub,
+      innerJoin: () => stub,
+      innerJoinAndSelect: () => stub,
+
+      orderBy: (field: string, order: 'ASC' | 'DESC' = 'ASC') => {
+        queryState.orderByOptions = { [field]: order };
+
+        return stub;
+      },
+
+      addOrderBy: (field: string, order: 'ASC' | 'DESC' = 'ASC') => {
+        queryState.orderByOptions[field] = order;
+
+        return stub;
+      },
+
+      groupBy: () => stub,
+      addGroupBy: () => stub,
+      having: () => stub,
+
+      limit: (value: number) => {
+        queryState.limitValue = value;
+
+        return stub;
+      },
+
+      offset: (value: number) => {
+        queryState.skipValue = value;
+
+        return stub;
+      },
+
+      skip: (value: number) => {
+        queryState.skipValue = value;
+
+        return stub;
+      },
+
+      take: (value: number) => {
+        queryState.limitValue = value;
+
+        return stub;
+      },
+
+      select: (columns: string[]) => {
+        queryState.selectedColumns = columns;
+
+        return stub;
+      },
+
+      addSelect: () => stub,
+      distinct: () => stub,
+
+      getQuery: () => '',
+      getParameters: () => ({}),
+
+      // Get current find options
+      getFindOptions: () => {
+        return {
+          ...queryState.findOptions,
+          where:
+            queryState.whereConditions.length > 0
+              ? queryState.whereConditions.length === 1
+                ? queryState.whereConditions[0]
+                : queryState.whereConditions
+              : undefined,
+          order: queryState.orderByOptions,
+          take: queryState.limitValue,
+          skip: queryState.skipValue,
+          select: queryState.selectedColumns,
+        };
+      },
+
+      // Execution methods - use repository methods internally
+      getMany: async () => {
+        try {
+          const options: FindManyOptions<T> = {
+            ...queryState.findOptions,
+            where:
+              queryState.whereConditions.length > 0
+                ? queryState.whereConditions.length === 1
+                  ? queryState.whereConditions[0]
+                  : queryState.whereConditions
+                : undefined,
+            order: queryState.orderByOptions,
+            take: queryState.limitValue,
+            skip: queryState.skipValue,
+            select: queryState.selectedColumns,
+          };
+
+          return await this.find(options);
+        } catch (error) {
+          this.logger.error('QueryBuilder.getMany failed', { error });
+
+          return [];
+        }
+      },
+
+      getOne: async () => {
+        try {
+          const options: FindOneOptions<T> = {
+            ...queryState.findOptions,
+            where:
+              queryState.whereConditions.length > 0
+                ? queryState.whereConditions[0]
+                : undefined,
+            order: queryState.orderByOptions,
+            select: queryState.selectedColumns,
+          };
+
+          return await this.findOne(options);
+        } catch (error) {
+          this.logger.error('QueryBuilder.getOne failed', { error });
+
+          return null;
+        }
+      },
+
+      getManyAndCount: async () => {
+        try {
+          const options: FindManyOptions<T> = {
+            ...queryState.findOptions,
+            where:
+              queryState.whereConditions.length > 0
+                ? queryState.whereConditions.length === 1
+                  ? queryState.whereConditions[0]
+                  : queryState.whereConditions
+                : undefined,
+            order: queryState.orderByOptions,
+            take: queryState.limitValue,
+            skip: queryState.skipValue,
+            select: queryState.selectedColumns,
+          };
+
+          return await this.findAndCount(options);
+        } catch (error) {
+          this.logger.error('QueryBuilder.getManyAndCount failed', { error });
+
+          return [[], 0];
+        }
+      },
+
+      getCount: async () => {
+        try {
+          const options: FindManyOptions<T> = {
+            where:
+              queryState.whereConditions.length > 0
+                ? queryState.whereConditions.length === 1
+                  ? queryState.whereConditions[0]
+                  : queryState.whereConditions
+                : undefined,
+          };
+
+          return await this.count(options);
+        } catch (error) {
+          this.logger.error('QueryBuilder.getCount failed', { error });
+
+          return 0;
+        }
+      },
+
+      getRawMany: async () => [],
+      getRawOne: async () => null,
+      execute: async () => ({ affected: 0, raw: [] }),
+      stream: () => {
+        const { Readable } = require('stream');
+
+        return Readable.from([]);
+      },
+
+      clone: () => stub,
+
+      alias,
+      expressionMap: {
+        mainAlias: { name: alias },
+        wheres: [],
+        joinAttributes: [],
+      },
+    };
+
+    return stub;
   }
 
   /**
@@ -273,7 +573,31 @@ export class SharePointRepository<
     const generatedMaps: ObjectLiteral[] = [];
 
     for (const item of entities) {
-      const sharePointItem = this.transformToSharePointItem(item);
+      const itemWithId = item as ObjectLiteral & { id?: string };
+
+      // Generate UUID if not exists
+      if (!itemWithId.id) {
+        const { v4: uuidv4 } = await import('uuid');
+
+        itemWithId.id = uuidv4();
+        this.logger.debug(`Generated new UUID for insert: ${itemWithId.id}`);
+      }
+
+      // Apply default values for required fields before insert
+      const itemWithDefaults = this.applyDefaultValues(itemWithId);
+
+      const sharePointItem = this.transformToSharePointItem(itemWithDefaults);
+
+      // Ensure twentyId is set
+      if (!sharePointItem.twentyId) {
+        sharePointItem.twentyId = itemWithId.id;
+      }
+
+      this.logger.debug('Creating SharePoint item', {
+        twentyId: sharePointItem.twentyId,
+        sharePointItem,
+      });
+
       const createdItem = await this.sharePointService.createListItem(
         this.siteId,
         this.listId,
@@ -281,8 +605,12 @@ export class SharePointRepository<
         token,
       );
 
-      identifiers.push({ id: createdItem.id });
-      generatedMaps.push({ id: createdItem.id });
+      // Transform to get the proper UUID from twentyId field
+      const transformedEntity = await this.transformToEntity(createdItem);
+      const entityId = (transformedEntity as unknown as { id: string }).id;
+
+      identifiers.push({ id: entityId });
+      generatedMaps.push({ id: entityId });
     }
 
     return {
@@ -396,31 +724,52 @@ export class SharePointRepository<
     const generatedMaps: ObjectLiteral[] = [];
 
     for (const entity of entities) {
-      const sharePointItem = this.transformToSharePointItem(entity);
       const entityWithId = entity as T & { id?: string };
-      const entityId = entityWithId.id;
+      let twentyUuid = entityWithId.id;
+
+      // Generate UUID if not exists
+      if (!twentyUuid) {
+        const { v4: uuidv4 } = await import('uuid');
+
+        twentyUuid = uuidv4();
+        this.logger.debug(`Generated new UUID for upsert: ${twentyUuid}`);
+      }
+
+      // Apply default values for required fields
+      const entityWithDefaults = this.applyDefaultValues({
+        ...entity,
+        id: twentyUuid,
+      } as ObjectLiteral);
+
+      const sharePointItem = this.transformToSharePointItem(entityWithDefaults);
+
+      // Ensure twentyId is set
+      if (!sharePointItem.twentyId) {
+        sharePointItem.twentyId = twentyUuid;
+      }
 
       let resultItem: SharePointListItem;
 
-      if (entityId) {
-        // Check if exists, then update or insert
-        try {
-          resultItem = await this.sharePointService.updateListItem(
-            this.siteId,
-            this.listId,
-            entityId,
-            sharePointItem,
-            token,
-          );
-        } catch {
-          resultItem = await this.sharePointService.createListItem(
-            this.siteId,
-            this.listId,
-            sharePointItem,
-            token,
-          );
-        }
+      // Try to find existing item by UUID
+      const sharePointItemId = await this.findSharePointItemId(twentyUuid);
+
+      if (sharePointItemId) {
+        // Item exists, update it
+        this.logger.debug(
+          `Upserting: Updating existing SharePoint item ${sharePointItemId}`,
+        );
+        resultItem = await this.sharePointService.updateListItem(
+          this.siteId,
+          this.listId,
+          sharePointItemId,
+          sharePointItem,
+          token,
+        );
       } else {
+        // Item not found, create new
+        this.logger.debug(
+          `Upserting: Creating new SharePoint item with UUID: ${twentyUuid}`,
+        );
         resultItem = await this.sharePointService.createListItem(
           this.siteId,
           this.listId,
@@ -429,8 +778,9 @@ export class SharePointRepository<
         );
       }
 
-      identifiers.push({ id: resultItem.id });
-      generatedMaps.push({ id: resultItem.id });
+      // Use the Twenty UUID, not SharePoint's numeric ID
+      identifiers.push({ id: twentyUuid });
+      generatedMaps.push({ id: twentyUuid });
     }
 
     return {
@@ -707,13 +1057,25 @@ export class SharePointRepository<
   /**
    * Convert single where object to OData filter string
    * Supports TypeORM Find operators: MoreThan, LessThan, Like, Between, In, IsNull, Not
+   * Note: SharePoint List fields must be accessed via 'fields/' prefix in OData queries
    */
   private whereToOData(where: FindOptionsWhere<T>): string {
     const conditions: string[] = [];
 
     for (const [key, value] of Object.entries(where)) {
+      // Skip deletedAt field - SharePoint handles soft delete differently
+      // Twenty automatically adds 'deletedAt IS NULL' filter which doesn't exist in SharePoint Lists
+      if (key === 'deletedAt') {
+        continue;
+      }
+
+      // Map 'id' to 'twentyId' field in SharePoint
+      // SharePoint's built-in 'id' is numeric, but Twenty uses UUID
+      const fieldName = key === 'id' ? 'twentyId' : key;
+      const fieldPath = `fields/${fieldName}`;
+
       if (value === null || value === undefined) {
-        conditions.push(`${key} eq null`);
+        conditions.push(`${fieldPath} eq null`);
       } else if (typeof value === 'object' && value !== null) {
         // Handle TypeORM Find operators
         const operator = value as ObjectLiteral;
@@ -725,16 +1087,24 @@ export class SharePointRepository<
 
           switch (opType) {
             case 'moreThan':
-              conditions.push(`${key} gt ${this.formatODataValue(opValue)}`);
+              conditions.push(
+                `${fieldPath} gt ${this.formatODataValue(opValue)}`,
+              );
               break;
             case 'moreThanOrEqual':
-              conditions.push(`${key} ge ${this.formatODataValue(opValue)}`);
+              conditions.push(
+                `${fieldPath} ge ${this.formatODataValue(opValue)}`,
+              );
               break;
             case 'lessThan':
-              conditions.push(`${key} lt ${this.formatODataValue(opValue)}`);
+              conditions.push(
+                `${fieldPath} lt ${this.formatODataValue(opValue)}`,
+              );
               break;
             case 'lessThanOrEqual':
-              conditions.push(`${key} le ${this.formatODataValue(opValue)}`);
+              conditions.push(
+                `${fieldPath} le ${this.formatODataValue(opValue)}`,
+              );
               break;
             case 'like':
               // Convert SQL LIKE to OData contains/startswith/endswith
@@ -744,13 +1114,13 @@ export class SharePointRepository<
                 String(opValue).startsWith('%') &&
                 String(opValue).endsWith('%')
               ) {
-                conditions.push(`contains(${key}, '${likeValue}')`);
+                conditions.push(`contains(${fieldPath}, '${likeValue}')`);
               } else if (String(opValue).startsWith('%')) {
-                conditions.push(`endswith(${key}, '${likeValue}')`);
+                conditions.push(`endswith(${fieldPath}, '${likeValue}')`);
               } else if (String(opValue).endsWith('%')) {
-                conditions.push(`startswith(${key}, '${likeValue}')`);
+                conditions.push(`startswith(${fieldPath}, '${likeValue}')`);
               } else {
-                conditions.push(`${key} eq '${likeValue}'`);
+                conditions.push(`${fieldPath} eq '${likeValue}'`);
               }
               break;
             case 'ilike':
@@ -763,15 +1133,17 @@ export class SharePointRepository<
                 String(opValue).startsWith('%') &&
                 String(opValue).endsWith('%')
               ) {
-                conditions.push(`contains(tolower(${key}), '${ilikeValue}')`);
+                conditions.push(
+                  `contains(tolower(${fieldPath}), '${ilikeValue}')`,
+                );
               } else {
-                conditions.push(`tolower(${key}) eq '${ilikeValue}'`);
+                conditions.push(`tolower(${fieldPath}) eq '${ilikeValue}'`);
               }
               break;
             case 'between':
               if (Array.isArray(opValue) && opValue.length === 2) {
                 conditions.push(
-                  `${key} ge ${this.formatODataValue(opValue[0])} and ${key} le ${this.formatODataValue(opValue[1])}`,
+                  `${fieldPath} ge ${this.formatODataValue(opValue[0])} and ${fieldPath} le ${this.formatODataValue(opValue[1])}`,
                 );
               }
               break;
@@ -781,11 +1153,11 @@ export class SharePointRepository<
                   .map((v) => this.formatODataValue(v))
                   .join(',');
 
-                conditions.push(`${key} in (${inValues})`);
+                conditions.push(`${fieldPath} in (${inValues})`);
               }
               break;
             case 'isNull':
-              conditions.push(`${key} eq null`);
+              conditions.push(`${fieldPath} eq null`);
               break;
             case 'not':
               // NOT operator
@@ -796,23 +1168,27 @@ export class SharePointRepository<
 
                 conditions.push(`not (${notCondition})`);
               } else {
-                conditions.push(`${key} ne ${this.formatODataValue(opValue)}`);
+                conditions.push(
+                  `${fieldPath} ne ${this.formatODataValue(opValue)}`,
+                );
               }
               break;
             default:
               // Fallback: treat as equality
-              conditions.push(`${key} eq ${this.formatODataValue(opValue)}`);
+              conditions.push(
+                `${fieldPath} eq ${this.formatODataValue(opValue)}`,
+              );
           }
         } else {
           // Plain object - treat as equality
-          conditions.push(`${key} eq '${JSON.stringify(value)}'`);
+          conditions.push(`${fieldPath} eq '${JSON.stringify(value)}'`);
         }
       } else if (typeof value === 'string') {
-        conditions.push(`${key} eq '${value}'`);
+        conditions.push(`${fieldPath} eq '${value}'`);
       } else if (typeof value === 'number') {
-        conditions.push(`${key} eq ${value}`);
+        conditions.push(`${fieldPath} eq ${value}`);
       } else if (typeof value === 'boolean') {
-        conditions.push(`${key} eq ${value}`);
+        conditions.push(`${fieldPath} eq ${value}`);
       }
     }
 
@@ -849,36 +1225,349 @@ export class SharePointRepository<
   }
 
   /**
+   * Find SharePoint numeric ID from Twenty UUID
+   * Queries SharePoint by twentyId field to get the numeric ID
+   */
+  private async findSharePointItemId(
+    twentyUuid: string,
+  ): Promise<string | null> {
+    try {
+      const token = await this.ensureToken();
+      const items = await this.sharePointService.getListItems(
+        this.siteId,
+        this.listId,
+        { filter: `fields/twentyId eq '${twentyUuid}'`, top: 1 },
+        token,
+      );
+
+      if (items.length > 0) {
+        return items[0].id;
+      }
+
+      return null;
+    } catch (error) {
+      // If error is because twentyId field doesn't exist, log warning and return null
+      if (
+        error.message?.includes('400') ||
+        error.message?.includes('Bad Request')
+      ) {
+        this.logger.warn(
+          `twentyId field may not exist in SharePoint list ${this.listId}. Cannot find item by UUID: ${twentyUuid}`,
+        );
+
+        return null;
+      }
+
+      this.logger.error(
+        `Failed to find SharePoint item ID for UUID ${twentyUuid}: ${error.message}`,
+      );
+
+      return null;
+    }
+  }
+
+  /**
    * Transform SharePoint list items to Twenty.one entities
    */
-  private transformToEntities(items: SharePointListItem[]): T[] {
-    return items.map((item) => this.transformToEntity(item));
+  private async transformToEntities(items: SharePointListItem[]): Promise<T[]> {
+    return Promise.all(items.map((item) => this.transformToEntity(item)));
   }
 
   /**
    * Transform single SharePoint item to Twenty.one entity
    */
-  private transformToEntity(item: SharePointListItem): T {
-    return {
-      id: item.id,
-      ...item.fields,
-    } as unknown as T;
+  private async transformToEntity(item: SharePointListItem): Promise<T> {
+    const fields = item.fields as Record<string, unknown>;
+
+    // Use twentyId from SharePoint fields as the entity ID (UUID)
+    // SharePoint's item.id is a numeric string, but Twenty expects UUID
+    let entityId = fields.twentyId as string | undefined;
+
+    // If twentyId is missing, generate a deterministic UUID based on SharePoint item ID
+    // This ensures the same SharePoint item always gets the same UUID
+    if (!entityId) {
+      // Check cache first
+      entityId = this.uuidCache.get(item.id);
+
+      const isFirstGeneration = !entityId;
+
+      if (!entityId) {
+        // Generate UUID v5 (deterministic) from SharePoint item ID and list ID
+        // This way the same item always gets the same UUID even across server restarts
+        const { v5: uuidv5 } = await import('uuid');
+        const namespace = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'; // Standard UUID namespace
+
+        entityId = uuidv5(`${this.listId}:${item.id}`, namespace);
+
+        // Cache it
+        this.uuidCache.set(item.id, entityId);
+      }
+
+      // Only log once when first generated
+      if (isFirstGeneration) {
+        this.logger.debug(
+          `SharePoint item ${item.id} missing twentyId. Using deterministic UUID: ${entityId}`,
+        );
+      }
+    }
+
+    // Validate UUID format
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+    if (!uuidRegex.test(entityId)) {
+      this.logger.error(
+        `Invalid UUID detected for SharePoint item ${item.id}`,
+        {
+          entityId,
+          twentyId: fields.twentyId,
+          itemId: item.id,
+          listId: this.listId,
+          allFields: Object.keys(fields),
+        },
+      );
+      throw new Error(
+        `Invalid UUID: ${entityId} for SharePoint item ${item.id}`,
+      );
+    }
+
+    // Remove twentyId from fields since it's only used internally for mapping
+    // Also remove SharePoint's numeric 'id' field to avoid conflicts
+    const { twentyId: _twentyId, id: _sharePointId, ...rawFields } = fields;
+
+    // Deserialize composite types (FULL_NAME, etc.) from JSON strings
+    const entityFields: Record<string, unknown> = {};
+
+    for (const [key, value] of Object.entries(rawFields)) {
+      if (
+        typeof value === 'string' &&
+        value.startsWith('{') &&
+        value.endsWith('}')
+      ) {
+        // Try to parse as JSON object (composite types)
+        try {
+          entityFields[key] = JSON.parse(value);
+        } catch {
+          // Not valid JSON, keep as string
+          entityFields[key] = value;
+        }
+      } else {
+        entityFields[key] = value;
+      }
+    }
+
+    // Set default values for required Twenty.one fields that might be missing
+    // This ensures GraphQL non-nullable fields don't cause errors
+    const entityWithDefaults = {
+      id: entityId,
+      ...entityFields,
+    };
+
+    // Apply defaults for common required fields if they're null/undefined
+    if (
+      entityWithDefaults.avatarUrl === null ||
+      entityWithDefaults.avatarUrl === undefined
+    ) {
+      entityWithDefaults.avatarUrl = '';
+    }
+    if (
+      entityWithDefaults.createdAt === null ||
+      entityWithDefaults.createdAt === undefined
+    ) {
+      entityWithDefaults.createdAt = new Date();
+    }
+    if (
+      entityWithDefaults.updatedAt === null ||
+      entityWithDefaults.updatedAt === undefined
+    ) {
+      entityWithDefaults.updatedAt = new Date();
+    }
+    if (entityWithDefaults.deletedAt === undefined) {
+      entityWithDefaults.deletedAt = null;
+    }
+    if (
+      entityWithDefaults.position === null ||
+      entityWithDefaults.position === undefined
+    ) {
+      entityWithDefaults.position = 0;
+    }
+
+    // WorkspaceMember specific defaults
+    if (
+      entityWithDefaults.colorScheme === null ||
+      entityWithDefaults.colorScheme === undefined
+    ) {
+      entityWithDefaults.colorScheme = 'System';
+    }
+    if (
+      entityWithDefaults.locale === null ||
+      entityWithDefaults.locale === undefined
+    ) {
+      entityWithDefaults.locale = 'en';
+    }
+    if (
+      entityWithDefaults.timeZone === null ||
+      entityWithDefaults.timeZone === undefined
+    ) {
+      entityWithDefaults.timeZone = 'UTC';
+    }
+    if (
+      entityWithDefaults.dateFormat === null ||
+      entityWithDefaults.dateFormat === undefined
+    ) {
+      entityWithDefaults.dateFormat = 'SYSTEM';
+    }
+    if (
+      entityWithDefaults.timeFormat === null ||
+      entityWithDefaults.timeFormat === undefined
+    ) {
+      entityWithDefaults.timeFormat = 'SYSTEM';
+    }
+    if (
+      entityWithDefaults.calendarStartDay === null ||
+      entityWithDefaults.calendarStartDay === undefined
+    ) {
+      entityWithDefaults.calendarStartDay = 'MONDAY';
+    }
+    if (
+      entityWithDefaults.numberFormat === null ||
+      entityWithDefaults.numberFormat === undefined
+    ) {
+      entityWithDefaults.numberFormat = 'SYSTEM';
+    }
+
+    const entity = entityWithDefaults as unknown as T;
+
+    return entity;
   }
 
   /**
-   * Transform Twenty.one entity to SharePoint item data
+   * Transform Twenty entity to SharePoint list item fields
+   * Handles composite types (FULL_NAME, etc.) by flattening or JSON encoding
+   * Filters out SharePoint read-only system fields
    */
   private transformToSharePointItem(
     entity: DeepPartialWithNestedRelationFields<T> | QueryDeepPartialEntity<T>,
   ): Record<string, unknown> {
     const entityWithId = entity as ObjectLiteral & { id?: string };
-    const { id: _id, ...fields } = entityWithId;
+    const { id, ...fields } = entityWithId;
 
-    return fields;
+    // SharePoint read-only/system fields that should NOT be sent in create/update requests
+    const sharePointSystemFields = new Set([
+      // OData metadata
+      '@odata.etag',
+      '@odata.type',
+      '@odata.id',
+      '@odata.editLink',
+      '@odata.context',
+      // SharePoint system fields
+      'id', // SharePoint's numeric ID
+      'ID',
+      'GUID',
+      'Modified',
+      'Created',
+      'AuthorLookupId',
+      'EditorLookupId',
+      'Author',
+      'Editor',
+      '_UIVersionString',
+      'Attachments',
+      'Edit',
+      'ItemChildCount',
+      'FolderChildCount',
+      '_ComplianceFlags',
+      '_ComplianceTag',
+      '_ComplianceTagWrittenTime',
+      '_ComplianceTagUserId',
+      'AppAuthorLookupId',
+      'AppEditorLookupId',
+      'ContentType',
+      'ContentTypeId',
+      'FileSystemObjectType',
+      'ServerRedirectedEmbedUri',
+      'ServerRedirectedEmbedUrl',
+      'FileLeafRef',
+      'FileDirRef',
+      'File_x0020_Type',
+      'HTML_x0020_File_x0020_Type',
+      'CheckoutUser',
+      '_CheckinComment',
+      'LinkTitle',
+      'LinkTitleNoMenu',
+      'LinkFilename',
+      'LinkFilenameNoMenu',
+      'DocIcon',
+      'FileSizeDisplay',
+      'SelectTitle',
+      'SelectFilename',
+      'owshiddenversion',
+      '_Level',
+      '_IsCurrentVersion',
+      'ParentVersionString',
+      'ParentLeafName',
+      '_ModerationStatus',
+      '_ModerationComments',
+      'InstanceID',
+      'Order',
+      'WorkflowVersion',
+      'WorkflowInstanceID',
+      'ComplianceAssetId',
+      // Twenty.one standard fields that may not exist in SharePoint or are auto-managed
+      'createdAt',
+      'updatedAt',
+      'deletedAt',
+      'position',
+    ]);
+
+    // Flatten or serialize complex types for SharePoint
+    const sharePointFields: Record<string, unknown> = {};
+
+    // Store Twenty's UUID in twentyId field
+    if (id) {
+      sharePointFields.twentyId = id;
+    }
+
+    for (const [key, value] of Object.entries(fields)) {
+      // Skip SharePoint system/read-only fields
+      if (sharePointSystemFields.has(key)) {
+        this.logger.debug(`Skipping SharePoint system field: ${key}`);
+        continue;
+      }
+
+      if (value === null || value === undefined) {
+        sharePointFields[key] = value;
+        continue;
+      }
+
+      // Handle composite types (FULL_NAME, etc.)
+      if (
+        typeof value === 'object' &&
+        !Array.isArray(value) &&
+        !(value instanceof Date)
+      ) {
+        // Check if it's a composite type by presence of nested properties
+        const nestedObj = value as Record<string, unknown>;
+
+        // FULL_NAME type: {firstName, lastName}
+        if ('firstName' in nestedObj || 'lastName' in nestedObj) {
+          // Flatten to JSON string for SharePoint Text field
+          sharePointFields[key] = JSON.stringify(nestedObj);
+        } else {
+          // Other objects: serialize to JSON
+          sharePointFields[key] = JSON.stringify(value);
+        }
+      } else {
+        // Primitive types, arrays, dates
+        sharePointFields[key] = value;
+      }
+    }
+
+    return sharePointFields;
   }
 
   /**
    * Resolve criteria to SharePoint item IDs
+   * Converts Twenty.one UUIDs to SharePoint numeric item IDs
    */
   private async resolveItemIds(
     criteria:
@@ -892,22 +1581,190 @@ export class SharePointRepository<
       | ObjectId[]
       | FindOptionsWhere<T>,
   ): Promise<string[]> {
-    // Simple ID resolution
+    // Simple ID resolution - UUID string
     if (typeof criteria === 'string') {
-      return [criteria];
+      // This is a Twenty UUID, need to find SharePoint numeric ID
+      const sharePointId = await this.findSharePointItemId(criteria);
+
+      if (!sharePointId) {
+        this.logger.warn(
+          `Could not resolve UUID ${criteria} to SharePoint item ID`,
+        );
+
+        return [];
+      }
+
+      return [sharePointId];
     }
 
     if (Array.isArray(criteria)) {
-      return criteria.map((c) => String(c));
+      // Array of UUIDs - resolve each to SharePoint ID
+      const resolvedIds: string[] = [];
+
+      for (const uuid of criteria) {
+        const sharePointId = await this.findSharePointItemId(String(uuid));
+
+        if (sharePointId) {
+          resolvedIds.push(sharePointId);
+        } else {
+          this.logger.warn(
+            `Could not resolve UUID ${uuid} to SharePoint item ID`,
+          );
+        }
+      }
+
+      return resolvedIds;
     }
 
     if (typeof criteria === 'object') {
-      // Find items matching criteria
+      // FindOptionsWhere - check if it's an ID-based query
+      const criteriaObj = criteria as FindOptionsWhere<T>;
+
+      // Special handling for id field queries (e.g., { id: { eq: 'uuid' } })
+      if ('id' in criteriaObj) {
+        const idValue = (criteriaObj as ObjectLiteral).id;
+
+        // Handle TypeORM Find operators like { eq: 'uuid' }
+        if (
+          typeof idValue === 'object' &&
+          idValue !== null &&
+          '_type' in idValue &&
+          idValue._type === 'equal'
+        ) {
+          const uuid = idValue._value;
+          const sharePointId = await this.findSharePointItemId(uuid);
+
+          if (!sharePointId) {
+            this.logger.warn(
+              `Could not resolve UUID ${uuid} to SharePoint item ID`,
+            );
+
+            return [];
+          }
+
+          return [sharePointId];
+        }
+        // Direct UUID value
+        else if (typeof idValue === 'string') {
+          const sharePointId = await this.findSharePointItemId(idValue);
+
+          if (!sharePointId) {
+            this.logger.warn(
+              `Could not resolve UUID ${idValue} to SharePoint item ID`,
+            );
+
+            return [];
+          }
+
+          return [sharePointId];
+        }
+      }
+
+      // For other queries, find items matching criteria and get their SharePoint IDs
       const items = await this.find({ where: criteria as FindOptionsWhere<T> });
 
-      return items.map((item: ObjectLiteral) => item.id as string);
+      // Map Twenty entity IDs (UUIDs) to SharePoint numeric IDs
+      const resolvedIds: string[] = [];
+
+      for (const item of items) {
+        const twentyUuid = (item as unknown as { id: string }).id;
+        const sharePointId = await this.findSharePointItemId(twentyUuid);
+
+        if (sharePointId) {
+          resolvedIds.push(sharePointId);
+        }
+      }
+
+      return resolvedIds;
     }
 
     return [String(criteria)];
+  }
+
+  /**
+   * Apply default values for required Twenty.one fields from object metadata
+   * This ensures fields are properly set when inserting/updating based on field definitions
+   */
+  private applyDefaultValues(entity: ObjectLiteral): ObjectLiteral {
+    const entityWithDefaults = { ...entity };
+
+    // Get object metadata to read default values from field definitions
+    const objectMetadata = getObjectMetadataFromEntityTarget(
+      this.target,
+      this['internalContext'],
+    );
+
+    if (!objectMetadata) {
+      this.logger.warn(
+        'Object metadata not found, cannot apply default values',
+      );
+
+      return entityWithDefaults;
+    }
+
+    // Apply default values from field metadata
+    Object.values(objectMetadata.fieldsById).forEach((field) => {
+      const fieldName = field.name;
+      const currentValue = entityWithDefaults[fieldName];
+
+      // Skip if value already exists (not null/undefined)
+      if (currentValue !== null && currentValue !== undefined) {
+        return;
+      }
+
+      // Apply default value from metadata if defined
+      if (field.defaultValue !== null && field.defaultValue !== undefined) {
+        entityWithDefaults[fieldName] = this.parseDefaultValue(
+          field.defaultValue,
+        );
+      }
+    });
+
+    return entityWithDefaults;
+  }
+
+  /**
+   * Parse default value from field metadata
+   * Handles different default value formats (quoted strings, numbers, expressions)
+   */
+  private parseDefaultValue(defaultValue: unknown): unknown {
+    // Handle null/undefined
+    if (defaultValue === null || defaultValue === undefined) {
+      return null;
+    }
+
+    // Handle string default values
+    if (typeof defaultValue === 'string') {
+      // Remove surrounding quotes if present (e.g., "'System'" -> "System")
+      if (
+        defaultValue.startsWith("'") &&
+        defaultValue.endsWith("'") &&
+        defaultValue.length > 1
+      ) {
+        return defaultValue.slice(1, -1);
+      }
+
+      // Handle special keywords
+      if (defaultValue === 'now') {
+        return new Date();
+      }
+      if (defaultValue === 'uuid') {
+        return null; // UUID is generated elsewhere
+      }
+
+      return defaultValue;
+    }
+
+    // Handle numeric default values
+    if (typeof defaultValue === 'number') {
+      return defaultValue;
+    }
+
+    // Handle object default values (e.g., ACTOR, FULL_NAME)
+    if (typeof defaultValue === 'object') {
+      return defaultValue;
+    }
+
+    return null;
   }
 }
