@@ -90,6 +90,8 @@ export class SharePointWorkspaceInitService {
     }
 
     // Phase 3: Setup relationships (Lookup columns)
+    // Note: SharePoint repository uses UUID-based foreign keys for queries
+    // Lookup columns are created for SharePoint UI convenience but not used by repository
     this.logger.log('Phase 3: Setting up relationships...');
     await this.setupRelationships(
       tenantId,

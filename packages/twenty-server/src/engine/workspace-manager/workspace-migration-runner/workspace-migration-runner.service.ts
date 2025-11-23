@@ -25,6 +25,7 @@ import {
 import { WorkspaceMigrationService } from 'src/engine/metadata-modules/workspace-migration/workspace-migration.service';
 import { getWorkspaceSchemaName } from 'src/engine/workspace-datasource/utils/get-workspace-schema-name.util';
 import { WorkspaceMigrationColumnService } from 'src/engine/workspace-manager/workspace-migration-runner/services/workspace-migration-column.service';
+import { WorkspaceMigrationSharePointService } from 'src/engine/workspace-manager/workspace-migration-runner/services/workspace-migration-sharepoint.service';
 import { type PostgresQueryRunner } from 'src/engine/workspace-manager/workspace-migration-runner/types/postgres-query-runner.type';
 import { tableDefaultColumns } from 'src/engine/workspace-manager/workspace-migration-runner/utils/table-default-column.util';
 
@@ -39,6 +40,7 @@ export class WorkspaceMigrationRunnerService {
     private readonly coreDataSource: DataSource,
     private readonly workspaceMigrationService: WorkspaceMigrationService,
     private readonly workspaceMigrationColumnService: WorkspaceMigrationColumnService,
+    private readonly workspaceMigrationSharePointService: WorkspaceMigrationSharePointService,
     private readonly dataSourceService: DataSourceService,
   ) {}
 
@@ -62,12 +64,47 @@ export class WorkspaceMigrationRunnerService {
       return [];
     }
 
-    // For SharePoint datasource, mark migrations as applied without executing PostgreSQL operations
+    // For SharePoint datasource, execute SharePoint List migrations instead of PostgreSQL
     if (dataSource.type === DataSourceTypeEnum.SHAREPOINT) {
       this.logger.log(
-        'SharePoint datasource detected - marking migrations as applied without executing PostgreSQL operations',
+        'SharePoint datasource detected - executing SharePoint List migrations',
       );
 
+      const migrationActions = pendingMigrations.flatMap(
+        (pendingMigration) => pendingMigration.migrations || [],
+      );
+
+      // Get workspace to find SharePoint siteId
+      const workspace = await transactionQueryRunner.query(
+        `SELECT "sharePointSiteId" FROM "core"."workspace" WHERE "id" = $1`,
+        [workspaceId],
+      );
+
+      if (!workspace[0]?.sharePointSiteId) {
+        throw new Error(
+          `SharePoint siteId not found for workspace ${workspaceId}`,
+        );
+      }
+
+      const siteId = workspace[0].sharePointSiteId;
+
+      // Get tenantId from environment variable (SharePoint tenant is global config)
+      const tenantId = process.env.WORKSPACE_TENANT_ID;
+
+      if (!tenantId) {
+        throw new Error(
+          'WORKSPACE_TENANT_ID environment variable is required for SharePoint datasource',
+        );
+      }
+
+      // Execute SharePoint migrations
+      await this.workspaceMigrationSharePointService.executeMigrations(
+        siteId,
+        migrationActions,
+        tenantId,
+      );
+
+      // Mark migrations as applied
       for (const migration of pendingMigrations) {
         await transactionQueryRunner.query(
           `UPDATE "core"."workspaceMigration" SET "appliedAt" = NOW() WHERE "id" = $1 AND "workspaceId" = $2`,
@@ -75,7 +112,7 @@ export class WorkspaceMigrationRunnerService {
         );
       }
 
-      return [];
+      return migrationActions;
     }
 
     // PostgreSQL datasource - execute migrations normally

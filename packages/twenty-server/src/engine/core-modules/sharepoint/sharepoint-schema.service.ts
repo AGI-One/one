@@ -118,8 +118,10 @@ export class SharePointSchemaService {
     }
 
     return {
-      displayName: objectMetadata.labelPlural || objectMetadata.namePlural,
-      description: objectMetadata.description || undefined,
+      // Use nameSingular (table name) as displayName to match with migrations
+      // Migrations create lists using table names, so we need consistency
+      displayName: objectMetadata.nameSingular,
+      description: objectMetadata.description || `Twenty.one object: ${objectMetadata.nameSingular}`,
       template: 'genericList',
       columns,
     };

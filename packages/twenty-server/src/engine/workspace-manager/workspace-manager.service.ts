@@ -174,6 +174,12 @@ export class WorkspaceManagerService {
       );
 
       this.logger.log('SharePoint Lists initialization completed');
+
+      // Skip prefill for SharePoint - prefill uses raw SQL which doesn't work with SharePoint
+      // TODO: Refactor prefill to use repository methods instead of raw SQL
+      this.logger.log(
+        'Skipping prefill for SharePoint (requires repository-based implementation)',
+      );
     } else {
       // PostgreSQL: Prefill data
       const prefillStandardObjectsStart = performance.now();

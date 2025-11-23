@@ -536,6 +536,92 @@ export class SharePointService {
   }
 
   /**
+   * Create a column in a SharePoint List
+   */
+  async createListColumn(
+    siteId: string,
+    listId: string,
+    columnName: string,
+    columnType: string,
+    required: boolean,
+    token: string,
+  ): Promise<void> {
+    const graphApiBaseUrl = this.configService.get<string>(
+      'sharepoint.graphApiBaseUrl',
+    );
+
+    // Map column type to SharePoint column definition
+    const columnDefinition: any = {
+      name: columnName,
+      displayName: columnName,
+      enforceUniqueValues: false,
+      hidden: false,
+      indexed: false,
+      required,
+    };
+
+    // Add type-specific properties
+    switch (columnType.toLowerCase()) {
+      case 'text':
+        columnDefinition.text = {
+          allowMultipleLines: false,
+          maxLength: 255,
+        };
+        break;
+      case 'number':
+        columnDefinition.number = {
+          decimalPlaces: 'automatic',
+        };
+        break;
+      case 'boolean':
+        columnDefinition.boolean = {};
+        break;
+      case 'datetime':
+        columnDefinition.dateTime = {
+          displayAs: 'default',
+          format: 'dateTime',
+        };
+        break;
+      default:
+        // Default to text
+        columnDefinition.text = {
+          allowMultipleLines: false,
+          maxLength: 255,
+        };
+    }
+
+    this.logger.debug(`Creating column ${columnName} in list ${listId}`, {
+      columnDefinition,
+    });
+
+    try {
+      await this.httpClient.post(
+        `${graphApiBaseUrl}/sites/${siteId}/lists/${listId}/columns`,
+        columnDefinition,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      this.logger.log(`Created column: ${columnName} in list ${listId}`);
+    } catch (error) {
+      this.logger.error(
+        `Failed to create column ${columnName} in list ${listId}`,
+        {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        },
+      );
+      throw new Error(
+        `Could not create column ${columnName}: ${error.response?.data?.error?.message || error.message}`,
+      );
+    }
+  }
+
+  /**
    * Get list items with optional query parameters
    */
   async getListItems(

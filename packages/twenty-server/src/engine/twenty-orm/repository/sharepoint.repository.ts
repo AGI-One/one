@@ -308,7 +308,16 @@ export class SharePointRepository<
 
       const transformedEntity = await this.transformToEntity(savedItem);
 
-      results.push(transformedEntity);
+      if (transformedEntity) {
+        results.push(transformedEntity);
+      } else {
+        this.logger.error(
+          `Failed to transform saved SharePoint item ${savedItem.id}`,
+        );
+        throw new Error(
+          `Failed to transform saved SharePoint item ${savedItem.id}`,
+        );
+      }
     }
 
     return (Array.isArray(entityOrEntities)
@@ -376,14 +385,44 @@ export class SharePointRepository<
       innerJoin: () => stub,
       innerJoinAndSelect: () => stub,
 
-      orderBy: (field: string, order: 'ASC' | 'DESC' = 'ASC') => {
-        queryState.orderByOptions = { [field]: order };
+      orderBy: (
+        fieldOrObject: string | Record<string, any>,
+        order?: 'ASC' | 'DESC',
+        nulls?: 'NULLS FIRST' | 'NULLS LAST',
+      ) => {
+        // Handle both TypeORM styles:
+        // 1. orderBy({field: 'ASC'}) - object style
+        // 2. orderBy('field', 'ASC') - string style
+        if (typeof fieldOrObject === 'object') {
+          queryState.orderByOptions = fieldOrObject;
+        } else {
+          const direction = nulls
+            ? { order: order || 'ASC', nulls }
+            : order || 'ASC';
+
+          queryState.orderByOptions = { [fieldOrObject]: direction };
+        }
 
         return stub;
       },
 
-      addOrderBy: (field: string, order: 'ASC' | 'DESC' = 'ASC') => {
-        queryState.orderByOptions[field] = order;
+      addOrderBy: (
+        fieldOrObject: string | Record<string, any>,
+        order?: 'ASC' | 'DESC',
+        nulls?: 'NULLS FIRST' | 'NULLS LAST',
+      ) => {
+        if (typeof fieldOrObject === 'object') {
+          queryState.orderByOptions = {
+            ...queryState.orderByOptions,
+            ...fieldOrObject,
+          };
+        } else {
+          const direction = nulls
+            ? { order: order || 'ASC', nulls }
+            : order || 'ASC';
+
+          queryState.orderByOptions[fieldOrObject] = direction;
+        }
 
         return stub;
       },
@@ -607,6 +646,16 @@ export class SharePointRepository<
 
       // Transform to get the proper UUID from twentyId field
       const transformedEntity = await this.transformToEntity(createdItem);
+
+      if (!transformedEntity) {
+        this.logger.error(
+          `Failed to transform created SharePoint item ${createdItem.id}`,
+        );
+        throw new Error(
+          `Failed to transform created SharePoint item ${createdItem.id}`,
+        );
+      }
+
       const entityId = (transformedEntity as unknown as { id: string }).id;
 
       identifiers.push({ id: entityId });
@@ -1030,11 +1079,23 @@ export class SharePointRepository<
     }
 
     const orderOptions = options as FindManyOptions<T> & {
-      order?: Record<string, 'ASC' | 'DESC'>;
+      order?: Record<
+        string,
+        'ASC' | 'DESC' | { order: string; nulls?: string }
+      >;
     };
 
     if (orderOptions.order) {
+      this.logger.debug('Building orderBy from options.order', {
+        order: orderOptions.order,
+        orderType: typeof orderOptions.order,
+        orderKeys: Object.keys(orderOptions.order),
+        orderValues: Object.values(orderOptions.order),
+      });
       query.orderby = this.buildOrderBy(orderOptions.order);
+      this.logger.debug('Built orderBy query string', {
+        orderby: query.orderby,
+      });
     }
 
     return query;
@@ -1218,10 +1279,53 @@ export class SharePointRepository<
   /**
    * Build OData $orderby from TypeORM order options
    */
-  private buildOrderBy(order: Record<string, 'ASC' | 'DESC'>): string {
-    return Object.entries(order)
-      .map(([field, direction]) => `${field} ${direction.toLowerCase()}`)
+  private buildOrderBy(
+    order: Record<string, 'ASC' | 'DESC' | { order: string; nulls?: string }>,
+  ): string {
+    this.logger.debug('buildOrderBy called', {
+      order,
+      orderEntries: Object.entries(order),
+      orderStringified: JSON.stringify(order),
+    });
+
+    const result = Object.entries(order)
+      .map(([field, direction]) => {
+        this.logger.debug('Processing orderBy field', {
+          field,
+          direction,
+          fieldType: typeof field,
+          directionType: typeof direction,
+          fieldStringified: JSON.stringify(field),
+          directionStringified: JSON.stringify(direction),
+        });
+
+        // Handle both string direction ('ASC'/'DESC') and object direction ({ order: 'ASC', nulls: 'NULLS FIRST' })
+        const orderDirection =
+          typeof direction === 'string'
+            ? direction
+            : (direction as { order: string }).order;
+
+        // Skip nested/relation field ordering - SharePoint doesn't support it
+        // Examples: "company"."id", company.name, etc.
+        if (field.includes('.') || field.includes('"')) {
+          this.logger.warn(
+            `SharePoint doesn't support ordering by nested fields: ${field}. Skipping.`,
+          );
+
+          return null;
+        }
+
+        // Map 'id' to 'twentyId' field in SharePoint
+        const fieldName = field === 'id' ? 'twentyId' : field;
+
+        return `fields/${fieldName} ${orderDirection.toLowerCase()}`;
+      })
+      .filter((item) => item !== null)
       .join(',');
+
+    this.logger.debug('buildOrderBy result', { result });
+
+    return result;
   }
 
   /**
@@ -1270,13 +1374,29 @@ export class SharePointRepository<
    * Transform SharePoint list items to Twenty.one entities
    */
   private async transformToEntities(items: SharePointListItem[]): Promise<T[]> {
-    return Promise.all(items.map((item) => this.transformToEntity(item)));
+    const entities = await Promise.all(
+      items.map((item) => this.transformToEntity(item)),
+    );
+
+    // Filter out any null entities that might result from malformed SharePoint items
+    return entities.filter((entity) => entity !== null && entity !== undefined);
   }
 
   /**
    * Transform single SharePoint item to Twenty.one entity
    */
-  private async transformToEntity(item: SharePointListItem): Promise<T> {
+  private async transformToEntity(item: SharePointListItem): Promise<T | null> {
+    // Guard against null/undefined items
+    if (!item || !item.fields) {
+      this.logger.warn('SharePoint returned null or incomplete item', {
+        item,
+        itemId: item?.id,
+        hasFields: !!item?.fields,
+      });
+
+      return null;
+    }
+
     const fields = item.fields as Record<string, unknown>;
 
     // Use twentyId from SharePoint fields as the entity ID (UUID)
