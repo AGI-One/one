@@ -124,7 +124,6 @@ export type {
   OrderByWithGroupBy,
   ObjectRecordOrderByForScalarField,
   ObjectRecordOrderByForCompositeField,
-  ObjectRecordOrderByForRelationField,
 } from './ObjectRecordGroupBy';
 export { OrderByDirection } from './ObjectRecordGroupBy';
 export { ObjectRecordGroupByDateGranularity } from './ObjectRecordGroupByDateGranularity';
