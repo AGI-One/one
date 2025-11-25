@@ -12,6 +12,7 @@ import { v4 } from 'uuid';
 import { USER_SIGNUP_EVENT_NAME } from 'src/engine/api/graphql/workspace-query-runner/constants/user-signup-event-name.constants';
 import { type AppTokenEntity } from 'src/engine/core-modules/app-token/app-token.entity';
 import { ApplicationService } from 'src/engine/core-modules/application/application.service';
+import { WorkspaceFlatApplicationMapCacheService } from 'src/engine/core-modules/application/services/workspace-flat-application-map-cache.service';
 import {
   AuthException,
   AuthExceptionCode,
@@ -40,7 +41,6 @@ import { WorkspaceInvitationService } from 'src/engine/core-modules/workspace-in
 import { AuthProviderEnum } from 'src/engine/core-modules/workspace/types/workspace.type';
 import { WorkspaceEntity } from 'src/engine/core-modules/workspace/workspace.entity';
 import { WorkspaceEventEmitter } from 'src/engine/workspace-event-emitter/workspace-event-emitter';
-import { computeWorkspaceCustomCreateApplicationInput } from 'src/engine/workspace-manager/workspace-sync-metadata/utils/compute-workspace-custom-create-application-input';
 import { getDomainNameByEmail } from 'src/utils/get-domain-name-by-email';
 import { isWorkEmail } from 'src/utils/is-work-email';
 
@@ -61,6 +61,7 @@ export class SignInUpService {
     private readonly subdomainManagerService: SubdomainManagerService,
     private readonly userService: UserService,
     private readonly metricsService: MetricsService,
+    private readonly workspaceFlatApplicationMapCacheService: WorkspaceFlatApplicationMapCacheService,
     private readonly applicationService: ApplicationService,
     @InjectDataSource()
     private readonly dataSource: DataSource,
@@ -460,26 +461,19 @@ export class SignInUpService {
       isWorkEmailFound && (await isLogoUrlValid()) ? logoUrl : undefined;
 
     const workspaceId = v4();
-    const workspaceCustomApplicationCreateInput =
-      computeWorkspaceCustomCreateApplicationInput({
-        workspace: {
-          id: workspaceId,
-        },
-      });
-
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     try {
-      const workspaceCustomApplication = await this.applicationService.create(
-        {
-          ...workspaceCustomApplicationCreateInput,
-          serverlessFunctionLayerId: null,
-        },
-        queryRunner,
-      );
+      const workspaceCustomApplication =
+        await this.applicationService.createWorkspaceCustomApplication(
+          {
+            workspaceId,
+          },
+          queryRunner,
+        );
 
       const workspaceToCreate = this.workspaceRepository.create({
         id: workspaceId,
@@ -533,6 +527,9 @@ export class SignInUpService {
       );
 
       await queryRunner.commitTransaction();
+      await this.workspaceFlatApplicationMapCacheService.invalidateCache({
+        workspaceId,
+      });
 
       return { user, workspace };
     } catch (error) {
