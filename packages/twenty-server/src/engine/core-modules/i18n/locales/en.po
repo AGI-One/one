@@ -250,6 +250,7 @@ msgstr "Aggregated / filtered event to be displayed on the timeline"
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/workflow-runs-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/warehouses-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/teams-all.view.ts
+#: src/engine/workspace-manager/standard-objects-prefill-data/views/timeline-activities-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/tasks-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/products-all.view.ts
 #: src/engine/workspace-manager/standard-objects-prefill-data/views/product-variants-all.view.ts
@@ -4473,6 +4474,10 @@ msgstr "The product this variant belongs to"
 #: src/modules/inventory/standard-objects/inventory.workspace-entity.ts
 msgid "The product variant"
 msgstr "The product variant"
+#. js-lingui-id: lk5nUN
+#: src/engine/core-modules/graphql/hooks/use-compute-complexity.hook.ts
+msgid "The request is too complex to process. Please try reducing the amount of data requested."
+msgstr "The request is too complex to process. Please try reducing the amount of data requested."
 
 #. js-lingui-id: Zi9X+u
 #: src/engine/metadata-modules/role/role.service.ts

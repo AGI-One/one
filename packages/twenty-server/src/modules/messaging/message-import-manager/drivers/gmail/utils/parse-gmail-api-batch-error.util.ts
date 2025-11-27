@@ -2,21 +2,17 @@ import {
   MessageImportDriverException,
   MessageImportDriverExceptionCode,
 } from 'src/modules/messaging/message-import-manager/drivers/exceptions/message-import-driver.exception';
+import { type GmailApiBatchError } from 'src/modules/messaging/message-import-manager/drivers/gmail/types/gmail-api-batch-error.type';
 
-export const parseGmailMessageListFetchError = (
-  error: {
-    code?: number;
-    errors: {
-      reason: string;
-      message: string;
-    }[];
-  },
-  options?: { cause?: Error },
-): MessageImportDriverException => {
+export const parseGmailApiBatchError = (
+  error: GmailApiBatchError,
+  messageExternalId?: string,
+): MessageImportDriverException | undefined => {
   const { code, errors } = error;
 
   const reason = errors?.[0]?.reason;
-  const message = errors?.[0]?.message;
+  const originalMessage = errors?.[0]?.message;
+  const message = `${errors?.[0]?.message} for message with externalId: ${messageExternalId}`;
 
   switch (code) {
     case 400:
@@ -24,43 +20,35 @@ export const parseGmailMessageListFetchError = (
         return new MessageImportDriverException(
           message,
           MessageImportDriverExceptionCode.INSUFFICIENT_PERMISSIONS,
-          { cause: options?.cause },
         );
       }
       if (reason === 'failedPrecondition') {
-        if (message.includes('Mail service not enabled')) {
+        if (originalMessage.includes('Mail service not enabled')) {
           return new MessageImportDriverException(
             message,
             MessageImportDriverExceptionCode.INSUFFICIENT_PERMISSIONS,
-            { cause: options?.cause },
           );
         }
 
         return new MessageImportDriverException(
           message,
           MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-          { cause: options?.cause },
         );
       }
 
       return new MessageImportDriverException(
         message,
         MessageImportDriverExceptionCode.UNKNOWN,
-        { cause: options?.cause },
       );
 
     case 404:
-      return new MessageImportDriverException(
-        message,
-        MessageImportDriverExceptionCode.SYNC_CURSOR_ERROR,
-        { cause: options?.cause },
-      );
+    case 410:
+      return undefined;
 
     case 429:
       return new MessageImportDriverException(
         message,
         MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-        { cause: options?.cause },
       );
 
     case 403:
@@ -72,14 +60,12 @@ export const parseGmailMessageListFetchError = (
         return new MessageImportDriverException(
           message,
           MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-          { cause: options?.cause },
         );
       }
       if (reason === 'domainPolicy') {
         return new MessageImportDriverException(
           message,
           MessageImportDriverExceptionCode.INSUFFICIENT_PERMISSIONS,
-          { cause: options?.cause },
         );
       }
 
@@ -89,14 +75,12 @@ export const parseGmailMessageListFetchError = (
       return new MessageImportDriverException(
         message,
         MessageImportDriverExceptionCode.INSUFFICIENT_PERMISSIONS,
-        { cause: options?.cause },
       );
 
     case 503:
       return new MessageImportDriverException(
         message,
         MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-        { cause: options?.cause },
       );
 
     case 500:
@@ -106,7 +90,6 @@ export const parseGmailMessageListFetchError = (
         return new MessageImportDriverException(
           message,
           MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-          { cause: options?.cause },
         );
       }
 
@@ -114,7 +97,6 @@ export const parseGmailMessageListFetchError = (
         return new MessageImportDriverException(
           `${code} - ${reason} - ${message}`,
           MessageImportDriverExceptionCode.TEMPORARY_ERROR,
-          { cause: options?.cause },
         );
       }
       break;
@@ -126,6 +108,5 @@ export const parseGmailMessageListFetchError = (
   return new MessageImportDriverException(
     message,
     MessageImportDriverExceptionCode.UNKNOWN,
-    { cause: options?.cause },
   );
 };

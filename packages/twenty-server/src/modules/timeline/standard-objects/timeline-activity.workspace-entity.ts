@@ -36,6 +36,7 @@ import { WorkspaceMemberWorkspaceEntity } from 'src/modules/workspace-member/sta
   labelPlural: msg`Timeline Activities`,
   description: msg`Aggregated / filtered event to be displayed on the timeline`,
   icon: STANDARD_OBJECT_ICONS.timelineActivity,
+  labelIdentifierStandardId: TIMELINE_ACTIVITY_STANDARD_FIELD_IDS.name,
 })
 @WorkspaceIsSystem()
 @WorkspaceIsNotAuditLogged()
